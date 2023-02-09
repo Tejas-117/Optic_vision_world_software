@@ -1,0 +1,22 @@
+:root {
+  --natural-white : #FFFFFF;
+  --background-white : #F5F2EA;
+  --dull-white : #E3DCCC;
+  --button-cream : #FDC886;
+  --dull-brown : #998352;
+  --dark-brown : #4C4129;
+}
+
+
+* {
+  font-family: 'Noto Sans NKo', sans-serif;
+}
+
+body {
+  background-image: url(../src/assets/background.jpg);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
