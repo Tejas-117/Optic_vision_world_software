@@ -1,0 +1,13 @@
+.App {
+
+    height: 90vh;
+    /* width:100%; */
+    padding: 0 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: rgba(181, 215, 226);
+
+
+}
