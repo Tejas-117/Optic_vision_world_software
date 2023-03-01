@@ -5,9 +5,16 @@ function checkRequiredFields (fields, data) {
    const missingFields = [];
 
    fields.forEach(field => {
-      if(data.hasOwnProperty(field) === false) {
+
+      // if the required property is missing from the data or the value is empty string
+      // add it to missingFields.
+
+      const value = data[field];
+      
+      if(!data.hasOwnProperty(field) || value.toString().length === 0) {
          missingFields.push(field);
       }
+      
    });
 
    return missingFields;

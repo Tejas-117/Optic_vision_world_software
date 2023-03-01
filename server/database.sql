@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS product (
    product_id BIGSERIAL PRIMARY KEY,
    product_code BIGINT NOT NULL,
    
+   name VARCHAR(30) NOT NULL,
    category INT REFERENCES product_category (category_id),
    brand VARCHAR(30),
    color VARCHAR(30),
