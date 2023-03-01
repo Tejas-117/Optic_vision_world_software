@@ -3,10 +3,10 @@ CREATE TABLE IF NOT EXISTS customer (
    name VARCHAR(50) NOT NULL,
    designation VARCHAR(5),
    address TEXT,
-   phone TEXT,
+   phone TEXT NOT NULL,
    email VARCHAR(30),
    dob DATE,
-   entry_date DATE NOT NULL DEFAULT NOW()::DATE
+   entry_date DATE DEFAULT NOW()::DATE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS prescription (
