@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-class Welcome extends Component {
+className Welcome extends Component {
     render(){
         return <h1>sdfgh</h1>
     }

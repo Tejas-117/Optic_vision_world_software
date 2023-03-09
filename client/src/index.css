@@ -7,16 +7,47 @@
   --dark-brown : #4C4129;
 }
 
-
+/* 
 * {
   font-family: 'Noto Sans NKo', sans-serif;
-}
+} */
 
 body {
   background-image: url(../src/assets/background.jpg);
   background-position: center;
   background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+
+
+.ovw-text-color-3 {
+  color: var(--dark-brown);
+}
+
+.ovw-text-color-2 {
+  color: var(--dull-brown);
+}
+
+.ovw-text-color-1 {
+  color: var(--button-cream);
+}
+
+.ovw-bg-color-0 {
+  background-color: var(--natural-white);
+}
+
+.ovw-bg-color-1 {
+  background-color: var(--dull-white);
+}
+
+.ovw-bg-color-2 {
+  background-color: var(--dull-brown);
+}
+
+.ovw-bg-color-3 {
+  background-color: var(--button-cream);
+}
+
+
+.ovw-border-color-3 {
+  border: 1px solid var(--dull-brown);
 }
