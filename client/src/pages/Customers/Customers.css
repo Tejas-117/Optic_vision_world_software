@@ -1,0 +1,33 @@
+.ovw-navbar {
+    width: 5%;
+    border-right : solid 2px var(--dull-brown); 
+    padding : 10px 0px;
+}
+
+.ovw-navbar-content {
+    width:100%;
+}
+
+.ovw-navbar-icon {
+    width: 22px;
+}
+
+.ovw-nav-btn {
+    align-items: center;
+    min-height: 32px;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    transition: all 0.2s;
+    padding: 6px;
+    border-radius : 4px;
+    margin: 10px 0px;
+
+}
+.ovw-nav-btn:hover {
+    background-color: var(--dull-white);
+}
+
+.ovw-function-navbar {
+    width: 14%;
+}

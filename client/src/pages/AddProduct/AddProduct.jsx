@@ -26,10 +26,9 @@ function AddProduct() {
 
    useEffect(() => {
       // update the net_price when other prices are changed.
-      setForm({ ...form, net_price: form.selling_price + form.cgst + form.sgst })
+      setForm({ ...form, net_price: (form.selling_price + form.cgst + form.sgst) || 0 })
    }, [form.selling_price, form.cgst, form.sgst])
    
-
    // function to sumbit form data to the API
    async function addProduct(e) {
       e.preventDefault();
@@ -50,7 +49,7 @@ function AddProduct() {
 
    // required fields: product_code, name, purchase_price, selling_price, cgst, sgst, net_price
   return (
-    <div>
+    <div className='add_product_container'>
       <h1>Add Product</h1>
 
       <form className='add_product_form' action="" onSubmit={addProduct}>

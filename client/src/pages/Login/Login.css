@@ -1,96 +1,28 @@
-
-
-.main-container {
-  display: grid;
-  height: 100%;
-  grid-template-columns: 2fr 7fr 2fr;
-  column-gap: 30px;
-  padding: 30px;
+    
+.inptbox {
+  position: relative;
 }
 
-.branding-container {
-  display : flex;
-  flex-direction: column;
-  justify-content: flex-start;
-
-}
-
-.title {
-  color : var(--dark-brown);
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  padding : 0px 12px 8px 0px;
-  border-bottom: solid  2px  var(--dark-brown);
-  text-align: left;
-  margin : 0px 0px 12px 0px;
-}
-
-.logo-img {
-  width: 230px;
-}
-
-
-.login-container {
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  justify-self: center;
-  background-color: var(--natural-white);
-  /* margin: 100px; */
-  width:fit-content;
-  padding : 50px;
-  border-radius: 14px;
-  box-shadow: 4px 4px 103px 5px rgba(0,0,0,0.1);
-}
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-  margin : none;
-}
-
-.general-text-format {
-  color: var(--dark-brown);
-  margin : 0px 0px 6px 0px;
-  font-size: 32px;
-}
-
-.secondary-text-format {
-  color: var(--dull-brown);
-  font-weight: 500;
-  /* font-size: 4px; */
-  margin : 0;
-  font-size: 14px;
-  margin-bottom: 30px;
-  width: 400px;
-}
-
-.login-inputbox {
-  padding: 16px 8px;
+.inptbox input {
   background-color: transparent;
-  outline: var(--dull-brown);
-  border : 1.4px var(--dull-brown) solid;
-  margin : 10px 0px;
+  outline: none;
   color : var(--dull-brown);
-  border-radius: 6px;
 }
 
-.login-button {
-  margin-top: 30px;
-  padding: 16px 8px;
-  background-color: var(--button-cream);
-  color: var(--dark-brown);
-  letter-spacing: 1px;
-  border:none;
-  border-radius: 6px;
-  font-weight: bold;
+.inptbox span {
+  position: absolute;
+  left: 12px;
+  top: 7px;
+  color: var(--dull-brown);
+  transition: 0.5s;
 }
 
-.trouble {
-  display: flex;
-  align-self: center;
-  font-size: small;
-  color : var(--dark-brown);
-  margin-top : 20px;
+.inptbox input:valid ~ span,
+.inptbox input:focus ~ span
+{
+  color : var(--dull-brown);
+  transform: translateX(4px) translateY(-20px);
+  background-color: var(--natural-white);
+  padding : 0px 4px;
+  font-size: smaller;
 }
