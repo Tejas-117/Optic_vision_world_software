@@ -14,20 +14,38 @@ const getAllproducts = async (req, res, next) => {
       `, []);
 
       allProducts = rows;
-      console.log(rows);
    } 
    catch (error) {
       console.log(error);
       return res.status(400).json({ message: "Internal Server Error" });
    }
 
-
    return res.status(200).json({ message: "Products retrieved successfully", data: allProducts })
+}
+
+// GET a product by its id
+const getProduct = async (req, res, next) => {
+   const { id: productId } = req.params;
+   let product = {};
+
+   try {
+      const { rows } = await db.query(`
+         SELECT * FROM product WHERE product_id = $1
+      `, [productId]);
+      product = rows[0];
+   } 
+   catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: "Internal Server Error" });
+   }
+
+   return res.status(200).json({ message: "Products retrieved successfully", data: product })
 }
 
 // ADD a new product
 const addProduct = async (req, res, next) => {
    const data = req.body;
+   console.log(data);
 
    const requiredFields = ['product_code', 'purchase_price', 'selling_price', 'cgst', 'sgst', 'net_price', 'name'];
    const missingFields = checkRequiredFields(requiredFields, data);
@@ -108,6 +126,7 @@ const deleteProduct = async (req, res, next) => {
 
 module.exports = {
    getAllproducts,
+   getProduct,
    addProduct,
    editProduct,
    deleteProduct

@@ -1,0 +1,19 @@
+.add_product_form {
+   display: flex;
+   flex-direction: column;
+   width: 600px;
+}
+
+.add_product_form label {
+   margin: 3px 0;
+}
+
+.add_product_form input {
+   border-radius: 5px;
+   padding: 5px;
+}
+
+.add_product_form button {
+   padding: 5px;
+   margin: 10px 0;
+}
