@@ -15,25 +15,29 @@
 } */
 
 body {
-  background-image: url(../src/assets/background.jpg);
-  background-position: center;
-  background-size: cover;
+  
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 
-html,body,#root,.App,.content{
+html,body,#root,.app-light-mode,.app-dark-mode,.content{
     height: 100%;
     width: 100%;
     font-family: 'Source Sans Pro', sans-serif;
 }
-.App{
+.app-light-mode,.app-dark-mode{
   display: flex;
   position: relative;
 }
 
+.app-light-mode{
+  background-image: url(../src/assets/LightModeImage.jpg);
+  background-position: 103% 75%;
+  background-size: 91%;
+
+}
 ::-webkit-scrollbar{
   width: 10%;
 }

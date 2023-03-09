@@ -156,8 +156,9 @@ export const themeSettings = (mode) =>{
 
                 },
                 background : {
-                    default :'#fcfcfc',
-                }
+                       //default : LightModeImage,
+                     default :'#fcfcfc',
+                 },
 
             } )
         },
@@ -213,4 +214,5 @@ export const useMode = () =>{
     //creating the theme using material ui and passing the mode into theme settings 
     return [ theme, colorMode ];
 }
+
 

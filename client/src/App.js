@@ -9,10 +9,6 @@ import Topbar from './pages/global/Topbar';
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import Customers from "./pages/Customers/Customers";
-import Products from "./pages/Products/Products";
-import AddProduct from "./pages/AddProduct/AddProduct";
-import EditProduct from "./pages/EditProduct/EditProduct";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -20,7 +16,7 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-       <div className='App' >
+       <div className={theme.palette.mode === "dark" ? 'app-dark-mode' : 'app-light-mode'} >
          <SidebarApp />
           <main className='content'>
             <Topbar />
@@ -28,7 +24,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/customers" element={<Customers />} /> 
+        {/* <Route path="/customers" element={<Customers />} />  */}
         <Route path="/products" element={<Products />} /> 
         <Route path="/products/add" element={<AddProduct />} />        
         <Route path="/products/:id/edit" element={<EditProduct />} />        
