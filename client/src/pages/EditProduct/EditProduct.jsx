@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import "../AddProduct/AddProduct.css"
 
 function EditProduct() {
    const { productId } = useParams();
+   const navigate = useNavigate();
    
    // state to represent form fields
    const [form, setForm] = useState({
@@ -21,13 +23,31 @@ function EditProduct() {
       net_price: 0
    });
 
+   // function to edit a product
    async function editProduct(e) {
+      e.preventDefault();
 
+      const res = await fetch(`http://localhost:8000/products/${productId}/edit`, {
+         method: 'PUT',
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify(form)
+      })
+
+      const data = await res.json();
+
+      if(res.status === 200) {
+         navigate(`/products`);
+      }
+      else {
+         // TODO: display the appropriate error message
+      }
    }
    
    // handle any change in form field
    function handleChange(e, type = 'string') {
-      setForm({ ...form, [e.target.name]: (type === 'string') ?  e.target.value : parseInt(e.target.value) });
+      setForm({ ...form, [e.target.name]: (type === 'string') ?  e.target.value : parseInt(e.target.value) || 0 });
    }
 
    useEffect(() => {
@@ -41,67 +61,77 @@ function EditProduct() {
       const { data } = await res.json();
       
       if(res.status === 200) {
-         setForm(data)
-         console.log(data);
+         for (const [key, value] of Object.entries(data)) {
+            if(value === null) {
+               delete data[`${key}`]
+            }
+         }
+
+         setForm({ ...form,  ...data })
+         // console.table(data);
       }
    }
+
+   useEffect(() => {
+      console.table(form)
+   }, [form])
 
    // fetch data about current product which is being edited
    useEffect(() => fetchProduct, [])
 
    return (
-      <div>
-         <h2>Edit Product</h2>
+      <div className='add_product_container'>
+            <h1>Edit Product</h1>
 
-         <form className='add_product_form' action="" onSubmit={editProduct}>
-            <label htmlFor="productCode">Product Code: </label>
-            <input onChange={handleChange} value={form.product_code} type="text" name="product_code" required />
+            <form className='add_product_form' action="" onSubmit={editProduct}>
+               <label htmlFor="productCode">Product Code: </label>
+               <input onChange={handleChange} value={form.product_code} type="text" name="product_code" required />
 
-            <label htmlFor="name">Name: </label>
-            <input onChange={handleChange} value={form.name} type="text" name="name" required />
+               <label htmlFor="name">Name: </label>
+               <input onChange={handleChange} value={form.name} type="text" name="name" required />
 
-            <label htmlFor="category">Category: </label>
-            <select onChange={handleChange} value={form.category} name="category" required>
-               <option value="1">Category one</option>
-               <option value="2">Category two</option>
-               <option value="3">Category three</option>
-            </select>
+               <label htmlFor="category">Category: </label>
+               <select onChange={handleChange} value={form.category} name="category" required>
+                  <option value="1">Category one</option>
+                  <option value="2">Category two</option>
+                  <option value="3">Category three</option>
+               </select>
 
-            <label htmlFor="brand">Brand: </label>
-            <input onChange={handleChange} value={form.brand} type="text" name="brand"  />
+               <label htmlFor="brand">Brand: </label>
+               <input onChange={handleChange} value={form.brand} type="text" name="brand"  />
 
-            <label htmlFor="color">Color: </label>
-            <input onChange={handleChange} value={form.color} type="text" name="color" />
-
-
-            <label htmlFor="size">Size: </label>
-            <input onChange={(e) => handleChange(e, 'integer')} value={form.size} type="number" name="size" />
-
-            <label htmlFor="model_number">Model Number: </label>
-            <input onChange={handleChange} value={form.model_number} type="text" name="model_number" />
-
-            
-            <label htmlFor="quantity">Quantity: </label>
-            <input onChange={handleChange} value={form.quantity} type="text" name="quantity" />
+               <label htmlFor="color">Color: </label>
+               <input onChange={handleChange} value={form.color} type="text" name="color" />
 
 
-            <label htmlFor="purchase_price">Purchase Price: </label>
-            <input onChange={(e) => handleChange(e, 'integer')} value={form.purchase_price} type="number" name="purchase_price" required />
+               <label htmlFor="size">Size: </label>
+               <input onChange={(e) => handleChange(e, 'integer')} value={form.size.toString()} type="number" name="size" />
 
-            <label htmlFor="selling_price">Selling Price: </label>
-            <input onChange={(e) => handleChange(e, 'integer')} value={form.selling_price} type="number" name="selling_price" required />
+               <label htmlFor="model_number">Model Number: </label>
+               <input onChange={handleChange} value={form.model_number} type="text" name="model_number" />
 
-            <label htmlFor="cgst">CGST: </label>
-            <input onChange={(e) => handleChange(e, 'integer')} value={form.cgst} type="number" name="cgst" required />
+               
+               <label htmlFor="quantity">Quantity: </label>
+               <input onChange={handleChange} value={form.quantity} type="text" name="quantity" />
 
-            <label htmlFor="sgst">SGST: </label>
-            <input onChange={(e) => handleChange(e, 'integer')} value={form.sgst} type="number" name="sgst" required />
 
-            <label htmlFor="net_price">Net Price: </label>
-            <input onChange={(e) => handleChange(e, 'integer')} value={form.net_price} type="number" name="net_price" required />
+               <label htmlFor="purchase_price">Purchase Price: </label>
+               <input onChange={(e) => handleChange(e, 'integer')} value={form.purchase_price} type="number" name="purchase_price" required />
 
-            <button>Add Product</button>
-         </form>      
+               <label htmlFor="selling_price">Selling Price: </label>
+               <input onChange={(e) => handleChange(e, 'integer')} value={form.selling_price.toString()} type="number" name="selling_price" required />
+
+               <label htmlFor="cgst">CGST: </label>
+               <input onChange={(e) => handleChange(e, 'integer')} value={form.cgst.toString()} type="number" name="cgst" required />
+
+               <label htmlFor="sgst">SGST: </label>
+               <input onChange={(e) => handleChange(e, 'integer')} value={form.sgst.toString()} type="number" name="sgst" required />
+
+               <label htmlFor="net_price">Net Price: </label>
+               <input onChange={(e) => handleChange(e, 'integer')} value={form.net_price.toString()} type="number" name="net_price" required />
+
+               <button>Edit Product</button>
+            </form>      
       </div>
    );
 }

@@ -12,7 +12,7 @@
    background-color: rgb(168, 168, 168);
    padding: 30px;
    border-radius: 10px;
-   margin: 20px 0;
+   margin: 20px auto;
 }
 
 .add_product_form label {
