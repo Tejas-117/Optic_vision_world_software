@@ -6,8 +6,10 @@ import AddProduct from './pages/AddProduct/AddProduct';
 import EditProduct from './pages/EditProduct/EditProduct';
 import SidebarApp from  './pages/global/SidebarApp';
 import Topbar from './pages/global/Topbar';
+import Calendar from './pages/Calendar';
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
+import PrescriptionForm from './pages/AddPrescription';
 
 
 function App() {
@@ -25,9 +27,11 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path="/login" element={<Login />} />
         {/* <Route path="/customers" element={<Customers />} />  */}
+        <Route path='/calendar' element={<Calendar />} />
         <Route path="/products" element={<Products />} /> 
         <Route path="/products/add" element={<AddProduct />} />        
-        <Route path="/products/:id/edit" element={<EditProduct />} />        
+        <Route path="/products/:id/edit" element={<EditProduct />} /> 
+        <Route path="/prescription" element={<PrescriptionForm />} />       
       </Routes>
       </main>
     </div>
