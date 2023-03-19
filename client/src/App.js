@@ -30,8 +30,12 @@ function App() {
         <Route path='/calendar' element={<Calendar />} />
         <Route path="/products" element={<Products />} /> 
         <Route path="/products/add" element={<AddProduct />} />        
+<<<<<<< HEAD
         <Route path="/products/:id/edit" element={<EditProduct />} /> 
         <Route path="/prescription" element={<PrescriptionForm />} />       
+=======
+        <Route path="/products/:productId/edit" element={<EditProduct />} />        
+>>>>>>> 2485bd2fd1dd9b60dd9fd4bae026aa36dc94a1e1
       </Routes>
       </main>
     </div>

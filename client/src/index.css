@@ -9,10 +9,10 @@
   --dark-brown : #4C4129;
 }
 
-/* 
+
 * {
-  font-family: 'Noto Sans NKo', sans-serif;
-} */
+  box-sizing: border-box;
+}
 
 body {
   
