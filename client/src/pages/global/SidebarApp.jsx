@@ -9,7 +9,7 @@ import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
@@ -60,7 +60,9 @@ const SidebarApp = () => {
           padding: "5px 35px 5px 20px !important",
           display:"flex",
           justifyContent:"flex-start",
-          alignItems:"flex-start"
+          alignItems:"flex-start",
+          fontSize:"20px"
+
         },
         "& .pro-inner-item:hover": {
           color:"#868dfb !important"
@@ -76,12 +78,13 @@ const SidebarApp = () => {
           padding:"0px"
         },
         "& .pro-item-content":{
-          ml:"10px"
+          ml:"10px",
+          marginTop:"5px"
         },
         
        }} >
      <ProSidebar
-     width="230px"
+       width="230px"
        collapsed={isCollapsed}
        >
       <Menu iconShape='square'
@@ -117,7 +120,7 @@ const SidebarApp = () => {
                  alt = "profile-user"
                  width= '75px'
                  height = "75px"
-                 src = {'../../assets/user.jpg'}
+                 src = {'../../assets/LightModeImage.jpg'}
                  style={{cursor:"pointer" , borderRadius: "50%"}}
                  />
               </Box>
@@ -138,7 +141,7 @@ const SidebarApp = () => {
             />
 
             <Typography
-              variant="h6"
+              variant="h5"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
@@ -167,7 +170,7 @@ const SidebarApp = () => {
             />
 
             <Typography
-              variant="h6"
+              variant="h5"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
@@ -188,15 +191,15 @@ const SidebarApp = () => {
               setSelected={setSelected}
             />
             <Item
-              title="FAQ Page"
-              to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
+              title="Prescription Entry"
+              to="/prescription"
+              icon={<RemoveRedEyeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
             <Typography
-              variant="h6"
+              variant="h5"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
