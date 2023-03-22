@@ -14,6 +14,7 @@ import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import { token } from '../../theme';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -52,6 +53,7 @@ const SidebarApp = () => {
         "& .pro-sidebar-inner":{
           backgroundColor: `${colors.primary[400]} !important`,  //using important tag since we are overwriting  a library
           height: "100%",
+          overflowY:"auto",
         },
         "& .pro-icon-wrapper":{
           backgroundColor: "transparent !important"
@@ -194,6 +196,21 @@ const SidebarApp = () => {
               title="Prescription Entry"
               to="/prescription"
               icon={<RemoveRedEyeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Typography
+              variant="h5"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Product 
+            </Typography>
+            <Item
+              title="Add Product"
+              to="/products/add"
+              icon={<AddShoppingCartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

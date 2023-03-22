@@ -1,94 +1,129 @@
-import { useState } from "react";
-import FullCalendar from "@fullcalendar/react";
-import { formatDate } from "@fullcalendar/core";
-import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin  from  '@fullcalendar/list';
-import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
-import  { Box ,List, ListItem,ListItemText, Typography,useTheme} from '@mui/material';
-import Header from "../../components/Header";
-import {token} from '../../theme';
+import React from 'react';
+import { useState, } from 'react';
+import {useTheme} from '@mui/material'
+import { EditingState, ViewState,IntegratedEditing } from '@devexpress/dx-react-scheduler';
+import {
+  Scheduler,
+  WeekView,
+  MonthView, 
+  DayView,
+  ViewSwitcher,
+  Toolbar,
+  DateNavigator,
+  TodayButton,
+  Appointments,
+  AppointmentTooltip,
+  AppointmentForm,
+  ConfirmationDialog,
+  EditRecurrenceMenu,
+  CurrentTimeIndicator,
+  DragDropProvider,
+} from '@devexpress/dx-react-scheduler-material-ui';
+import './style.css';
+import { token } from '../../theme';
 
-const Calendar = ()=>{
+const appointments = [
+  { id:1,startDate: '2023-03-20T09:45', endDate: '2023-03-20T11:00', title: 'Meeting' },
+  { id:2,startDate: '2023-03-22T12:00', endDate: '2023-03-22T13:30', title: 'Lunch' },
+];
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
+const Calendar = () => {
+    const [currentViewName,setCurrentViewName] = useState('Week');
+    const [addedAppointment, setAddedAppointemnt] = useState({});
+    const [changedAppointment, setChangedAppointemnt] = useState({});
+    const [editingAppointment, setEditingdAppointemnt] = useState(undefined);
+    console.log(changedAppointment,editingAppointment);
     const theme = useTheme();
     const colors = token(theme.palette.mode);
-    const [currentEvents, setCurrentEvents] = useState([]); // n array of events that can be put onto our calendar
+    const [data, setData] = useState(appointments);
 
-    const handleDateClick = (selected) => {
-        const title = prompt("Please enter a new title for your event");   // prompt is a native js function that will trigger a browser alert pop-up
-        const calendarApi = selected.view.calendar;
-        calendarApi.unselect(); // once we click on date we can unselect too.
-        console.log(selected);
-        if(title) {
-            calendarApi.addEvent({
-                id:`${selected.datStr}-${title}`,
-                title,
-                start: selected.startStr,
-                end: selected.enStr,
-                allDay: selected.allDay,
-            })
-        }
+    function commitChanges({ added, changed, deleted }) {
+      console.log("CommitChanges part:-",added,changed,deleted);
+       if (added) {
+        const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
+        setData(data=>[...data, { id: startingAddedId, ...added, startDate: formatDate(added.startDate), endDate: formatDate(added.endDate), }]);
+        
+      }
+       if (changed) {
+        setData(data.map((appointment) => {
+          if (changed[appointment.id]) {
+            const { startDate, endDate, ...rest } = changed[appointment.id];
+            return {
+              ...appointment,
+              ...rest,
+              startDate: startDate ? formatDate(startDate) : appointment.startDate,
+              endDate: endDate ? formatDate(endDate) : appointment.endDate,
+            };
+          }
+          return appointment;
+        }));      
+      }
+      if (deleted !== undefined) {
+        setData(data.filter((appointment) => appointment.id !== deleted));
+      }
+      console.log("Data:- ",data)
     }
 
-    const handleEventClick = (selected) =>{
-        if(window.confirm(`Are you sure you want to delete the event '${selected.event.title}'`)){
-            selected.event.remove();
-        }
-    };
-    return <Box m= "20px">
-        <Header title="CALENDAR" subtitle="Add your important date here!!" />
-           <Box display="flex" justifyContent="space-between">
-             {/* Calendar Sidebar */}
-             <Box flex="1 1 20%" backgroundColor={colors.primary[400]} p="15px" borderRadius="4px">            
-             {/* shortcut for flex row,shrink, width */}
-                <Typography variant="h5">Events</Typography>
-                <List>
-                    {currentEvents.map((event)=>(
-                        <ListItem key={event.id}
-                                  sx={{backgroundColor:colors.greenAccent[500],
-                                        margin: "10px 0",
-                                         borderRadius:'2px'}}>
-                                    <ListItemText primary={event.title}
-                                                  secondary = {<Typography>
-                                                    {formatDate(event.start,{year:"numeric",
-                                                    month:"short",
-                                                    day: "numeric"
-                                                })} 
-                                                  </Typography>
-                                            } />
-                        </ListItem>                      
-                    ))}
-                </List>
-             </Box>
-             {/* Calendar */}
-             <Box flex="1 1 100%" ml="15px">
-                <FullCalendar 
-                 height="75vh"
-                 plugins= {[dayGridPlugin,
-                          timeGridPlugin,
-                          interactionPlugin,
-                          listPlugin]}
-                 headerToolbar={{
-                    left: "prev,next today",
-                    center: "title",
-                    right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
-                 }}
-                 initialView="dayGridMonth"
-                 editable={true}
-                 selectable={true}
-                 selectMirror={true}
-                 dayMaxEvents={true}
-                 select={handleDateClick}
-                 eventClick={handleEventClick}
-                 eventsSet = {(events)=> setCurrentEvents(events)}
-                 initialEvents={[{id:"1234", title: "All-day event", date:"2023-03-18"},
-                    {id:"4321", title: "Timed event", date:"2023-03-22"},
-                 ]}
-                />
+ return( 
+  <Scheduler
+    data={data}
+    height="100%"
+    backgroundColor={colors.grey[300]}
+  >
+  
+    <ViewState
+      defaultCurrentDate="2023-03-22"
+      currentViewName={currentViewName}
+      onCurrentViewNameChange = {setCurrentViewName}
+    />
+    <EditingState
+      onCommitChanges={commitChanges}
+      addedAppointment={addedAppointment}
+      onAddedAppointmentChange={setAddedAppointemnt}
+      appointmentChanges={changedAppointment}
+      onAppointmentChangesChange={setChangedAppointemnt}
+      editingAppointment={editingAppointment}
+      onEditingAppointmentChange={setEditingdAppointemnt}
+    />
 
-             </Box>
-        </Box>       
-    </Box>
-}
+    <WeekView
+      startDayHour={9}
+      endDayHour={22}
+    />
+    <MonthView />
+    <DayView />
+    <IntegratedEditing />
+     <Toolbar  />
+     <DateNavigator  />
+     <TodayButton  />
+     <ViewSwitcher />
+     <EditRecurrenceMenu />
+    <ConfirmationDialog />
+    <Appointments />
+    <AppointmentTooltip
+            showCloseButton
+            showOpenButton
+          />
+    <DragDropProvider />
+    <CurrentTimeIndicator
+      shadePreviousCells={true}
+      shadePreviousAppointments={true}
+      updateInterval={1000}
+    />
+    <AppointmentForm />
+  </Scheduler>
+ )
+};
 
 export default Calendar;

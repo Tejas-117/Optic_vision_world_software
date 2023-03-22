@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './AddProduct.css';
+import Header from '../../components/Header';
 
 function AddProduct() {
    // state to represent form fields
@@ -54,7 +55,8 @@ function AddProduct() {
    // required fields: product_code, name, purchase_price, selling_price, cgst, sgst, net_price
    return (
       <div className='add_product_container'>
-         <h1>Add Product</h1>
+         <Header title="Add Product" subtitle="Enter the detials of the product." />
+         {/* <h1>Add Product</h1> */}
 
          <form className='add_product_form' action="" onSubmit={addProduct}>
             <label htmlFor="productCode">Product Code: </label>

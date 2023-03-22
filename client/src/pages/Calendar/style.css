@@ -1,0 +1,13 @@
+.TodayButton-button:first-of-type,
+.css-1o4qi8k-MuiButtonBase-root-MuiIconButton-root.NavigationButton-button,
+.css-8j83v4-MuiButtonBase-root-MuiIconButton-root.NavigationButton-button,
+.css-27aam6-MuiButtonBase-root-MuiButton-root.OpenButton-textButton,
+.css-19yq85f-MuiInputBase-root-MuiOutlinedInput-root,
+.css-1brekya-MuiButtonBase-root-MuiButton-root.OpenButton-textButton {
+    color: white;
+}
+
+.Toolbar-toolbar{
+    background-color: #667497;
+}
+
