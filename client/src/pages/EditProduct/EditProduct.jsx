@@ -4,6 +4,7 @@ import "../AddProduct/AddProduct.css"
 
 function EditProduct() {
    const { productId } = useParams();
+   console.log();
    const navigate = useNavigate();
    
    // state to represent form fields
@@ -68,7 +69,7 @@ function EditProduct() {
          }
 
          setForm({ ...form,  ...data })
-         // console.table(data);
+         console.table(data);
       }
    }
 

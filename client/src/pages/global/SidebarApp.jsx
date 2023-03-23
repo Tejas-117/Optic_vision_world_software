@@ -15,6 +15,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import { token } from '../../theme';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -158,7 +159,7 @@ const SidebarApp = () => {
             />
             <Item
               title="Contacts Information"
-              to="/contacts"
+              to="/customers"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -180,7 +181,7 @@ const SidebarApp = () => {
             </Typography>
             <Item
               title="Profile Form"
-              to="/form"
+              to="/customers/add"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -211,6 +212,13 @@ const SidebarApp = () => {
               title="Add Product"
               to="/products/add"
               icon={<AddShoppingCartOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Edit Product"
+              to="/products/:id/edit"
+              icon={<Inventory2OutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
