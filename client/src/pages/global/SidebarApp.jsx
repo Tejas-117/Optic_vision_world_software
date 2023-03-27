@@ -5,16 +5,18 @@ import { Box , IconButton, Typography , useTheme } from '@mui/material';
 import { Link } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
+import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined";
+import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlined";
+import SmsOutlinedIcon from "@mui/icons-material/SmsOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { token } from '../../theme';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -49,11 +51,10 @@ const SidebarApp = () => {
   const [selected , setSelected] = useState("Dashboard"); // Represent which page we are at
   return (
     <Box display="flex"
-       sx = {{
+        sx = {{
         "& .pro-sidebar-inner":{
           backgroundColor: `${colors.primary[400]} !important`,  //using important tag since we are overwriting  a library
-          height: "100%",
-          overflowY:"auto",
+          height: "auto",
         },
         "& .pro-icon-wrapper":{
           backgroundColor: "transparent !important"
@@ -84,11 +85,11 @@ const SidebarApp = () => {
           marginTop:"5px"
         },
         
-       }} >
-     <ProSidebar
-       width="230px"
-       collapsed={isCollapsed}
-       >
+        }} >
+      <ProSidebar
+        width="200px"
+        collapsed={isCollapsed}
+        >
       <Menu iconShape='square'
         >
         <MenuItem
@@ -100,40 +101,40 @@ const SidebarApp = () => {
           }}>
             {!isCollapsed && (
               <Box 
-                 display="flex"
-                 justifyContent="space-around"
-                 alignItems="center"
-                 ml="5px"
-                 >
-                  <Typography variant='h3' color={colors.grey[100]} marginRight="20px">
+                  display="flex"
+                  justifyContent="space-around"
+                  alignItems="center"
+                  ml="5px"
+                  >
+                  {/* <Typography variant='h3' color={colors.grey[100]} marginRight="20px">
                     ADMINS
-                  </Typography>
+                  </Typography> */}
                   <IconButton onClick={() => setIsCollapsed(!isCollapsed)} >
                     <MenuOutlinedIcon />
                   </IconButton>
-                 </Box>
+                  </Box>
             )}
 
           </MenuItem>
           {!isCollapsed && (
             <Box mb="25px">
-              <Box display="flex" justifyContent="center" alignItems="center">
+              {/* <Box display="flex" justifyContent="center" alignItems="center">
                 <img
-                 alt = "profile-user"
-                 width= '75px'
-                 height = "75px"
-                 src = {'../../assets/LightModeImage.jpg'}
-                 style={{cursor:"pointer" , borderRadius: "50%"}}
-                 />
-              </Box>
-              <Box textAlign="center">
+                  alt = "profile-user"
+                  width= '75px'
+                  height = "75px"
+                  src = {'../../assets/LightModeImage.jpg'}
+                  style={{cursor:"pointer" , borderRadius: "50%"}}
+                  />
+              </Box> */}
+              {/* <Box textAlign="center">
                 <Typography variant='h3' color={colors.grey[100]} fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Optic Eye Center</Typography>
                 <Typography variant='h5' color={colors.greenAccent[500]} >VP Fancy Admin</Typography>
-              </Box>
+              </Box> */}
             </Box>
           )}  
           
-           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+          <Box >
             <Item
               title="Dashboard"
               to="/"
@@ -143,52 +144,52 @@ const SidebarApp = () => {
             />
 
             <Typography
-              variant="h5"
+              variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Data
+              Customers
             </Typography>
             <Item
-              title="Manage Team"
+              title="Customer Index"
               to="/team"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Contacts Information"
+              title="Add New Customers"
               to="/contacts"
-              icon={<ContactsOutlinedIcon />}
+              icon={<PersonAddAltIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Invoices Balances"
               to="/invoices"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
 
             <Typography
-              variant="h5"
+              variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Pages
+              Billing & Invoices
             </Typography>
             <Item
-              title="Profile Form"
+              title="Direct Billing"
               to="/form"
-              icon={<PersonOutlinedIcon />}
+              icon={<ReceiptLongOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Calendar"
+              title="Invoices Balances"
               to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
+              icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -201,43 +202,101 @@ const SidebarApp = () => {
             />
 
             <Typography
-              variant="h5"
+              variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Product 
+              Inventory
             </Typography>
             <Item
-              title="Add Product"
-              to="/products/add"
-              icon={<AddShoppingCartOutlinedIcon />}
+              title="Product Index"
+              to="/bar"
+              icon={<Inventory2OutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Add New Product"
+              to="/pie"
+              icon={<AddCircleOutlineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Product Cheatsheet"
+              to="/line"
+              icon={<GridOnOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
             <Typography
-              variant="h5"
+              variant='h6'
               color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 20px"}}
             >
-              Charts
+              Mail & SMS Services
             </Typography>
-            <Item
-              title="Bar Chart"
-              to="/bar"
-              icon={<BarChartOutlinedIcon />}
+
+                        <Item
+              title="Edit Mail"
+              to="/line"
+              icon={<AlternateEmailOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+
             <Item
-              title="Pie Chart"
-              to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
+              title="Edit SMS"
+              to="/line"
+              icon={<SmsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+
+
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "16px 0 5px 20px" }}
+            >
+              Sales Analysis
+            </Typography>
+
             <Item
-              title="Line Chart"
+              title="Stats"
+              to="/line"
+              icon={<TimelineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Typography
+              variant="h7"
+              color={colors.grey[301]}
+              sx={{ m: "16px 0 5px 20px" }}
+            >
+              Reminders
+            </Typography>
+
+            <Item
+              title="Event Calender"
+              to="/line"
+              icon={<CalendarTodayOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Due Reminders"
+              to="/line"
+              icon={<TimelineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Delivery Reminders "
               to="/line"
               icon={<TimelineOutlinedIcon />}
               selected={selected}
