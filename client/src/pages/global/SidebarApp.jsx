@@ -146,7 +146,7 @@ const SidebarApp = () => {
             <Typography
               variant="h6"
               color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "25px 0 5px 20px" }}
             >
               Customers
             </Typography>
@@ -175,7 +175,7 @@ const SidebarApp = () => {
             <Typography
               variant="h6"
               color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "25px 0 5px 20px" }}
             >
               Billing & Invoices
             </Typography>
@@ -204,7 +204,7 @@ const SidebarApp = () => {
             <Typography
               variant="h6"
               color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "25px 0 5px 20px" }}
             >
               Inventory
             </Typography>
@@ -233,7 +233,7 @@ const SidebarApp = () => {
             <Typography
               variant='h6'
               color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px"}}
+              sx={{ m: "25px 0 5px 20px"}}
             >
               Mail & SMS Services
             </Typography>
@@ -258,7 +258,7 @@ const SidebarApp = () => {
             <Typography
               variant="h6"
               color={colors.grey[300]}
-              sx={{ m: "16px 0 5px 20px" }}
+              sx={{ m: "25px 0 5px 20px" }}
             >
               Sales Analysis
             </Typography>
@@ -272,9 +272,9 @@ const SidebarApp = () => {
             />
 
             <Typography
-              variant="h7"
-              color={colors.grey[301]}
-              sx={{ m: "16px 0 5px 20px" }}
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "25px 0 5px 20px" }}
             >
               Reminders
             </Typography>

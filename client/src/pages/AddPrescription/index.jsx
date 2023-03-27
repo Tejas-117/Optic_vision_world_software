@@ -1,5 +1,9 @@
-import { Box, Button , Text, Typography,useTheme } from "@mui/material";
+import {Box, Button , Text, Typography,useTheme } from "@mui/material";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 import {Formik, Field} from "formik";
+import { boxShadow } from '@mui/system';
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
@@ -22,111 +26,125 @@ const PrescriptionForm = () =>{
         console.log(values);
     };
     return (
-        <Box m="20px" ml="45px">
+        <Box m="20px">
             <Header title="Add Prescription" subtitle="Enter the prescription details." />
 
             <Formik
-               onSubmit={handleFormSubmit}
-               initialValues={initialValues}>
+              onSubmit={handleFormSubmit}
+              initialValues={initialValues}>
                 {({values,handleSubmit,handleBlur,handleChange,})=>(
                     <form onSubmit={handleSubmit} >
 
-                        {/* LEFT EYE */}
-
-                      <Typography variant="h3" color={colors.blueAccent[500]} fontStyle="italic" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Left Eye</Typography>
-                        <Box
+                          <Box
                             display="grid"
                             gap="30px"
-                            ml="40px"
-                            gridTemplateColumns="repeat(3,minmax(0,1fr))"
+                            mb="30px"
+                            gridTemplateColumns="repeat(2,minmax(0,1fr))"
                             sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" }}}>
-                          <Box  display="grid" m="20px">
-                            <Typography variant="h5"mb="10px" >Spherical(SPH)</Typography>
-                            <Field
-                               as="select"
-                               name="sph"
-                               id="sph"
-                               value={values.lsph}
-                               label="--select--"
-                               onBlur={handleBlur}
-                               onChange={handleChange}
-                               sx={{gridColumn:"span 1"}}
-                              >
-                                {options(-25.00,25.00,0.25)}
-                            </Field>
-                           </Box>
-                            
-                            <Box  display="grid" m="20px">
-                                <Typography variant="h5"mb="10px">Cylindrical(CYL)</Typography>
-                                <Field
-                                   as="select"
-                                   name="cyl"
-                                   id="cyl"
-                                   value={values.lcyl}
-                                   label="--select--"
-                                   onBlur={handleBlur}
-                                   onChange={handleChange}
-                                   sx={{gridColumn:"span 1"}}
-                                  >
-                                {options(-6.00,6.00,0.25)}
-                                </Field>
-                            </Box>
-                            
-                            <Box  display="grid" m="20px">
-                            <Typography variant="h5"mb="10px">Axis</Typography>
-                            <Field
-                               variant="filled"
-                               as="select"
-                               name="axis"
-                               id="axis"
-                               value={values.laxis}
-                               label="--select--"
-                               onBlur={handleBlur}
-                               onChange={handleChange}
-                               sx={{gridColumn:"span 1"}}
-                              >
-                                {options(0,180,5)}
-                            </Field>
-                            </Box>
 
-                        </Box>
+                            {/* LEFT EYE */}
+                                
+                                <Card
+                                    display="grid"
+                                    gap="50px"
+                                    gridTemplateRows="repeat(3,minmax(0,2fr))"
+                                    sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
+                                    backgroundColor: colors.primary[400], boxShadow: 3}}>
+                                      <CardContent>
+                                          <Typography variant="h3" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Left Eye</Typography>
+
+                                  <Box  display="grid" m="20px">
+                                    <Typography variant="h5"mb="10px" >Spherical(SPH)</Typography>
+                                    <Field
+                                        as="select"
+                                        name="sph"
+                                        id="sph"
+                                        value={values.lsph}
+                                        label="--select--"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        sx={{gridColumn:"span 1"}}
+                                      >
+                                        {options(-25.00,25.00,0.25)}
+                                    </Field>
+                                  </Box>
+                                    
+                                    <Box  display="grid" m="20px">
+                                        <Typography variant="h5"mb="10px">Cylindrical(CYL)</Typography>
+                                        <Field
+                                            as="select"
+                                            name="cyl"
+                                            id="cyl"
+                                            value={values.lcyl}
+                                            label="--select--"
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            sx={{gridColumn:"span 1"}}
+                                          >
+                                        {options(-6.00,6.00,0.25)}
+                                        </Field>
+                                    </Box>
+                                    
+                                    <Box  display="grid" m="20px">
+                                    <Typography variant="h5"mb="10px">Axis</Typography>
+                                    <Field
+                                        variant="filled"
+                                        as="select"
+                                        name="axis"
+                                        id="axis"
+                                        value={values.laxis}
+                                        label="--select--"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        sx={{gridColumn:"span 1"}}
+                                      >
+                                        {options(0,180,5)}
+                                    </Field>
+                                    </Box>
+                                      </CardContent>
+                                  
+
+                                </Card>
 
                        {/* RIGHT EYE */}
-                       
-                       <Typography variant="h3" color={colors.blueAccent[500]} fontStyle="italic" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Right Eye</Typography>
-                        <Box
+                        
+                        
+                      <Card
                             display="grid"
                             gap="30px"
                             ml="40px"
-                            gridTemplateColumns="repeat(3,minmax(0,1fr))"
-                            sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" }}}>
+                            gridTemplateRows="repeat(3,minmax(0,2fr))"
+                            sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
+                              backgroundColor: colors.primary[400], boxShadow: 3}}>
+                                <CardContent>
+                                <Typography variant="h3" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Right Eye</Typography>
                           <Box  display="grid" m="20px">
                             <Typography variant="h5"mb="10px" >Spherical(SPH)</Typography>
                             <Field
-                               as="select"
-                               name="sph"
-                               id="sph"
-                               value={values.rsph}
-                               label="--select--"
-                               onBlur={handleBlur}
-                               onChange={handleChange}
-                               sx={{gridColumn:"span 1"}}
+                                as="select"
+                                name="sph"
+                                id="sph"
+                                value={values.rsph}
+                                label="--select--"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                sx={{gridColumn:"span 1"}}
                               >
                                 {options(-25.00,25.00,0.25)}
                             </Field>
-                           </Box>
+                          </Box>
                             
                             <Box  display="grid" m="20px">
                                 <Typography variant="h5"mb="10px">Cylindrical(CYL)</Typography>
                                 <Field
-                                   as="select"
-                                   name="cyl"
-                                   id="cyl"
-                                   value={values.rcyl}
-                                   label="--select--"
-                                   onBlur={handleBlur}
-                                   onChange={handleChange}
-                                   sx={{gridColumn:"span 1"}}
+                                    as="select"
+                                    name="cyl"
+                                    id="cyl"
+                                    value={values.rcyl}
+                                    label="--select--"
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    sx={{gridColumn:"span 1"}}
                                   >
                                 {options(-6.00,6.00,0.25)}
                                 </Field>
@@ -135,59 +153,70 @@ const PrescriptionForm = () =>{
                             <Box  display="grid" m="20px">
                                 <Typography variant="h5"mb="10px">Axis</Typography>
                                 <Field
-                                   variant="filled"
-                                   as="select"
-                                   name="axis"
-                                   id="axis"
-                                   value={values.raxis}
-                                   label="--select--"
-                                   onBlur={handleBlur}
-                                   onChange={handleChange}
-                                   sx={{gridColumn:"span 1"}}
-                                 >
-                                   {options(0,180,5)}
-                               </Field>
+                                    variant="filled"
+                                    as="select"
+                                    name="axis"
+                                    id="axis"
+                                    value={values.raxis}
+                                    label="--select--"
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    sx={{gridColumn:"span 1"}}
+                                  >
+                                    {options(0,180,5)}
+                                </Field>
+                            </Box>
+                                </CardContent>
+                          
+
+                        </Card>
                             </Box>
 
-                        </Box>
-                        <Typography variant="h3" color={colors.blueAccent[500]} fontStyle="italic" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Visual Addition</Typography>
+
+
+                      
                         
-                        <Typography variant="h3" color={colors.blueAccent[500]} fontStyle="italic" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Other Information</Typography>
+
+                  <Card
+                  sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
+                  backgroundColor: colors.primary[400], boxShadow: 3}}>
+                    <CardContent>
+                    <Typography variant="h3" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Visual Addition & Others Information</Typography>
+                        
+                        {/* <Typography variant="h3" color={colors.blueAccent[500]} fontStyle="italic" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Other Information</Typography> */}
                         <Box
                             display="grid"
-                            gap="30px"
-                            ml="40px"
+                            gap="10px"
                             gridTemplateColumns="repeat(3,minmax(0,1fr))"
                             sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" }}}>
                         <Box  display="grid" m="20px">
-                            <Typography variant="h5"mb="10px">Pupillary Distance(PD) </Typography>
+                            <Typography variant="h5"mb="10px">Pupillary Distance (PD) </Typography>
                             <Field
-                               variant="filled"
-                               as="select"
-                               name="pd"
-                               id="pd"
-                               value={values.pd}
-                               label="--select--"
-                               onBlur={handleBlur}
-                               onChange={handleChange}
-                               sx={{gridColumn:"span 1"}}
+                              variant="filled"
+                              as="select"
+                              name="pd"
+                              id="pd"
+                              value={values.pd}
+                            label="--select--"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              sx={{gridColumn:"span 1"}}
                               >
                                 {options(50,70,0.5)}
                             </Field>
                         </Box>
-
                         <Box  display="grid" m="20px">
                           <Typography variant="h5"mb="10px">Addition</Typography>
                             <Field
-                               variant="filled"
-                               as="select"
-                               name="addition"
-                               id="addition"
-                               value={values.addition}
-                               label="--select--"
-                               onBlur={handleBlur}
-                               onChange={handleChange}
-                               sx={{gridColumn:"span 1"}}
+                              variant="filled"
+                              as="select"
+                              name="addition"
+                              id="addition"
+                              value={values.addition}
+                              label="--select--"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              sx={{gridColumn:"span 1"}}
                               >
                                 {options(0.50,3.50,0.25)}
                             </Field>
@@ -196,41 +225,45 @@ const PrescriptionForm = () =>{
                           <Box  display="grid" m="20px">
                           <Typography variant="h5"mb="10px">Test Date</Typography>
                             <Field
-                               className="testDate"
-                               variant="filled"
-                               type="date"
-                               name="testDate"
-                               id="testDate"
-                               value={values.testDate}
-                               placeHolder="DD-MM-YYYY"
-                               onBlur={handleBlur}
-                               onChange={handleChange}
-                               sx={{gridColumn:"span 1"}}
+                              className="testDate"
+                              variant="filled"
+                              type="date"
+                              name="testDate"
+                              id="testDate"
+                              value={values.testDate}
+                              placeHolder="DD-MM-YYYY"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              sx={{gridColumn:"span 1"}}
                               />                            
                             </Box>
                           </Box>
-                          <Box  m="20px" ml="60px">
+                          <Box  m="20px" >
                           <Typography variant="h5"mb="10px">Remarks</Typography>
                             <Field
-                               variant="filled"
-                               as="textarea"
-                               name="remarks"
-                               id="remarks"
-                               value={values.remarks}
-                               onBlur={handleBlur}
-                               onChange={handleChange}
+                              variant="filled"
+                              as="textarea"
+                              name="remarks"
+                              id="remarks"
+                              value={values.remarks}
+                              onBlur={handleBlur}
+                              onChange={handleChange}
                                //sx={{gridColumn:"span 1"}}
                               />                            
                           </Box>
+                    </CardContent>
+                  
+                    </Card>
+                        
 
-                          <Box display="flex" justifyContent="end" mt="20px">
-                               <Button className="submitButton" type="submit" color="secondary" variant="contained">
-                                     Add Prescription
-                               </Button>
+                          <Box display="flex" justifyContent="start" mt="30px">
+                              <Button className="submitButton" type="submit" color="secondary" variant="contained">
+                                    Add Prescription
+                              </Button>
                           </Box>
                     </form>                )}
 
-               </Formik>
+              </Formik>
         </Box>
     )
 }
@@ -251,12 +284,12 @@ const initialValues = {
 const options = (min,max,steps)=>{
     const items= [];
     for (let i = min; i <= max; i += steps) {
-       items.push(
-       <option key={i} value={i}>
+      items.push(
+      <option key={i} value={i}>
           {i}
-       </option>);           
-     }
-     return items;
+      </option>);           
+    }
+    return items;
 }
 
 export default PrescriptionForm; 
