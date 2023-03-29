@@ -1,0 +1,12 @@
+
+Instructions to drop database and create it again to accomodate changes
+
+[] --> contains commands for psql 
+<> --> replace it with appropriate values
+
+1. Connect to any other database [\c <other database name>]
+2. Delete 'optic_world' database [DROP DATABASE optic_world;]
+3. Create database 'optic_world' again [CREATE DATABASE optic_world;]
+4. Connect to new database [\c optic_world]
+5. Create tables [\i <path to the database.sql file>]
+6. Insert mock data into the tables [\i <path to the all .sql files>]
