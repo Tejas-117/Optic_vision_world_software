@@ -44,10 +44,9 @@ const PrescriptionForm = () =>{
                             <Typography variant="h5"mb="10px" >Spherical(SPH)</Typography>
                             <Field
                                as="select"
-                               name="sph"
-                               id="sph"
+                               name="lsph"
+                               id="lsph"
                                value={values.lsph}
-                               label="--select--"
                                onBlur={handleBlur}
                                onChange={handleChange}
                                sx={{gridColumn:"span 1"}}
@@ -60,10 +59,9 @@ const PrescriptionForm = () =>{
                                 <Typography variant="h5"mb="10px">Cylindrical(CYL)</Typography>
                                 <Field
                                    as="select"
-                                   name="cyl"
-                                   id="cyl"
+                                   name="lcyl"
+                                   id="lcyl"
                                    value={values.lcyl}
-                                   label="--select--"
                                    onBlur={handleBlur}
                                    onChange={handleChange}
                                    sx={{gridColumn:"span 1"}}
@@ -77,10 +75,9 @@ const PrescriptionForm = () =>{
                             <Field
                                variant="filled"
                                as="select"
-                               name="axis"
-                               id="axis"
+                               name="laxis"
+                               id="laxis"
                                value={values.laxis}
-                               label="--select--"
                                onBlur={handleBlur}
                                onChange={handleChange}
                                sx={{gridColumn:"span 1"}}
@@ -104,8 +101,8 @@ const PrescriptionForm = () =>{
                             <Typography variant="h5"mb="10px" >Spherical(SPH)</Typography>
                             <Field
                                as="select"
-                               name="sph"
-                               id="sph"
+                               name="rsph"
+                               id="rsph"
                                value={values.rsph}
                                label="--select--"
                                onBlur={handleBlur}
@@ -120,8 +117,8 @@ const PrescriptionForm = () =>{
                                 <Typography variant="h5"mb="10px">Cylindrical(CYL)</Typography>
                                 <Field
                                    as="select"
-                                   name="cyl"
-                                   id="cyl"
+                                   name="rcyl"
+                                   id="rcyl"
                                    value={values.rcyl}
                                    label="--select--"
                                    onBlur={handleBlur}
@@ -137,8 +134,8 @@ const PrescriptionForm = () =>{
                                 <Field
                                    variant="filled"
                                    as="select"
-                                   name="axis"
-                                   id="axis"
+                                   name="raxis"
+                                   id="raxis"
                                    value={values.raxis}
                                    label="--select--"
                                    onBlur={handleBlur}

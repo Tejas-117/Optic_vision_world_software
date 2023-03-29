@@ -35,7 +35,6 @@ function App() {
         <Route path='/billing' element={<Bill />} />
         <Route path="/products" element={<Products />} /> 
         <Route path="/products/add" element={<AddProduct />} />        
-<<<<<<< Updated upstream
         <Route path="/products/:productId/edit" element={<EditProduct />} />    
         <Route path="/prescription" element={<PrescriptionForm />} />       
         <Route path ="/customers" element={<Contacts />} />
@@ -43,9 +42,7 @@ function App() {
         <Route path ="/invoices" element={<Invoices />} />
 
 
-=======
         <><Route path="/products/:id/edit" element={<EditProduct />} /><Route path="/prescription" element={<PrescriptionForm />} /></>       
->>>>>>> Stashed changes
       </Routes>
       </main>
     </div>

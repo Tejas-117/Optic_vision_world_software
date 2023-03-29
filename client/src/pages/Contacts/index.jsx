@@ -19,9 +19,14 @@ const Contacts = () => {
       cellClassName: "name-column--cell",
     },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
+      field: "designation",
+      headerName: "Designation",
+      flex: 1,
+    },
+    {
+      field: "dob",
+      headerName: "Date of Birth",
+      type: "date",
       headerAlign: "left",
       align: "left",
     },
@@ -41,13 +46,9 @@ const Contacts = () => {
       flex: 1,
     },
     {
-      field: "city",
-      headerName: "City",
-      flex: 1,
-    },
-    {
-      field: "zipCode",
-      headerName: "Zip Code",
+      field: "entry_date",
+      type:"date",
+      headerName: "Entry Date",
       flex: 1,
     },
   ];
