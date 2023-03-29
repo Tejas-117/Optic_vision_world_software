@@ -187,6 +187,13 @@ const SidebarApp = () => {
               selected={selected}
               setSelected={setSelected}
             />
+             <Item
+              title="Billing"
+              to="/billing"
+              icon={<PersonOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             <Item
               title="Calendar"
               to="/calendar"
