@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS customer (
 );
 
 CREATE TABLE IF NOT EXISTS prescription (
-   presciption_id BIGSERIAL PRIMARY KEY,
+   prescription_id BIGSERIAL PRIMARY KEY,
    customer_id BIGINT REFERENCES customer (customer_id),
 
    eye CHAR(1) NOT NULL check(eye in ('R', 'L')),
@@ -51,6 +51,8 @@ CREATE TABLE IF NOT EXISTS product (
 
 CREATE TABLE IF NOT EXISTS bill (
    bill_id BIGSERIAL PRIMARY KEY,
+   prescription_id BIGINT REFERENCES prescription (prescription_id),
+   customer_id BIGINT REFERENCES customer (customer_id),
    seller VARCHAR(30),
 
    amount INT NOT NULL,
