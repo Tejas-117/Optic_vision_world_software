@@ -17,6 +17,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import { token } from '../../theme';
+import LightModeImage from '../../assets/LightModeImage.jpg';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -123,7 +124,7 @@ const SidebarApp = () => {
                  alt = "profile-user"
                  width= '75px'
                  height = "75px"
-                 src = {'../../assets/LightModeImage.jpg'}
+                 src = {LightModeImage}
                  style={{cursor:"pointer" , borderRadius: "50%"}}
                  />
               </Box>
