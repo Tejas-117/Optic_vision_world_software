@@ -12,12 +12,14 @@ import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlin
 import SmsOutlinedIcon from "@mui/icons-material/SmsOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined"
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined"
 import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { token } from '../../theme';
 import LightModeImage from '../../assets/LightModeImage.jpg';
