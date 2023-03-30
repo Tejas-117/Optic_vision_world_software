@@ -10,6 +10,7 @@ import Bill from './pages/billing/bill';
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import PrescriptionForm from './pages/AddPrescription';
+import AlternateSidebar from './pages/AlternateSidebar/AlternateSidebar';
 import Contacts from './pages/Contacts';
 import Invoices from './pages/Invoices';
 import Addcustomer from './pages/AddCustomer/AddCustomer';
@@ -30,6 +31,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Login />} />
               <Route path="/login" element={<Login />} />
+        <Route path="/newCustomer" element={<AlternateSidebar />} />
               <Route path='/calendar' element={<Calendar />} />
               <Route path='/billing' element={<Bill />} />
 

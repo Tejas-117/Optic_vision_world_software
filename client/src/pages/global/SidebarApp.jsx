@@ -163,9 +163,9 @@ const SidebarApp = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Contacts Information"
+              title="Add New Customers"
               to="/customers"
-              icon={<ContactsOutlinedIcon />}
+              icon={<PersonAddAltIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -229,7 +229,7 @@ const SidebarApp = () => {
             />
             <Item
               title="Add New Product"
-              to="/pie"
+              to="/products/add"
               icon={<AddCircleOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

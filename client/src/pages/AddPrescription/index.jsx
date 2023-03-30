@@ -1,7 +1,8 @@
 import {Box, Button , Text, Typography,useTheme } from "@mui/material";
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import TextField from '@mui/material/TextField';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import {Formik, Field} from "formik";
 import { boxShadow } from '@mui/system';
 import * as yup from "yup";
@@ -35,10 +36,36 @@ const PrescriptionForm = () =>{
                 {({values,handleSubmit,handleBlur,handleChange,})=>(
                     <form onSubmit={handleSubmit} >
 
+                          <Card
+                          display="grid"
+                          mb="30px"
+                          sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
+                          backgroundColor: colors.primary[400], boxShadow: 3}}>
+                            <CardContent>
+                                <Typography variant="h4" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Customer Details</Typography>
+                                <Box 
+                                display="grid"
+                                gap="30px"
+                                gridTemplateColumns="3fr 2fr">
+                                  <TextField id="standard-basic" label="Customer Name" variant="outlined" size="small" 
+                                  sx={{m: 2, backgroundColor:colors.primary[400] }}/>
+
+                                  <TextField id="standard-basic" label="Phone Number" variant="outlined" size="small" 
+                                  sx={{m: 2, backgroundColor:colors.primary[400] }}/>
+
+
+
+
+                                </Box>
+                                
+                            </CardContent>
+                          </Card>
+
                           <Box
                             display="grid"
                             gap="30px"
-                            mb="30px"
+                            my="30px"
+                            // mt="30px"
                             gridTemplateColumns="repeat(2,minmax(0,1fr))"
                             sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" }}}>
 
@@ -98,7 +125,7 @@ const PrescriptionForm = () =>{
                                     sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
                                     backgroundColor: colors.primary[400], boxShadow: 3}}>
                                       <CardContent>
-                                          <Typography variant="h3" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Left Eye</Typography>
+                                          <Typography variant="h4" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Left Eye</Typography>
 
                                   <Box  display="grid" m="20px">
                                     <Typography variant="h5"mb="10px" >Spherical(SPH)</Typography>
@@ -164,7 +191,7 @@ const PrescriptionForm = () =>{
                             sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
                               backgroundColor: colors.primary[400], boxShadow: 3}}>
                                 <CardContent>
-                                <Typography variant="h3" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Right Eye</Typography>
+                                <Typography variant="h4" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Right Eye</Typography>
                           <Box  display="grid" m="20px">
                             <Typography variant="h5"mb="10px" >Spherical(SPH)</Typography>
                             <Field
@@ -233,7 +260,7 @@ const PrescriptionForm = () =>{
                   sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
                   backgroundColor: colors.primary[400], boxShadow: 3}}>
                     <CardContent>
-                    <Typography variant="h3" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Visual Addition & Others Information</Typography>
+                    <Typography variant="h4" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Visual Addition & Others Information</Typography>
                         
                         {/* <Typography variant="h3" color={colors.blueAccent[500]} fontStyle="italic" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Other Information</Typography> */}
                         <Box
@@ -274,21 +301,23 @@ const PrescriptionForm = () =>{
                             </Field>
                             </Box>
 
-                          <Box  display="grid" m="20px">
-                          <Typography variant="h5"mb="10px">Test Date</Typography>
-                            <Field
-                              className="testDate"
-                              variant="filled"
-                              type="date"
-                              name="testDate"
-                              id="testDate"
-                              value={values.testDate}
-                              placeHolder="DD-MM-YYYY"
-                              onBlur={handleBlur}
-                              onChange={handleChange}
-                              sx={{gridColumn:"span 1"}}
-                              />                            
-                            </Box>
+                            <Box  display="grid" m="10px">
+                                      <Typography variant="h5"mb="10px">Test Date</Typography>
+                                        <Field
+                                          className="testDate"
+                                          variant="filled"
+                                          type="date"
+                                          name="testDate"
+                                          id="testDate"
+                                          value={values.testDate}
+                                          placeHolder="DD-MM-YYYY"
+                                          onBlur={handleBlur}
+                                          onChange={handleChange}
+                                          sx={{gridColumn:"span 1"}}
+                                          />                            
+                                  </Box>
+
+
                           </Box>
                           <Box  m="20px" >
                           <Typography variant="h5"mb="10px">Remarks</Typography>
