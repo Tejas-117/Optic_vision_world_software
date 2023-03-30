@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
 import Login from "./pages/Login/Login";
-import Home from "./pages/Home/Home";
 import Products from './pages/Products/Products';
 import AddProduct from './pages/AddProduct/AddProduct';
 import EditProduct from './pages/EditProduct/EditProduct';
@@ -21,33 +20,34 @@ function App() {
   const [theme, colorMode] = useMode();
   return (
     <ColorModeContext.Provider value={colorMode}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-       <div className={theme.palette.mode === "dark" ? 'app-dark-mode' : 'app-light-mode'} >
-         <SidebarApp />
-          <main className='content'>
-            <Topbar />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className={theme.palette.mode === "dark" ? 'app-dark-mode' : 'app-light-mode'} >
+          <SidebarApp />
+            <main className='content'>
+              <Topbar />
 
-      <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path='/calendar' element={<Calendar />} />
-        <Route path='/billing' element={<Bill />} />
-        <Route path="/products" element={<Products />} /> 
-        <Route path="/products/add" element={<AddProduct />} />        
-        <Route path="/products/:productId/edit" element={<EditProduct />} />    
-        <Route path="/prescription" element={<PrescriptionForm />} />       
-        <Route path ="/customers" element={<Contacts />} />
-        <Route path ="/customers/add" element={<Addcustomer />} />
-        <Route path ="/invoices" element={<Invoices />} />
+            <Routes>
+              <Route path='/' element={<Login />} />
+              <Route path="/login" element={<Login />} />
+              <Route path='/calendar' element={<Calendar />} />
+              <Route path='/billing' element={<Bill />} />
 
+              <Route path="/products" element={<Products />} /> 
+              <Route path="/products/add" element={<AddProduct />} />        
+              <Route path="/products/:productId/edit" element={<EditProduct />} />    
 
-        <><Route path="/products/:id/edit" element={<EditProduct />} /><Route path="/prescription" element={<PrescriptionForm />} /></>       
-      </Routes>
-      </main>
-    </div>
-    </ThemeProvider>
-  </ColorModeContext.Provider>
+              <Route path="/prescription" element={<PrescriptionForm />} />       
+              
+              <Route path ="/customers" element={<Contacts />} />
+              <Route path ="/customers/add" element={<Addcustomer />} />
+              
+              <Route path ="/invoices" element={<Invoices />} />
+            </Routes>
+            </main>
+          </div>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 }
 

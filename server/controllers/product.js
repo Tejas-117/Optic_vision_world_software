@@ -23,14 +23,15 @@ const getAllproducts = async (req, res, next) => {
    return res.status(200).json({ message: "Products retrieved successfully", data: allProducts })
 }
 
-// GET a product by its id
+// GET a product by its id or product_code
 const getProduct = async (req, res, next) => {
    const { id: productId } = req.params;
+   const {  product_code: productCode } = req.query;
    let product = {};
 
    try {
       const { rows } = await db.query(`
-         SELECT * FROM product WHERE product_id = $1
+         SELECT * FROM product WHERE product_id = $1 OR product_code LIKE '%${productCode}%'
       `, [productId]);
       product = rows[0];
    } 
