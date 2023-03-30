@@ -31,7 +31,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Login />} />
               <Route path="/login" element={<Login />} />
-        <Route path="/newCustomer" element={<AlternateSidebar />} />
+              <Route path="/alternateCustomer" element={<AlternateSidebar />} />
               <Route path='/calendar' element={<Calendar />} />
               <Route path='/billing' element={<Bill />} />
 
