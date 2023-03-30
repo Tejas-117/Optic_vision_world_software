@@ -10,7 +10,9 @@ CREATE TABLE IF NOT EXISTS customer (
 );
 
 CREATE TABLE IF NOT EXISTS prescription (
-   presciprion_id BIGSERIAL PRIMARY KEY,
+   prescription_id BIGSERIAL PRIMARY KEY,
+   customer_id BIGINT REFERENCES customer (customer_id),
+
    eye CHAR(1) NOT NULL check(eye in ('R', 'L')),
    sph REAL,
    cyl REAL,
@@ -18,6 +20,7 @@ CREATE TABLE IF NOT EXISTS prescription (
    va VARCHAR(10),
    pd REAL,
    addition REAL,
+
    remarks TEXT,
    test_date DATE NOT NULL DEFAULT NOW()::DATE
 );
@@ -29,7 +32,7 @@ CREATE TABLE IF NOT EXISTS product_category (
 
 CREATE TABLE IF NOT EXISTS product (
    product_id BIGSERIAL PRIMARY KEY,
-   product_code BIGINT NOT NULL,
+   product_code VARCHAR(30) NOT NULL,
    
    name VARCHAR(30) NOT NULL,
    category INT REFERENCES product_category (category_id),
@@ -48,6 +51,8 @@ CREATE TABLE IF NOT EXISTS product (
 
 CREATE TABLE IF NOT EXISTS bill (
    bill_id BIGSERIAL PRIMARY KEY,
+   prescription_id BIGINT REFERENCES prescription (prescription_id),
+   customer_id BIGINT REFERENCES customer (customer_id),
    seller VARCHAR(30),
 
    amount INT NOT NULL,
