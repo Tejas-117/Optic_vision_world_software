@@ -16,8 +16,11 @@ import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { token } from '../../theme';
+import LightModeImage from '../../assets/LightModeImage.jpg';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -120,14 +123,14 @@ const SidebarApp = () => {
             <Box mb="25px">
               {/* <Box display="flex" justifyContent="center" alignItems="center">
                 <img
-                  alt = "profile-user"
-                  width= '75px'
-                  height = "75px"
-                  src = {'../../assets/LightModeImage.jpg'}
-                  style={{cursor:"pointer" , borderRadius: "50%"}}
-                  />
-              </Box> */}
-              {/* <Box textAlign="center">
+                 alt = "profile-user"
+                 width= '75px'
+                 height = "75px"
+                 src = {LightModeImage}
+                 style={{cursor:"pointer" , borderRadius: "50%"}}
+                 />
+              </Box>
+              <Box textAlign="center">
                 <Typography variant='h3' color={colors.grey[100]} fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Optic Eye Center</Typography>
                 <Typography variant='h5' color={colors.greenAccent[500]} >VP Fancy Admin</Typography>
               </Box> */}
@@ -158,9 +161,9 @@ const SidebarApp = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Add New Customers"
-              to="/contacts"
-              icon={<PersonAddAltIcon />}
+              title="Contacts Information"
+              to="/customers"
+              icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -180,9 +183,16 @@ const SidebarApp = () => {
               Billing & Invoices
             </Typography>
             <Item
-              title="Direct Billing"
-              to="/form"
-              icon={<ReceiptLongOutlinedIcon />}
+              title="Profile Form"
+              to="/customers/add"
+              icon={<PersonOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+             <Item
+              title="Billing"
+              to="/billing"
+              icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -226,6 +236,13 @@ const SidebarApp = () => {
               title="Product Cheatsheet"
               to="/line"
               icon={<GridOnOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Edit Product"
+              to="/products/:id/edit"
+              icon={<Inventory2OutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

@@ -7,9 +7,14 @@ import EditProduct from './pages/EditProduct/EditProduct';
 import SidebarApp from  './pages/global/SidebarApp';
 import Topbar from './pages/global/Topbar';
 import Calendar from './pages/Calendar';
+import Bill from './pages/billing/bill';
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import PrescriptionForm from './pages/AddPrescription';
+import Contacts from './pages/Contacts';
+import Invoices from './pages/Invoices';
+import Addcustomer from './pages/AddCustomer/AddCustomer';
+
 
 
 function App() {
@@ -24,15 +29,20 @@ function App() {
             <Topbar />
 
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Login />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/customers" element={<Customers />} />  */}
         <Route path='/calendar' element={<Calendar />} />
+        <Route path='/billing' element={<Bill />} />
         <Route path="/products" element={<Products />} /> 
         <Route path="/products/add" element={<AddProduct />} />        
-        <Route path="/products/:id/edit" element={<EditProduct />} /> 
+        <Route path="/products/:productId/edit" element={<EditProduct />} />    
         <Route path="/prescription" element={<PrescriptionForm />} />       
-        <Route path="/products/:productId/edit" element={<EditProduct />} />        
+        <Route path ="/customers" element={<Contacts />} />
+        <Route path ="/customers/add" element={<Addcustomer />} />
+        <Route path ="/invoices" element={<Invoices />} />
+
+
+        <><Route path="/products/:id/edit" element={<EditProduct />} /><Route path="/prescription" element={<PrescriptionForm />} /></>       
       </Routes>
       </main>
     </div>

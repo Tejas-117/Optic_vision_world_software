@@ -7,7 +7,7 @@ function AddProduct() {
    const [form, setForm] = useState({
       product_code: '',
       name: '',
-      category: 0,
+      category: 1,
       brand: '',
       color: '',
       size: 0,
@@ -47,7 +47,7 @@ function AddProduct() {
    }
 
    useEffect(() => {
-      console.table(form)
+      // console.table(form)
    }, [form])
    
    // all fields: product_code, name, category(id), brand, color, size, model_number, quantity, purchase_price, selling_price, cgst, sgst, net_price
@@ -67,7 +67,7 @@ function AddProduct() {
 
             <label htmlFor="category">Category: </label>
             <select onChange={handleChange} value={form.category} name="category" required>
-               <option value="1">Category one</option>
+               <option value="1" selected>Category one</option>
                <option value="2">Category two</option>
                <option value="3">Category three</option>
             </select>
@@ -91,7 +91,7 @@ function AddProduct() {
 
 
             <label htmlFor="purchase_price">Purchase Price: </label>
-            <input onChange={(e) => handleChange(e, 'integer')} value={form.purchase_price} type="number" name="purchase_price" required />
+            <input onChange={(e) => handleChange(e, 'integer')} value={form.purchase_price.toString()} type="number" name="purchase_price" required />
 
             <label htmlFor="selling_price">Selling Price: </label>
             <input onChange={(e) => handleChange(e, 'integer')} value={form.selling_price.toString()} type="number" name="selling_price" required />
