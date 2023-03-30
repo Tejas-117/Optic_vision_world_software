@@ -15,6 +15,7 @@ app.use(cors());
 app.use("/customer", require("./routers/customer"));
 app.use("/prescription", require("./routers/prescription"));
 app.use("/products", require("./routers/product"));
+app.use("/bill", require("./routers/bill"));
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
