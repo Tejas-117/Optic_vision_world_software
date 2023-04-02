@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { useNavigate, Routes, Route } from 'react-router-dom';
 import Login from "./pages/Login/Login";
 import Products from './pages/Products/Products';
 import AddProduct from './pages/AddProduct/AddProduct';
@@ -14,11 +15,34 @@ import AlternateSidebar from './pages/AlternateSidebar/AlternateSidebar';
 import Contacts from './pages/Contacts';
 import Invoices from './pages/Invoices';
 import Addcustomer from './pages/AddCustomer/AddCustomer';
-
-
+import { AppContext } from './context/ContextProvider';
 
 function App() {
   const [theme, colorMode] = useMode();
+  const [_, dispatch] = useContext(AppContext);
+  const navigate = useNavigate();
+
+  // Authenticate user on each refresh
+  async function authenticateUser() {
+    const res = await fetch(`/admin/authenticate`, {
+      method: "GET",
+      credentials: "include"
+    });
+    const data = await res.json();
+
+    if(res.status !== 200) {
+      // redirect user to login page
+      dispatch({ type: "LOGOUT", payload: null });
+      navigate("/login");
+    } 
+    else {
+      // if user is already logged in, save it in context
+      dispatch({ type: "LOGIN", payload: { user: data.user} })
+    }
+  }
+
+  useEffect(() => { authenticateUser() }, [])  
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>

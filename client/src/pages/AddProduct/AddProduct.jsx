@@ -67,7 +67,7 @@ function AddProduct() {
 
             <label htmlFor="category">Category: </label>
             <select onChange={handleChange} value={form.category} name="category" required>
-               <option value="1" selected>Category one</option>
+               <option value="1">Category one</option>
                <option value="2">Category two</option>
                <option value="3">Category three</option>
             </select>

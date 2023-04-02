@@ -8,9 +8,13 @@ const session = require("express-session");
 const db = require("./config/db-config");
 
 // Middleware 
+app.set("trust-proxy", 1);
+app.use(cors({
+   origin : "http://localhost:3000",
+   credentials: true,
+}))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
 const sessionOption = {
    secret: process.env.SESSION_SECRET,

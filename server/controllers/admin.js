@@ -28,7 +28,7 @@ const login = async (req, res, next) => {
    // set isLoggedIn to true in session
    req.session.user = { id: userId, name };
 
-   return res.status(200).json({ message: "Successfully logged in" });
+   return res.status(200).json({ message: "Successfully logged in", user: { id: userId, name } });
 }
 
 // logout the user
@@ -71,6 +71,11 @@ const register = async (req, res, next) => {
    return res.status(200).json({ message: "User registered successfully" });
 }
 
+// authenticate a user
+const authenticate = async (req, res, next) => {
+   return res.status(200).json({ message: "User authorised", user: req.session.user });
+}
+
 module.exports = {
-   login, logout, register
+   login, logout, register, authenticate
 }
