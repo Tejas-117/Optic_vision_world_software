@@ -74,3 +74,9 @@ CREATE TABLE IF NOT EXISTS order_item (
    quantity INT NOT NULL DEFAULT 1,
    sub_total INT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISITS admin (
+   admin_id SERIAL PRIMARY KEY,
+   name VARCHAR(40) UNIQUE NOT NULL,
+   password TEXT NOT NULL
+);

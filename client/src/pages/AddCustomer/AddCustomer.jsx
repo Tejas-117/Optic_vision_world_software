@@ -9,7 +9,7 @@ const Addcustomer = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const handleFormSubmit = (values) => {
-    console.log(values);
+    console.table(values);
   };
 
   return (
@@ -38,7 +38,7 @@ const Addcustomer = () => {
                 "& > div": { gridColumn: isNonMobile ? undefined : "span " },
               }}
             >
-              <TextField
+              {/* <TextField
                 fullWidth
                 variant="filled"
                 type="text"
@@ -50,22 +50,22 @@ const Addcustomer = () => {
                 error={!!touched.customer_id && !!errors.customer_id}
                 helperText={touched.customer_id && errors.firstName}
                 sx={{ gridColumn: "span 2" }}
-              />
+              /> */}
 
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="First Name"
+                label="Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.firstName}
-                name="firstName"
-                error={!!touched.firstName && !!errors.firstName}
-                helperText={touched.firstName && errors.firstName}
+                value={values.name}
+                name="name"
+                error={!!touched.name && !!errors.name}
+                helperText={touched.name && errors.name}
                 sx={{ gridColumn: "span 2" }}
               />
-              <TextField
+              {/* <TextField
                 fullWidth
                 variant="filled"
                 type="text"
@@ -77,7 +77,7 @@ const Addcustomer = () => {
                 error={!!touched.lastName && !!errors.lastName}
                 helperText={touched.lastName && errors.lastName}
                 sx={{ gridColumn: "span 2" }}
-              />
+              /> */}
               <TextField
                 fullWidth
                 variant="filled"
@@ -130,7 +130,7 @@ const Addcustomer = () => {
                 helperText={touched.age && errors.age}
                 sx={{ gridColumn: "span 2" }}
               />
-              <TextField
+              {/* <TextField
                 fullWidth
                 variant="filled"
                 type="number"
@@ -142,7 +142,7 @@ const Addcustomer = () => {
                 error={!!touched.category && !!errors.categor}
                 helperText={touched.category && errors.category}
                 sx={{ gridColumn: "span 2" }}
-              />
+              /> */}
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
@@ -159,29 +159,28 @@ const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
   
 const checkoutSchema = yup.object().shape({
-    firstName: yup.string().required("Required"),
-    lastName: yup.string().required("Required"),
+    name: yup.string().required("Required"),
+    // lastName: yup.string().required("Required"),
     email: yup.string().email("Invalid email").required("required"),
     contact: yup
       .string()
       .matches(phoneRegExp, "Phone number is not valid")
       .required("Required"),
     address: yup.string().required("Required"),
-    customer_id: yup.string().required("Required"),
+    // customer_id: yup.string().required("Required"),
     age: yup.number().required("Required"),
-    category: yup.string().required("Required"),
+    // category: yup.string().required("Required"),
   });
 
 const initialValues = {
-    customer_id:"",
-    firstName: "",
-    lastName: "",
+    // customer_id:"",
+    name: "",
+    // lastName: "",
     email: "",
     contact: "",
     address: "",
     age:"",
-    category:""
-    
+    // category:""    
   };
   
 export default Addcustomer;

@@ -21,7 +21,6 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
-
 import { token } from '../../theme';
 import LightModeImage from '../../assets/LightModeImage.jpg';
 
