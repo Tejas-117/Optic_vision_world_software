@@ -24,16 +24,17 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className={theme.palette.mode === "dark" ? 'app-dark-mode' : 'app-light-mode'} >
-          <SidebarApp />
+          <AlternateSidebar />
+          {/* <SidebarApp /> */}
             <main className='content'>
               <Topbar />
 
             <Routes>
               <Route path='/' element={<Login />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/alternateCustomer" element={<AlternateSidebar />} />
-              <Route path='/calendar' element={<Calendar />} />
-              <Route path='/billing' element={<Bill />} />
+              {/* <Route path="/alternateSidebar" element={<AlternateSidebar />} /> */}
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/billing" element={<Bill />} />
 
               <Route path="/products" element={<Products />} /> 
               <Route path="/products/add" element={<AddProduct />} />        

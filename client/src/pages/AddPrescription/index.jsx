@@ -69,7 +69,7 @@ const PrescriptionForm = () =>{
                             gridTemplateColumns="repeat(2,minmax(0,1fr))"
                             sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" }}}>
 
-                          <Box  display="grid" m="20px">
+                          {/* <Box  display="grid" m="20px">
                             <Typography variant="h5"mb="10px" >Spherical(SPH)</Typography>
                             <Field
                                as="select"
@@ -113,7 +113,7 @@ const PrescriptionForm = () =>{
                               >
                                 {options(0,180,5)}
                             </Field>
-                            </Box>
+                            </Box> */}
 
 
                             {/* LEFT EYE */}

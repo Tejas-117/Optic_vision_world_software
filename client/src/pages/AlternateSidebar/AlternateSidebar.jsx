@@ -1,5 +1,8 @@
-import * as React from 'react';
+// import * as React from 'react';
+import InputBase from '@mui/material/InputBase';
+import React, { useContext } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
+import { ColorModeContext,token } from '../../theme';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -27,6 +30,10 @@ import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import CssBaseline from '@mui/material/CssBaseline';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import SearchIcon  from '@mui/icons-material/Search';
+import { Link } from "react-router-dom";
 
 
 
@@ -97,8 +104,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
+
+
 export default function MiniDrawer() {
   const theme = useTheme();
+  const colors = token(theme.palette.mode);
+  const colorMode = useContext(ColorModeContext);
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -110,65 +121,146 @@ export default function MiniDrawer() {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box display="flex"
+    sx = {{
+    "& .pro-sidebar-inner":{
+      backgroundColor: `${colors.primary[400]} !important`,  //using important tag since we are overwriting  a library
+      height: "auto",
+    },
+    "& .pro-icon-wrapper":{
+      backgroundColor: "transparent !important"
+    },
+    "& .pro-inner-item":{
+      padding: "15px 35px 5px 20px !important",
+      display:"flex",
+      justifyContent:"flex-start",
+      alignItems:"flex-start",
+      fontSize:"20px"
 
-      <Drawer variant="permanent" open={open}>
+    },
+    "& .pro-inner-item:hover": {
+      color:"#868dfb !important"
+    },
+    "& .pro-menu-item.active":{
+      color : "#6870fa !important"
 
-        <DrawerHeader>
-        <IconButton
+    },
+    "& .pro-menu-item ":{
+      listStyle:"none !important",
+    },
+    "& ul":{
+      padding:"0px"
+    },
+    "& .pro-item-content":{
+      ml:"10px",
+      marginTop:"5px"
+    },
+    
+    }} >
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <IconButton
             color="inherit"
-            // aria-label="open drawer"
+            aria-label="open drawer"
             onClick={handleDrawerOpen}
-            // edge="start"
+            edge="start"
             sx={{
-              margin: 'auto' ,
+              marginRight: 5,
               ...(open && { display: 'none' }),
             }}
           >
             <MenuIcon />
-          </IconButton> 
-          
-          <IconButton 
-          onClick={handleDrawerClose}
+          </IconButton>
+          <Box display="grid" p = {2}
+          gridTemplateColumns="repeat(2,minmax(0,1fr))">
+            <Typography variant="h5" display="flex" alignItems="center" noWrap component="div">
+              Optic Vision World 
+            </Typography>
 
-          sx={{
-            margin: 2,
-            ...(!open && {display: 'none'})
-          }}>
-            { theme.direction === 'rtl' ? <MenuIcon /> : <ChevronLeftIcon />}
+            <Box display="flex" 
+                backgroundColor = {colors.primary[400]} 
+                borderRadius ="3px">
+              <InputBase sx = {{ml: 2 , flex: 1 }} placeholder = "Search" />
+                <IconButton type='button' sx={{p:1}}>
+                  <SearchIcon />
+                </IconButton>
+            </Box>
+              
+          </Box>
+
+
+                {/* SEARCHBAR */}
+
+        </Toolbar>
+      </AppBar>
+
+            {/* Side drawer*/}
+
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
 
 
         <List>
+            <Link to="" 
+                style={{
+                color: 'inherit',
+                textDecoration: 'none',
+            }}>
+
               <ListItem key="Dashboard" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton
                     sx={{
                       minHeight: 48,
-                      justifyContent: open ? 'initial' : 'center',
+                      // justifyContent: open ? 'initial' : 'center',
                       px: 2.5,
+                      pt: 3,
                     }}>
 
+                              {/* <Typography variant='h6' 
+                              sx={{ opacity: open ? 1 : 0 }}>Dashboard</Typography> */}
                         <ListItemIcon
-                          sx={{
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
+                            sx={{
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
                           {<HomeOutlinedIcon />} 
                         </ListItemIcon>
-                        <ListItemText primary='Dashboard' sx={{ opacity: open ? 1 : 0 }} />
+                              <ListItemText primary='Dashboard' sx={{ opacity: open ? 1 : 0 }} />
+
+
+                        {/* <ListItemText primary='Dashboard' sx={{ opacity: open ? 1 : 0 }} /> */}
                     </ListItemButton>
                   </ListItem>
-
+                  </Link>
                 </List>
 
-                <Divider />
+                <Divider variant="middle"/>
 
-        <List>
-
+        <List 
+        sx={{
+          my: open ? 0 : 2
+        }}>
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "20px 0 10px 20px" ,
+                    display: open ? 'block' : 'none'}}
+            >
+              Customers
+            </Typography> 
+        <Link to="/Customers" 
+                style={{
+                color: 'inherit',
+                textDecoration: 'none',
+            }}>
           <ListItem key="Customers" disablePadding sx={{ display: 'block'}}>
             <ListItemButton
             sx={{
@@ -186,10 +278,17 @@ export default function MiniDrawer() {
                 >
                   {<PeopleOutlinedIcon />} 
                 </ListItemIcon>
-                <ListItemText primary='Customers' sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary='Customer Index' sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
+          </Link>
 
+          <Link to="/customers/add" 
+                style={{
+                color: 'inherit',
+                textDecoration: 'none',
+            }}
+        >
           <ListItem key='Add New customer' disablePadding sx={{ display: 'block'}}>
             <ListItemButton
             sx={{
@@ -210,13 +309,31 @@ export default function MiniDrawer() {
                 <ListItemText primary='Add New Customer' sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
+
+          </Link>
         </List>
 
-        <Divider />
+        <Divider variant="middle"/>
 
-        <List>
-
-        <ListItem key="Prescription Entry" disablePadding sx={{ display: 'block'}} to="/prescription">
+        <List
+        sx={{
+          my: open ? 0 : 2
+        }}>
+        <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "20px 0 10px 20px" ,
+                    display: open ? 'block' : 'none'}}
+            >
+              Prescription & Billing
+            </Typography> 
+        <Link to="/prescription" 
+                style={{
+                color: 'inherit',
+                textDecoration: 'none',
+            }}
+        >
+          <ListItem key="Prescription Entry" disablePadding sx={{ display: 'block'}} to="/prescription">
               <ListItemButton
               sx={{
                 minHeight: 48,
@@ -236,7 +353,15 @@ export default function MiniDrawer() {
                   <ListItemText primary='Prescription Entry' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-
+          
+        </Link>
+        
+        <Link to="/billing" 
+                style={{
+                color: 'inherit',
+                textDecoration: 'none',
+            }}
+        >
             <ListItem key="Direct Billing" disablePadding sx={{ display: 'block'}}>
               <ListItemButton
               sx={{
@@ -257,7 +382,14 @@ export default function MiniDrawer() {
                   <ListItemText primary='Direct Billing' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
+            </Link>
 
+            <Link to="/invoices" 
+                style={{
+                color: 'inherit',
+                textDecoration: 'none',
+            }}
+        >
             <ListItem key="Invoice Balances" disablePadding sx={{ display: 'block'}}>
               <ListItemButton
               sx={{
@@ -278,12 +410,30 @@ export default function MiniDrawer() {
                   <ListItemText primary='Invoice Balances' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
+            </Link>
+
             </List>
 
-            <Divider />
+            <Divider variant="middle"/>
         
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "20px 0 10px 20px" ,
+                    display: open ? 'block' : 'none'}}
+            >
+              Inventory
+            </Typography>
+            <List         sx={{
+          my: open ? 0 : 2
+        }}>
 
-            <List>
+            <Link to="/products" 
+                style={{
+                color: 'inherit',
+                textDecoration: 'none',
+            }}
+        >
               <ListItem key="Product Index" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton
                     sx={{
@@ -304,7 +454,15 @@ export default function MiniDrawer() {
                         <ListItemText primary='Product Index' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
                   </ListItem>
+                  </Link>
+                  
 
+                  <Link to="/products/add" 
+                style={{
+                color: 'inherit',
+                textDecoration: 'none',
+            }}
+            >
                   <ListItem key="Add New Products" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton
                     sx={{
@@ -325,6 +483,7 @@ export default function MiniDrawer() {
                         <ListItemText primary='Add New Products' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
                   </ListItem>
+                  </Link>
 
                   <ListItem key="Products Cheatsheet" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton
@@ -348,9 +507,20 @@ export default function MiniDrawer() {
                   </ListItem>
                   </List>
 
-                  <Divider />
+                  <Divider variant="middle"/>
 
-                  <List>
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "20px 0 10px 20px" ,
+                    display: open ? 'block' : 'none'}}
+            >
+              Mail & SMS Services
+            </Typography>
+                  <List
+                          sx={{
+                            my: open ? 0 : 2
+                          }}>
               <ListItem key="Edit Email" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton
                     sx={{
@@ -389,15 +559,26 @@ export default function MiniDrawer() {
                         >
                           {<SmsOutlinedIcon />} 
                         </ListItemIcon>
-                        <ListItemText primary='Add New Products' sx={{ opacity: open ? 1 : 0 }} />
+                        <ListItemText primary='Edit SMS' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
                   </ListItem>
 
-                </List>
+                </List >
 
-                <Divider />
+                <Divider variant="middle"/>
 
-                <List>
+                <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "20px 0 10px 20px" ,
+                    display: open ? 'block' : 'none'}}
+            >
+              Sales Analysis
+            </Typography>
+                <List 
+                        sx={{
+                          my: open ? 0 : 2
+                        }}>
               <ListItem key="Stats" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton
                     sx={{
@@ -421,9 +602,27 @@ export default function MiniDrawer() {
 
                 </List>
 
-                <Divider />
+                <Divider variant="middle"/>
 
-                <List>
+                <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "20px 0 10px 20px" ,
+                    display: open ? 'block' : 'none'}}
+            >
+              Reminders
+            </Typography>
+                <List
+                        sx={{
+                          my: open ? 0 : 2
+                        }}>
+
+                <Link to="/calendar" 
+                style={{
+                color: 'inherit',
+                textDecoration: 'none',
+            }}
+        >
               <ListItem key="Event Calender" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton
                     sx={{
@@ -444,6 +643,7 @@ export default function MiniDrawer() {
                         <ListItemText primary='Event Calender' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
                   </ListItem>
+                  </Link>
 
                   <ListItem key="Due Reminders" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton
