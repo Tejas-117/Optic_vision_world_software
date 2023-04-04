@@ -33,6 +33,11 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import CssBaseline from '@mui/material/CssBaseline';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SearchIcon  from '@mui/icons-material/Search';
+import LightModeOutlinedIcon  from '@mui/icons-material/LightModeOutlined';
+import DarkModeOutlinedIcon  from '@mui/icons-material/DarkModeOutlined';
+import NotificationsOutlinedIcon  from '@mui/icons-material/NotificationsOutlined';
+import SettingsOutlinedIcon  from '@mui/icons-material/SettingsOutlined';
+import PersonOutlinedIcon  from '@mui/icons-material/PersonOutlined';
 import { Link } from "react-router-dom";
 
 
@@ -159,7 +164,13 @@ export default function MiniDrawer() {
     }} >
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Box display="flex" justifyContent= "space-between" sx={{
+          px : 3,
+          py : 2
+        }}>
+
+          <Box display="flex">
+
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -172,11 +183,17 @@ export default function MiniDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <Box display="grid" p = {2}
-          gridTemplateColumns="repeat(2,minmax(0,1fr))">
-            <Typography variant="h5" display="flex" alignItems="center" noWrap component="div">
+
+
+        <Typography variant="h5" display="flex" alignItems="center" noWrap component="div">
               Optic Vision World 
             </Typography>
+
+
+          </Box>
+
+
+
 
             <Box display="flex" 
                 backgroundColor = {colors.primary[400]} 
@@ -186,13 +203,24 @@ export default function MiniDrawer() {
                   <SearchIcon />
                 </IconButton>
             </Box>
-              
-          </Box>
 
+            <Box display= "flex">
+              <IconButton onClick={colorMode.toggleColorMode}>
+                {theme.palette.mode === "dark" ?  (<DarkModeOutlinedIcon />) : (<LightModeOutlinedIcon />)}
+              </IconButton>
+              {/* <IconButton>
+                <NotificationsOutlinedIcon />
+              </IconButton>
+              <IconButton>
+                <SettingsOutlinedIcon />
+              </IconButton> */}
+              <IconButton>
+                <PersonOutlinedIcon />
+              </IconButton>
+            </Box>
 
-                {/* SEARCHBAR */}
+        </Box>
 
-        </Toolbar>
       </AppBar>
 
             {/* Side drawer*/}
@@ -206,7 +234,10 @@ export default function MiniDrawer() {
         <Divider />
 
 
-        <List>
+        <List 
+        sx={{
+          my: open ? 1 : 2,
+        }}>
             <Link to="" 
                 style={{
                 color: 'inherit',
@@ -219,7 +250,7 @@ export default function MiniDrawer() {
                       minHeight: 48,
                       // justifyContent: open ? 'initial' : 'center',
                       px: 2.5,
-                      pt: 3,
+                      // pt: 3,
                     }}>
 
                               {/* <Typography variant='h6' 

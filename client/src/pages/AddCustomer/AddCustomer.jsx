@@ -1,8 +1,14 @@
-import { Box, Button, TextField } from "@mui/material";
-import { Formik } from "formik";
+import * as React from 'react';
+import { Box, Button, Card, TextField } from "@mui/material";
+import {Formik, Field} from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 
 
 const Addcustomer = () => {
@@ -12,9 +18,35 @@ const Addcustomer = () => {
     console.table(values);
   };
 
+  const [designation, setDesignation] = React.useState('');
+
+  const handleChange = (event) => {
+    setDesignation(event.target.value);
+  };
+
+
   return (
     <Box m="20px">
       <Header title="New Customer Entry" subtitle="Create a New Customer Profile" />
+
+      {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-standard-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={designation}
+          onChange={handleChange}
+          label="Age"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl> */}
+
 
       <Formik
         onSubmit={handleFormSubmit}
@@ -33,7 +65,7 @@ const Addcustomer = () => {
             <Box
               display="grid"
               gap="30px"
-              gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+              gridTemplateColumns="repeat(8 , minmax(0, 1fr))"
               sx={{
                 "& > div": { gridColumn: isNonMobile ? undefined : "span " },
               }}
@@ -52,11 +84,53 @@ const Addcustomer = () => {
                 sx={{ gridColumn: "span 2" }}
               /> */}
 
+
+        <FormControl variant="filled" sx={{ minWidth: 120, gridColumn : "span 1" }}>
+                <InputLabel id="demo-simple-select-filled-label">Designation</InputLabel>
+                <Select
+                  labelId="demo-simple-select-filled-label"
+                  id="demo-simple-select-filled"
+                  value={designation}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={'Pastor'}>Pastor</MenuItem>
+                  <MenuItem value={'Ps.'}>Ps.</MenuItem>
+                  <MenuItem value={'Mr.'}>Mr.</MenuItem>
+                  <MenuItem value={'Mrs.'}>Mrs.</MenuItem>
+                  <MenuItem value={'Ms.'}>Ms.</MenuItem>
+                  <MenuItem value={'Mas.'}>Mas.</MenuItem>
+                  <MenuItem value={'Shri.'}>Shri.</MenuItem>
+                  <MenuItem value={'Smt.'}>Smt.</MenuItem>
+                  <MenuItem value={'Dr.'}>Dr.</MenuItem>
+                  <MenuItem value={'Baby'}>Baby.</MenuItem>
+                  <MenuItem value={'Bro.'}>Bro.</MenuItem>
+                  <MenuItem value={'Sis'}>Sis.</MenuItem>
+
+                </Select>
+              </FormControl>
+
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
                 label="Name"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.name}
+                name="name"
+                error={!!touched.name && !!errors.name}
+                helperText={touched.name && errors.name}
+                sx={{ gridColumn: "span 5" }}
+              />
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Reference ID"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.name}
@@ -89,7 +163,7 @@ const Addcustomer = () => {
                 name="email"
                 error={!!touched.email && !!errors.email}
                 helperText={touched.email && errors.email}
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 4" }}
               />
               <TextField
                 fullWidth
@@ -102,8 +176,37 @@ const Addcustomer = () => {
                 name="contact"
                 error={!!touched.contact && !!errors.contact}
                 helperText={touched.contact && errors.contact} 
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 4" }}
               />
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="date"
+                label=""
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.address}
+                name="DOB"
+                error={!!touched.address && !!errors.address}
+                helperText={touched.address && errors.address}
+                sx={{ gridColumn: "span 4" }}
+              />
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="date"
+                label=""
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.address}
+                name="Date of Entry"
+                error={!!touched.address && !!errors.address}
+                helperText={touched.address && errors.address}
+                sx={{ gridColumn: "span 4" }}
+              />
+              
               <TextField
                 fullWidth
                 variant="filled"
@@ -113,22 +216,25 @@ const Addcustomer = () => {
                 onChange={handleChange}
                 value={values.address}
                 name="address"
+                multiline
+                maxRows={4}
                 error={!!touched.address && !!errors.address}
                 helperText={touched.address && errors.address}
-                sx={{ gridColumn: "span 2" }}
+                sx={{ gridColumn: "span 4" }}
               />
+
               <TextField
                 fullWidth
                 variant="filled"
-                type="number"
-                label="Age"
+                type="text"
+                label="Pincode"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.age}
-                name="age"
-                error={!!touched.age && !!errors.age}
-                helperText={touched.age && errors.age}
-                sx={{ gridColumn: "span 2" }}
+                value={values.name}
+                name="Pincode"
+                error={!!touched.name && !!errors.name}
+                helperText={touched.name && errors.name}
+                sx={{ gridColumn: "span 4" }}
               />
               {/* <TextField
                 fullWidth
@@ -144,7 +250,7 @@ const Addcustomer = () => {
                 sx={{ gridColumn: "span 2" }}
               /> */}
             </Box>
-            <Box display="flex" justifyContent="end" mt="20px">
+            <Box display="flex" justifyContent="end" mt="30px">
               <Button type="submit" color="secondary" variant="contained">
                 Create New User
               </Button>
@@ -180,6 +286,7 @@ const initialValues = {
     contact: "",
     address: "",
     age:"",
+    DOB:"",
     // category:""    
   };
   

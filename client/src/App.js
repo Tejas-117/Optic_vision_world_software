@@ -11,7 +11,7 @@ import Bill from './pages/billing/bill';
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import PrescriptionForm from './pages/AddPrescription';
-import AlternateSidebar from './pages/AlternateSidebar/AlternateSidebar';
+import AlternateSidebar from './pages/global/AlternateSidebar';
 import Contacts from './pages/Contacts';
 import Invoices from './pages/Invoices';
 import Addcustomer from './pages/AddCustomer/AddCustomer';
