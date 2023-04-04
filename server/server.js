@@ -29,10 +29,10 @@ const sessionOption = {
 app.use(session(sessionOption));
 
 // use all the routers
-app.use("/customer", require("./routers/customer"));
-app.use("/prescription", require("./routers/prescription"));
+app.use("/customers", require("./routers/customer"));
+app.use("/prescriptions", require("./routers/prescription"));
 app.use("/products", require("./routers/product"));
-app.use("/bill", require("./routers/bill"));
+app.use("/bills", require("./routers/bill"));
 app.use("/admin", require("./routers/admin"));
 
 const PORT = process.env.PORT || 8000;
