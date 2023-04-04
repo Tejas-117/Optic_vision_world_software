@@ -8,45 +8,37 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
-
+import { useNavigate } from "react-router-dom";
 
 const Addcustomer = () => {
+  const [message, setMessage] = React.useState("");
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const navigate = useNavigate();
 
-  const handleFormSubmit = (values) => {
-    console.table(values);
+  async function handleFormSubmit(values) {
+    const res = await fetch(`/customers/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(values),
+    })
+
+    const { message } = await res.json();
+    
+    // TODO: display the message from server.
+    setMessage(message);
+
+    if(res.status === 200) {
+      setTimeout(() => {
+        navigate("/customers");        
+      }, 1500);
+    }
   };
-
-  const [designation, setDesignation] = React.useState('');
-
-  const handleChange = (event) => {
-    setDesignation(event.target.value);
-  };
-
 
   return (
     <Box m="20px">
       <Header title="New Customer Entry" subtitle="Create a New Customer Profile" />
-
-      {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-standard-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-standard-label"
-          id="demo-simple-select-standard"
-          value={designation}
-          onChange={handleChange}
-          label="Age"
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl> */}
-
 
       <Formik
         onSubmit={handleFormSubmit}
@@ -70,28 +62,15 @@ const Addcustomer = () => {
                 "& > div": { gridColumn: isNonMobile ? undefined : "span " },
               }}
             >
-              {/* <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Customer ID"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.customer_id}
-                name="customer_id"
-                error={!!touched.customer_id && !!errors.customer_id}
-                helperText={touched.customer_id && errors.firstName}
-                sx={{ gridColumn: "span 2" }}
-              /> */}
 
-
-        <FormControl variant="filled" sx={{ minWidth: 120, gridColumn : "span 1" }}>
+              <FormControl variant="filled" sx={{ minWidth: 120, gridColumn : "span 1" }}>
                 <InputLabel id="demo-simple-select-filled-label">Designation</InputLabel>
                 <Select
                   labelId="demo-simple-select-filled-label"
                   id="demo-simple-select-filled"
-                  value={designation}
+                  value={values.designation}
                   onChange={handleChange}
+                  name="designation"
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -108,7 +87,6 @@ const Addcustomer = () => {
                   <MenuItem value={'Baby'}>Baby.</MenuItem>
                   <MenuItem value={'Bro.'}>Bro.</MenuItem>
                   <MenuItem value={'Sis'}>Sis.</MenuItem>
-
                 </Select>
               </FormControl>
 
@@ -126,32 +104,19 @@ const Addcustomer = () => {
                 sx={{ gridColumn: "span 5" }}
               />
 
+              {/* TODO: label overlaps inside input field */}
               <TextField
                 fullWidth
                 variant="filled"
-                type="text"
-                label="Reference ID"
+                type="date"
+                label="Date of birth"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.name}
-                name="name"
-                error={!!touched.name && !!errors.name}
-                helperText={touched.name && errors.name}
-                sx={{ gridColumn: "span 2" }}
+                value={values.dob}
+                name="dob"
+                sx={{ gridColumn: "span 4" }}
               />
-              {/* <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Last Name"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.lastName}
-                name="lastName"
-                error={!!touched.lastName && !!errors.lastName}
-                helperText={touched.lastName && errors.lastName}
-                sx={{ gridColumn: "span 2" }}
-              /> */}
+              
               <TextField
                 fullWidth
                 variant="filled"
@@ -165,48 +130,21 @@ const Addcustomer = () => {
                 helperText={touched.email && errors.email}
                 sx={{ gridColumn: "span 4" }}
               />
+
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Contact Number"
+                label="Phone Number"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.contact}
-                name="contact"
-                error={!!touched.contact && !!errors.contact}
-                helperText={touched.contact && errors.contact} 
+                value={values.phone}
+                name="phone"
+                error={!!touched.phone && !!errors.phone}
+                helperText={touched.phone && errors.phone} 
                 sx={{ gridColumn: "span 4" }}
               />
 
-              <TextField
-                fullWidth
-                variant="filled"
-                type="date"
-                label=""
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.address}
-                name="DOB"
-                error={!!touched.address && !!errors.address}
-                helperText={touched.address && errors.address}
-                sx={{ gridColumn: "span 4" }}
-              />
-
-              <TextField
-                fullWidth
-                variant="filled"
-                type="date"
-                label=""
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.address}
-                name="Date of Entry"
-                error={!!touched.address && !!errors.address}
-                helperText={touched.address && errors.address}
-                sx={{ gridColumn: "span 4" }}
-              />
-              
               <TextField
                 fullWidth
                 variant="filled"
@@ -226,29 +164,16 @@ const Addcustomer = () => {
               <TextField
                 fullWidth
                 variant="filled"
-                type="text"
-                label="Pincode"
+                type="date"
+                label="Entry Date"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.name}
-                name="Pincode"
-                error={!!touched.name && !!errors.name}
-                helperText={touched.name && errors.name}
+                value={values.entry_date}
+                name="entry_date"
                 sx={{ gridColumn: "span 4" }}
               />
-              {/* <TextField
-                fullWidth
-                variant="filled"
-                type="number"
-                label="Category"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.category}
-                name="category"
-                error={!!touched.category && !!errors.categor}
-                helperText={touched.category && errors.category}
-                sx={{ gridColumn: "span 2" }}
-              /> */}
+              
+
             </Box>
             <Box display="flex" justifyContent="end" mt="30px">
               <Button type="submit" color="secondary" variant="contained">
@@ -266,28 +191,22 @@ const phoneRegExp =
   
 const checkoutSchema = yup.object().shape({
     name: yup.string().required("Required"),
-    // lastName: yup.string().required("Required"),
     email: yup.string().email("Invalid email").required("required"),
-    contact: yup
+    phone: yup
       .string()
       .matches(phoneRegExp, "Phone number is not valid")
       .required("Required"),
     address: yup.string().required("Required"),
-    // customer_id: yup.string().required("Required"),
-    age: yup.number().required("Required"),
-    // category: yup.string().required("Required"),
   });
 
 const initialValues = {
-    // customer_id:"",
+    designation: "",
     name: "",
-    // lastName: "",
     email: "",
-    contact: "",
+    phone: "",
     address: "",
-    age:"",
-    DOB:"",
-    // category:""    
-  };
+    dob:"",
+    entry_date: ""
+};
   
 export default Addcustomer;

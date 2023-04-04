@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const session = require("express-session");
+const pgSession = require("connect-pg-simple")(session);
 
 // DB config
 const db = require("./config/db-config");
@@ -17,6 +18,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const sessionOption = {
+   store: new pgSession({
+      pool: db.pool,
+      tableName: "admin_session"
+   }),
    secret: process.env.SESSION_SECRET,
    resave: false,
    saveUninitialized: false,

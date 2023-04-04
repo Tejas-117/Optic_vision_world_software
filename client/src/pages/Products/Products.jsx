@@ -5,8 +5,7 @@ function Products() {
 
    // function to fetch products on page load
    async function fetchProducts() {
-      const url = `http://localhost:8000/products`;
-      const res = await fetch(url);
+      const res = await fetch(`/products`);
       const { data } = await res.json();
 
       console.log(data);
