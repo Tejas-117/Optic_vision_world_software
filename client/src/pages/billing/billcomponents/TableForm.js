@@ -23,31 +23,31 @@ export default function TableForm({description,setdescription,price,setprice,amo
         <>
        <form onSubmit={handleSubmit} >
        <div className="flex flex-col">
-       <label htmlFor="description">Item description</label>
+       <label htmlFor="description "className="font-bold mt-1">Item description</label>
         <input type="text" name="description" id="description"
         placeholder="Item description" value={description} onChange={(e) => setdescription(e.target.value)} />
        </div>
        <div className="flex flex-col">
-       <label htmlFor="quantity">Item quantity</label>
+       <label htmlFor="quantity" className="font-bold mt-1">Item quantity</label>
         <input type="text" name="quantity" id="quantity"
         placeholder="Item quantity" value={quantity} onChange={(e) => setquantity(e.target.value)} />
        </div>
        <div className="flex flex-col">
-       <label htmlFor="price">Item price</label>
+       <label htmlFor="price" className="font-bold mt-1">Item price</label>
         <input type="text" name="price" id="price"
         placeholder="Item price" value={price} onChange={(e) => setprice(e.target.value)} />
        </div>
        <div className="flex flex-col">
-      <label hrmlFor="amount">Amount</label>
+      <label hrmlFor="amount" className="font-bold mt-1 mb-">Amount {amount}</label>
       <p>{calc(amount)}</p>
       </div>
-      <button type="submit"  className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ">Add Item</button>
+      <button type="submit"  className="mt-1 inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ">Add Item</button>
        </form>
        {/* Table items */}
        
        <table width="100%">
        <thead>
-                    <tr className="bg-gray-100 p-1">
+                    <tr className="bg-gray-50 p-1">
                         <td className="font-bold">Item description</td>
                         <td className="font-bold">Quantity</td>
                         <td className="font-bold">Price</td>

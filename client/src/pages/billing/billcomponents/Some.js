@@ -4,8 +4,8 @@ export default function Some({description,quantity,amount,price,list,setList}) {
        <>
         <table width="100%">
        <thead>
-                    <tr className="bg-gray-100 p-1">
-                        <td className="font-bold">Item description</td>
+                    <tr className="bg-gray-50 p-1">
+                        <td className="font-bold ">Item description</td>
                         <td className="font-bold">Quantity</td>
                         <td className="font-bold">Price</td>
                         <td className="font-bold">Amount</td>
