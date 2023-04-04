@@ -287,7 +287,7 @@ export default function MiniDrawer() {
             >
               Customers
             </Typography> 
-        <Link to="/Customers" 
+        <Link to="/customers" 
                 style={{
                 color: 'inherit',
                 textDecoration: 'none',

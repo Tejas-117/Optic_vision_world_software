@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const session = require("express-session");
+const pgSession = require("connect-pg-simple")(session);
 
 // DB config
 const db = require("./config/db-config");
@@ -17,6 +18,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const sessionOption = {
+   store: new pgSession({
+      pool: db.pool,
+      tableName: "admin_session"
+   }),
    secret: process.env.SESSION_SECRET,
    resave: false,
    saveUninitialized: false,
@@ -29,10 +34,10 @@ const sessionOption = {
 app.use(session(sessionOption));
 
 // use all the routers
-app.use("/customer", require("./routers/customer"));
-app.use("/prescription", require("./routers/prescription"));
+app.use("/customers", require("./routers/customer"));
+app.use("/prescriptions", require("./routers/prescription"));
 app.use("/products", require("./routers/product"));
-app.use("/bill", require("./routers/bill"));
+app.use("/bills", require("./routers/bill"));
 app.use("/admin", require("./routers/admin"));
 
 const PORT = process.env.PORT || 8000;

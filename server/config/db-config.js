@@ -12,5 +12,6 @@ module.exports = {
    query: (text, params) => {
       console.log(`query: ${text}, params: ${params}`);
       return pool.query(text, params);
-   } 
-};
+   }, 
+   pool
+}; 
