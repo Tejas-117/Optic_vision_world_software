@@ -69,53 +69,6 @@ const PrescriptionForm = () =>{
                             gridTemplateColumns="repeat(2,minmax(0,1fr))"
                             sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" }}}>
 
-                          {/* <Box  display="grid" m="20px">
-                            <Typography variant="h5"mb="10px" >Spherical(SPH)</Typography>
-                            <Field
-                               as="select"
-                               name="lsph"
-                               id="lsph"
-                               value={values.lsph}
-                               onBlur={handleBlur}
-                               onChange={handleChange}
-                               sx={{gridColumn:"span 1"}}
-                              >
-                                {options(-25.00,25.00,0.25)}
-                            </Field>
-                           </Box>
-                            
-                            <Box  display="grid" m="20px">
-                                <Typography variant="h5"mb="10px">Cylindrical(CYL)</Typography>
-                                <Field
-                                   as="select"
-                                   name="lcyl"
-                                   id="lcyl"
-                                   value={values.lcyl}
-                                   onBlur={handleBlur}
-                                   onChange={handleChange}
-                                   sx={{gridColumn:"span 1"}}
-                                  >
-                                {options(-6.00,6.00,0.25)}
-                                </Field>
-                            </Box>
-                            
-                            <Box  display="grid" m="20px">
-                            <Typography variant="h5"mb="10px">Axis</Typography>
-                            <Field
-                               variant="filled"
-                               as="select"
-                               name="laxis"
-                               id="laxis"
-                               value={values.laxis}
-                               onBlur={handleBlur}
-                               onChange={handleChange}
-                               sx={{gridColumn:"span 1"}}
-                              >
-                                {options(0,180,5)}
-                            </Field>
-                            </Box> */}
-
-
                             {/* LEFT EYE */}
                                 
                                 <Card
@@ -131,8 +84,8 @@ const PrescriptionForm = () =>{
                                     <Typography variant="h5"mb="10px" >Spherical(SPH)</Typography>
                                     <Field
                                         as="select"
-                                        name="sph"
-                                        id="sph"
+                                        name="lsph"
+                                        id="lsph"
                                         value={values.lsph}
                                         label="--select--"
                                         onBlur={handleBlur}
@@ -147,8 +100,8 @@ const PrescriptionForm = () =>{
                                         <Typography variant="h5"mb="10px">Cylindrical(CYL)</Typography>
                                         <Field
                                             as="select"
-                                            name="cyl"
-                                            id="cyl"
+                                            name="lcyl"
+                                            id="lcyl"
                                             value={values.lcyl}
                                             label="--select--"
                                             onBlur={handleBlur}
@@ -164,8 +117,8 @@ const PrescriptionForm = () =>{
                                     <Field
                                         variant="filled"
                                         as="select"
-                                        name="axis"
-                                        id="axis"
+                                        name="laxis"
+                                        id="laxis"
                                         value={values.laxis}
                                         label="--select--"
                                         onBlur={handleBlur}
@@ -233,8 +186,8 @@ const PrescriptionForm = () =>{
 
                                     variant="filled"
                                     as="select"
-                                    name="axis"
-                                    id="axis"
+                                    name="raxis"
+                                    id="raxis"
                                     value={values.raxis}
                                     label="--select--"
                                     onBlur={handleBlur}
@@ -289,9 +242,9 @@ const PrescriptionForm = () =>{
                             <Field
                               variant="filled"
                               as="select"
-                              name="addition"
-                              id="addition"
-                              value={values.addition}
+                              name="visualAddition"
+                              id="visualAddition"
+                              value={values.visualAddition}
                               label="--select--"
                               onBlur={handleBlur}
                               onChange={handleChange}

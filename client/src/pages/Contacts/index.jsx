@@ -1,34 +1,50 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { token } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
+import { useEffect, useContext } from "react";
+import { AppContext } from "../../context/ContextProvider";
+import CustomerFinder from "../../api/CustomerFinder";
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = token(theme.palette.mode);
+  const {customerData, setCustomerData} = useContext(AppContext);
+  useEffect(()=>{
+    const fetchData = async ()=>{
+      try{
+        const response = await CustomerFinder.get("/")
+        setCustomerData(response.data.data);
+      }
+      catch (error) {
+        console.log(error.message);
+     }
+    }
+    fetchData();
+  },[]);
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
+    { field: "customer_id", headerName: "Customer ID", flex: 0.5 },
+    {
+      field: "designation",
+      headerName: "Designation",
+      flex: 0.5,
+    },
     {
       field: "name",
       headerName: "Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
-    {
-      field: "designation",
-      headerName: "Designation",
-      flex: 1,
-    },
+    
     {
       field: "dob",
       headerName: "Date of Birth",
       type: "date",
       headerAlign: "left",
       align: "left",
+      valueGetter: (params) => new Date(params.value) 
     },
     {
       field: "phone",
@@ -50,6 +66,7 @@ const Contacts = () => {
       type:"date",
       headerName: "Entry Date",
       flex: 1,
+      valueGetter: (params) => new Date(params.value) 
     },
   ];
 
@@ -92,8 +109,9 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={customerData}
           columns={columns}
+          getRowId={(customerData) => customerData.customer_id}
           components={{ Toolbar: GridToolbar }}
         />
       </Box>

@@ -8,7 +8,8 @@ function Login() {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
-    const [_, dispatch] = useContext(AppContext);
+    const {state} = useContext(AppContext);
+    const [_,dispatch] = state;
     const navigate = useNavigate();
 
     async function handleSubmit(e) {

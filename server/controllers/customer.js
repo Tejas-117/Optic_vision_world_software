@@ -37,6 +37,23 @@ const addCustomer = async (req, res, next) => {
    });
 }
 
+//GET all customers details
+const getAllCustomers = async (req,res) =>{
+   try{
+      const {rows} = await db.query("SELECT * FROM customer");
+      res.status(200).json({ 
+         data: rows,
+         message: "Retrieved all the customer successfully."
+      })
+   }
+   catch (err){
+      console.log(err.message);
+      return res.status(500).json({
+         message: "Internal server error"
+      })
+   }
+}
+
 // GET a customer based on name, phone, email
 const getCustomer = async (req, res, next) => {
    const { name, phone, email } = req.query;
@@ -124,6 +141,7 @@ const deleteCustomer = async (req, res, next) => {
 
 module.exports = {
    addCustomer,
+   getAllCustomers,
    getCustomer,
    editCustomer,
    deleteCustomer

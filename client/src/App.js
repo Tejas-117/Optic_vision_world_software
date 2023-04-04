@@ -19,7 +19,8 @@ import { AppContext } from './context/ContextProvider';
 
 function App() {
   const [theme, colorMode] = useMode();
-  const [_, dispatch] = useContext(AppContext);
+  const { state } = useContext(AppContext);
+  const [_,dispatch] = state;
   const navigate = useNavigate();
 
   // Authenticate user on each refresh
