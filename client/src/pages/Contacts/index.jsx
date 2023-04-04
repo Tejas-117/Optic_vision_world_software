@@ -8,6 +8,7 @@ import { AppContext } from "../../context/ContextProvider";
 import CustomerFinder from "../../api/CustomerFinder";
 
 const Contacts = () => {
+  const [customers, setCustomers] = useState([]);
   const theme = useTheme();
   const colors = token(theme.palette.mode);
   const {customerData, setCustomerData} = useContext(AppContext);
@@ -41,7 +42,6 @@ const Contacts = () => {
     {
       field: "dob",
       headerName: "Date of Birth",
-      type: "date",
       headerAlign: "left",
       align: "left",
       valueGetter: (params) => new Date(params.value) 
@@ -63,12 +63,12 @@ const Contacts = () => {
     },
     {
       field: "entry_date",
-      type:"date",
       headerName: "Entry Date",
       flex: 1,
       valueGetter: (params) => new Date(params.value) 
     },
   ];
+
 
   return (
     <Box m="20px">

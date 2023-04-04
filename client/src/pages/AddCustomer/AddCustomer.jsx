@@ -8,31 +8,33 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { AppContext } from '../../context/ContextProvider';
-import CustomerFinder from '../../api/CustomerFinder';
-
-
+import { useNavigate } from "react-router-dom";
 
 const Addcustomer = () => {
+  const [message, setMessage] = React.useState("");
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  const { addCustomerData } = useContext(AppContext);
+  const navigate = useNavigate();
 
-  const handleFormSubmit = async (values) => {
-    console.log(values);
-    try{
-      const response = await CustomerFinder.post('/add',values);
-      console.log(response);
+  async function handleFormSubmit(values) {
+    const res = await fetch(`/customers/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(values),
+    })
 
-      }
-      catch(err){
+    const { message } = await res.json();
+    
+    // TODO: display the message from server.
+    setMessage(message);
 
-      }
-
+    if(res.status === 200) {
+      setTimeout(() => {
+        navigate("/customers");        
+      }, 1500);
     }
-
-
-
-
+  };
 
   return (
     <Box m="20px">
@@ -60,17 +62,17 @@ const Addcustomer = () => {
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 8" },
               }}
             >
-             
-        <FormControl variant="filled" sx={{ minWidth: 120, gridColumn : "span 1" }}>
+
+              <FormControl variant="filled" sx={{ minWidth: 120, gridColumn : "span 1" }}>
                 <InputLabel id="demo-simple-select-filled-label">Designation</InputLabel>
                 <Select
                   labelId="demo-simple-select-filled-label"
                   id="demo-simple-select-filled"
                   value={values.designation}
                   name="designation"
+                  value={values.designation}
                   onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={!!touched.designation && !!errors.designation}
+                  name="designation"
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -87,7 +89,6 @@ const Addcustomer = () => {
                   <MenuItem value={'Baby'}>Baby.</MenuItem>
                   <MenuItem value={'Bro.'}>Bro.</MenuItem>
                   <MenuItem value={'Sis'}>Sis.</MenuItem>
-
                 </Select>
               </FormControl>
 
@@ -105,20 +106,19 @@ const Addcustomer = () => {
                 sx={{ gridColumn: "span 5" }}
               />
 
+              {/* TODO: label overlaps inside input field */}
               <TextField
                 fullWidth
                 variant="filled"
-                type="number"
-                label="Reference ID"
-                value={values.reference_id}
-                name= "reference_id"
+                type="date"
+                label="Date of birth"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                error={!!touched.reference_id && !!errors.reference_id}
-                helperText={touched.reference_id && errors.reference_id}
-                sx={{ gridColumn: "span 2" }}
+                value={values.dob}
+                name="dob"
+                sx={{ gridColumn: "span 4" }}
               />
-             
+              
               <TextField
                 fullWidth
                 variant="filled"
@@ -132,11 +132,12 @@ const Addcustomer = () => {
                 helperText={touched.email && errors.email}
                 sx={{ gridColumn: "span 4" }}
               />
+
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Contact Number"
+                label="Phone Number"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.phone}
@@ -146,34 +147,6 @@ const Addcustomer = () => {
                 sx={{ gridColumn: "span 4" }}
               />
 
-              <TextField
-                fullWidth
-                variant="filled"
-                type="date"
-                label="Date of Birth"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.dob}
-                name="dob"
-                error={!!touched.dob && !!errors.dob}
-                helperText={touched.dob && errors.dob}
-                sx={{ gridColumn: "span 4" }}
-              />
-
-              <TextField
-                fullWidth
-                variant="filled"
-                type="date"
-                label="Entry Date"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.entry_date}
-                name="entry_date"
-                error={!!touched.entry_date && !!errors.entry_date}
-                helperText={touched.entry_date && errors.entry_date}
-                sx={{ gridColumn: "span 4" }}
-              />
-              
               <TextField
                 fullWidth
                 variant="filled"
@@ -193,17 +166,29 @@ const Addcustomer = () => {
               <TextField
                 fullWidth
                 variant="filled"
-                type="number"
-                label="Pincode"
+                type="date"
+                label="Entry Date"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.pincode}
-                name="pincode"
-                error={!!touched.pincode && !!errors.pincode}
-                helperText={touched.pincode && errors.pincode}
+                value={values.name}
+                name="Pincode"
+                error={!!touched.name && !!errors.name}
+                helperText={touched.name && errors.name}
                 sx={{ gridColumn: "span 4" }}
               />
-              
+              {/* <TextField
+                fullWidth
+                variant="filled"
+                type="number"
+                label="Category"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.category}
+                name="category"
+                error={!!touched.category && !!errors.categor}
+                helperText={touched.category && errors.category}
+                sx={{ gridColumn: "span 2" }}
+              /> */}
             </Box>
             <Box display="flex" justifyContent="end" mt="30px">
               <Button type="submit"  color="secondary" variant="contained">
@@ -227,24 +212,16 @@ const checkoutSchema = yup.object().shape({
       .matches(phoneRegExp, "Phone number is not valid")
       .required("Required"),
     address: yup.string().required("Required"),
-    refernce_id: yup.number(),
-    pincode: yup.number(),
-    dob: yup.date().required("Required"),
-    entry_date: yup.date().required("Required"),
-    designation: yup.string()});
+  });
 
 const initialValues = {
+    designation: "",
     name: "",
-    // lastName: "",
-    designation:"",
     email: "",
     phone: "",
     address: "",
     dob:"",
-    entry_date:"",
-    reference_id: 0,
-    pincode: 123123
-    // category:""    
-  };
+    entry_date: ""
+};
   
 export default Addcustomer;

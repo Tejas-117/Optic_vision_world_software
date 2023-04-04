@@ -38,7 +38,7 @@ const addCustomer = async (req, res, next) => {
 }
 
 //GET all customers details
-const getAllCustomers = async (req,res) =>{
+const getAllCustomers = async (req,res,next) =>{
    try{
       const {rows} = await db.query("SELECT * FROM customer");
       res.status(200).json({ 
@@ -144,5 +144,5 @@ module.exports = {
    getAllCustomers,
    getCustomer,
    editCustomer,
-   deleteCustomer
+   deleteCustomer,
 }

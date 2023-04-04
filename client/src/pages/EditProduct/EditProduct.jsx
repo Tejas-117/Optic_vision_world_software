@@ -28,7 +28,7 @@ function EditProduct() {
    async function editProduct(e) {
       e.preventDefault();
 
-      const res = await fetch(`http://localhost:8000/products/${productId}/edit`, {
+      const res = await fetch(`/products/${productId}/edit`, {
          method: 'PUT',
          headers: {
             "Content-Type": "application/json",
@@ -58,7 +58,7 @@ function EditProduct() {
 
 
    async function fetchProduct() {
-      const res = await fetch(`http://localhost:8000/products/${productId}`);
+      const res = await fetch(`/products/${productId}`);
       const { data } = await res.json();
       
       if(res.status === 200) {
