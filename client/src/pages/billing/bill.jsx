@@ -1,10 +1,11 @@
-import { useState } from "react"
+import { useState,useRef,useEffect } from "react"
 import ClientDetails from "./billcomponents/ClientDetails"
 import MainDetails from "./billcomponents/MainDetails"
 import Dates from "./billcomponents/Dates"
 import Notes from "./billcomponents/Notes"
 import Some from "./billcomponents/Some"
 import Footer from "./billcomponents/Footer"
+import ReactToPrint from "react-to-print";
 import Header from "./billcomponents/Header"
 import TableForm from "./billcomponents/TableForm"
 function Bill(){
@@ -21,7 +22,9 @@ function Bill(){
   const [phno,setphno]=useState("")
   const [amount,setamount]=useState("")
   const [list,setList]=useState([])
-  
+  const [total, setTotal] = useState(0);
+  const [width] = useState(641);
+  const componentRef = useRef();
   const handelPrint = () =>{
 window.print()
   }
@@ -30,7 +33,7 @@ window.print()
     <main className="m-5 p-5 xl:max-w-10xl xl:mx-auto bg-white rounded shadow">
       {showInvoice ?(
         
-      <div>
+      <div ref={componentRef} className="p-5">
      <Header handelPrint={handelPrint}/>
     <MainDetails name={name} address={address}/>
    <ClientDetails name={name} invoicedate={invoicedate} invoicenumber={invoicenumber} accnumber={accnumber}/>
@@ -90,11 +93,14 @@ window.print()
     </div>
      <article>
        <TableForm description={description} setdescription={setdescription} quantity={quantity} setquantity={setquantity} price={price} setprice={setprice} amount={amount} setamount={setamount} 
-       setList={setList} list={list}/> 
+       setList={setList} list={list} total={total}
+       setTotal={setTotal}/> 
     </article> 
     <button onClick={()=> setShowInvoice(true)} className="bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:bg-transparent hover:text-blue-500 transition-all duraction-300">Print here</button>
     </>
    )}
+   
+   
     </main>
   )
 }

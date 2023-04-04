@@ -1,5 +1,5 @@
 import React from "react"
-export default function Some({description,quantity,amount,price,list,setList}) {
+export default function Some({list,total}) {
     return(
        <>
         <table width="100%">
@@ -32,6 +32,11 @@ export default function Some({description,quantity,amount,price,list,setList}) {
                 </React.Fragment></>
         ))}
         </table>
+        <div>
+        <h2 className="flex items-end justify-end text-gray-800 text-4xl font-bold">
+           Total ${total}
+        </h2>
+      </div>
        </>
     )
 }
