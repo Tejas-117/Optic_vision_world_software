@@ -1,17 +1,21 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { token } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
 
 const Contacts = () => {
+  const [customers, setCustomers] = useState([]);
   const theme = useTheme();
   const colors = token(theme.palette.mode);
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
+    { 
+      field: "customer_id",
+      headerName: "ID", 
+      flex: 0.5 
+    },
     {
       field: "name",
       headerName: "Name",
@@ -26,7 +30,6 @@ const Contacts = () => {
     {
       field: "dob",
       headerName: "Date of Birth",
-      type: "date",
       headerAlign: "left",
       align: "left",
     },
@@ -47,11 +50,23 @@ const Contacts = () => {
     },
     {
       field: "entry_date",
-      type:"date",
       headerName: "Entry Date",
       flex: 1,
     },
   ];
+
+  async function fetchCustomers() {
+    const res = await fetch(`/customers/`);
+    const { data } = await res.json();
+
+    if(res.status === 200) {
+      setCustomers(data);
+    }
+  }
+
+  useEffect(() => {
+    fetchCustomers();
+  }, [])
 
   return (
     <Box m="20px">
@@ -92,8 +107,9 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={customers}
           columns={columns}
+          getRowId={(row) => row.customer_id}
           components={{ Toolbar: GridToolbar }}
         />
       </Box>

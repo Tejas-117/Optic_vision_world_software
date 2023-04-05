@@ -6,8 +6,6 @@ const addBill = async (req, res, next) => {
    const data = req.body;
    const { prescription_id: prescriptionId, customer_id: customerId } = req.query;
 
-   console.table({ prescriptionId, customerId });
-
    // if the customer_id is NULL
    if(!customerId) {
       return res.status(400).json({ message: "Invalid customer id" });
@@ -44,6 +42,8 @@ const addBill = async (req, res, next) => {
       console.log(error);
       return res.status(500).json({ message: "Internal Server Error" });      
    }
+
+   // after a bill is successfully added, send a email to the customers email if it exists.
 
    return res.status(200).json({ message: "Generated new bill" });
 }

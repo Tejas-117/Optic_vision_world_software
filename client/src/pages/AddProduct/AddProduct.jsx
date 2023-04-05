@@ -34,7 +34,7 @@ function AddProduct() {
    async function addProduct(e) {
       e.preventDefault();
       
-      const res = await fetch(`http://localhost:8000/products/add`, {
+      const res = await fetch(`/products/add`, {
          method: 'POST',
          headers: {
             "Content-Type": "application/json",

@@ -37,6 +37,21 @@ const addCustomer = async (req, res, next) => {
    });
 }
 
+// GET all customers
+const getCustomers = async (req, res, next) => {
+   let customers = null;
+
+   try {
+      const { rows } = await db.query(`SELECT * FROM customer`, []);
+      customers = rows;
+   } catch (error) {
+      console.log(error);
+      return res.status(500);
+   }
+
+   return res.status(200).json({ data: customers });
+}
+
 // GET a customer based on name, phone, email
 const getCustomer = async (req, res, next) => {
    const { name, phone, email } = req.query;
@@ -126,5 +141,6 @@ module.exports = {
    addCustomer,
    getCustomer,
    editCustomer,
-   deleteCustomer
+   deleteCustomer,
+   getCustomers
 }
