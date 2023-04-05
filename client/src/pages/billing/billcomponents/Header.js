@@ -1,7 +1,7 @@
 export default function Header({handelPrint}) {
     return(
         <>
-         <header className="flex flex-col items-center justify-center mb-5 xl:flex-row justify-between">
+         <header className="flex flex-col items-center justify-center mb-5 xl:flex-row ">
         <div>
           <h1 className="font-bold uppercase tracking-wide text-4-xl mb-2 ">Optic Vision World</h1>
         </div>

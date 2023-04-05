@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from "react"
 import {v4 as uuidv4} from "uuid"
-import {AiOutlineDelete} from "react-icons/ai"
+// import {AiOutlineDelete} from "react-icons/ai"
 export default function TableForm({description,setdescription,price,setprice,amount,setamount,quantity,setquantity,list,setList,total,setTotal}){
   
     const handleSubmit=(e)=>{
@@ -89,7 +89,7 @@ export default function TableForm({description,setdescription,price,setprice,amo
                         <td>{price}</td>
 
                         <td className="amount">{amount}</td>
-                        <td><button onClick={() => deleteRow(id)}><AiOutlineDelete className="text-red-500 font-bold text-xl" /></button></td>
+                        {/* <td><button onClick={() => deleteRow(id)}><AiOutlineDelete className="text-red-500 font-bold text-xl" /></button></td> */}
                     
 
 

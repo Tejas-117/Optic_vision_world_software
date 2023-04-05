@@ -5,7 +5,7 @@ import Dates from "./billcomponents/Dates"
 import Notes from "./billcomponents/Notes"
 import Some from "./billcomponents/Some"
 import Footer from "./billcomponents/Footer"
-import ReactToPrint from "react-to-print";
+// import ReactToPrint from "react-to-print";
 import Header from "./billcomponents/Header"
 import TableForm from "./billcomponents/TableForm"
 function Bill(){
