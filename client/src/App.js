@@ -16,6 +16,7 @@ import CustomerIndex from './pages/CustomerIndex';
 import Invoices from './pages/Invoices';
 import Addcustomer from './pages/AddCustomer/AddCustomer';
 import { AppContext } from './context/ContextProvider';
+import ProductIndex from './pages/ProductIndex/ProductIndex';
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -60,8 +61,6 @@ function App() {
               {/* <Route path="/alternateSidebar" element={<AlternateSidebar />} /> */}
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/billing" element={<Bill />} />
-
-              <Route path="/products" element={<Products />} /> 
               <Route path="/products/add" element={<AddProduct />} />        
               <Route path="/products/:productId/edit" element={<EditProduct />} />    
 
@@ -69,6 +68,7 @@ function App() {
               
               <Route path ="/customers" element={<CustomerIndex />} />
               <Route path ="/customers/add" element={<Addcustomer />} />
+              <Route path ="/products" element={<ProductIndex />} />
               
               <Route path ="/invoices" element={<Invoices />} />
             </Routes>

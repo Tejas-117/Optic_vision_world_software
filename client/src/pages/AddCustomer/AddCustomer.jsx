@@ -63,7 +63,7 @@ const Addcustomer = () => {
               }}
             >
 
-              <FormControl variant="filled" sx={{ minWidth: 120, gridColumn : "span 1" }}>
+              <FormControl variant="filled" sx={{ minWidth: 120, gridColumn : "span 2" }}>
                 <InputLabel id="demo-simple-select-filled-label">Designation</InputLabel>
                 <Select
                   labelId="demo-simple-select-filled-label"
@@ -101,7 +101,7 @@ const Addcustomer = () => {
                 name="name"
                 error={!!touched.name && !!errors.name}
                 helperText={touched.name && errors.name}
-                sx={{ gridColumn: "span 5" }}
+                sx={{ gridColumn: "span 6" }}
               />
 
               {/* TODO: label overlaps inside input field */}
@@ -175,11 +175,11 @@ const Addcustomer = () => {
                 sx={{ gridColumn: "span 4" }}
               />
             </Box>
-            <Box display="flex" justifyContent="end" mt="30px">
-              <Button type="submit"  color="secondary" variant="contained">
-                Create New User
-              </Button>
-            </Box>
+            <Box display="flex" justifyContent="start" mt="40px">
+                  <Button className="submitButton" type="submit" color="secondary" variant="contained" >
+                              Create new Customer
+                  </Button>
+              </Box>
           </form>
         )}
       </Formik>

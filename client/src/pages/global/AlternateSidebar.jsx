@@ -6,7 +6,6 @@ import { ColorModeContext,token } from '../../theme';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -35,18 +34,12 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SearchIcon  from '@mui/icons-material/Search';
 import LightModeOutlinedIcon  from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon  from '@mui/icons-material/DarkModeOutlined';
-import NotificationsOutlinedIcon  from '@mui/icons-material/NotificationsOutlined';
-import SettingsOutlinedIcon  from '@mui/icons-material/SettingsOutlined';
 import PersonOutlinedIcon  from '@mui/icons-material/PersonOutlined';
 import { Link } from "react-router-dom";
 
 
 
 const drawerWidth = 240;
-
-
-
-
 
 
 export default function MiniDrawer() {
