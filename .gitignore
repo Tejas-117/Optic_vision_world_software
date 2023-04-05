@@ -132,3 +132,4 @@ dist
 
 # Other local files and folders
 notes/
+*.py
