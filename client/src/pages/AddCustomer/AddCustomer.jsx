@@ -174,19 +174,6 @@ const Addcustomer = () => {
                 helperText={touched.name && errors.name}
                 sx={{ gridColumn: "span 4" }}
               />
-              {/* <TextField
-                fullWidth
-                variant="filled"
-                type="number"
-                label="Category"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.category}
-                name="category"
-                error={!!touched.category && !!errors.categor}
-                helperText={touched.category && errors.category}
-                sx={{ gridColumn: "span 2" }}
-              /> */}
             </Box>
             <Box display="flex" justifyContent="end" mt="30px">
               <Button type="submit"  color="secondary" variant="contained">

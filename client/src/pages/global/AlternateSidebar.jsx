@@ -52,7 +52,6 @@ const drawerWidth = 240;
 export default function MiniDrawer() {
   const theme = useTheme();
   const colors = token(theme.palette.mode);
-  console.log(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
   const [open, setOpen] = React.useState(false);
 
@@ -182,10 +181,10 @@ export default function MiniDrawer() {
           <Box display="flex">
 
           <IconButton
-            color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
+            color={colors.primary[400]}
             sx={{
               marginRight: 5,
               ...(open && { display: 'none' }),
@@ -195,7 +194,7 @@ export default function MiniDrawer() {
           </IconButton>
 
 
-        <Typography variant="h5" display="flex" alignItems="center" noWrap component="div" color={colors.primary[400]}>
+        <Typography variant="h5" display="flex" alignItems="center" noWrap component="div" color={colors.grey[100]}>
               Optic Vision World 
             </Typography>
 
@@ -206,7 +205,7 @@ export default function MiniDrawer() {
 
 
             <Box display="flex" 
-                backgroundColor = {colors.primary[400]} 
+                backgroundColor = {colors.primary[800]} 
                 borderRadius ="3px">
               <InputBase sx = {{ml: 2 , flex: 1 }} placeholder = "Search" />
                 <IconButton type='button' sx={{p:1}}>
@@ -218,12 +217,6 @@ export default function MiniDrawer() {
               <IconButton onClick={colorMode.toggleColorMode}>
                 {theme.palette.mode === "dark" ?  (<DarkModeOutlinedIcon />) : (<LightModeOutlinedIcon />)}
               </IconButton>
-              {/* <IconButton>
-                <NotificationsOutlinedIcon />
-              </IconButton>
-              <IconButton>
-                <SettingsOutlinedIcon />
-              </IconButton> */}
               <IconButton>
                 <PersonOutlinedIcon />
               </IconButton>
@@ -237,7 +230,7 @@ export default function MiniDrawer() {
 
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose} >
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>

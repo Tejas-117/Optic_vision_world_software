@@ -12,7 +12,7 @@ import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import PrescriptionForm from './pages/AddPrescription';
 import AlternateSidebar from './pages/global/AlternateSidebar';
-import Contacts from './pages/Contacts';
+import CustomerIndex from './pages/CustomerIndex';
 import Invoices from './pages/Invoices';
 import Addcustomer from './pages/AddCustomer/AddCustomer';
 import { AppContext } from './context/ContextProvider';
@@ -67,7 +67,7 @@ function App() {
 
               <Route path="/prescription" element={<PrescriptionForm />} />       
               
-              <Route path ="/customers" element={<Contacts />} />
+              <Route path ="/customers" element={<CustomerIndex />} />
               <Route path ="/customers/add" element={<Addcustomer />} />
               
               <Route path ="/invoices" element={<Invoices />} />

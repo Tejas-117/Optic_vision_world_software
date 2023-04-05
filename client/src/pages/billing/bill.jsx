@@ -6,8 +6,13 @@ import Notes from "./billcomponents/Notes"
 import Some from "./billcomponents/Some"
 import Footer from "./billcomponents/Footer"
 import ReactToPrint from "react-to-print";
-import Header from "./billcomponents/Header"
+import Header1 from "./billcomponents/Header1"
 import TableForm from "./billcomponents/TableForm"
+import { useTheme } from "@mui/material";
+import { token } from "../../theme";
+import { Box } from "@mui/material";
+import Header from "../../components/Header";
+
 function Bill(){
   const [showInvoice,setShowInvoice] = useState(false)
   const [name,setName]=useState("")
@@ -25,15 +30,24 @@ function Bill(){
   const [total, setTotal] = useState(0);
   const [width] = useState(641);
   const componentRef = useRef();
+  const theme = useTheme();
+  const colors = token(theme.palette.mode);
+
   const handelPrint = () =>{
-window.print()
+   window.print()
   }
   return (
-    
-    <main className="m-5 p-5 xl:max-w-10xl xl:mx-auto bg-white rounded shadow">
+  <Box m="20px">
+  <Header title="BILLING INVOICE" subtitle="Create your bill here" />
+  <Box backgroundColor={colors.primary[400]} 
+    m="100px"
+    p="15px"
+    >
+
+    <main className=" p-5 xl:max-w-10xl xl:mx-auto rounded shadow">
       {showInvoice ?(
         
-      <div ref={componentRef} className="p-5">
+        <div ref={componentRef} className="p-5">
      <Header handelPrint={handelPrint}/>
     <MainDetails name={name} address={address}/>
    <ClientDetails name={name} invoicedate={invoicedate} invoicenumber={invoicenumber} accnumber={accnumber}/>
@@ -45,8 +59,8 @@ window.print()
    <Footer name={name} email={email} address={address} phno={phno} accnumber={accnumber}/>
    <button onClick={()=> setShowInvoice(false)} className="mt-5 bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:bg-transparent hover:text-blue-500 transition-all duraction-300">Edit here here</button>
    </div>) :(
-   
-    <>
+     
+     <>
     <article className="md:grid grid-cols-2 gap-5">
     <div className="flex flex-col justify-center">
       
@@ -102,6 +116,8 @@ window.print()
    
    
     </main>
+ </Box>
+</Box>
   )
 }
 export default Bill;

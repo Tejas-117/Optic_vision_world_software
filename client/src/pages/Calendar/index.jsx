@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState, } from 'react';
-import {useTheme} from '@mui/material'
+import {Box, useTheme} from '@mui/material'
 import { EditingState, ViewState,IntegratedEditing,GroupingState,IntegratedGrouping } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -23,6 +23,7 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import './style.css';
 import { token } from '../../theme';
+import Header from '../../components/Header';
 
 const appointments = [
   { id:1,startDate: '2023-03-20T09:45', endDate: '2023-03-20T11:00', title: 'Meeting' ,priorityId:1},
@@ -92,11 +93,13 @@ const Calendar = () => {
     
     console.log("All appointments:- ",data)
  return( 
+  <Box m="20px">
+  <Header title="CALENDAR" subtitle="Add your important events and reminders here" />
   <Scheduler
     data={data}
     height="100%"
     backgroundColor={colors.grey[300]}
-  >
+    >
   
     <ViewState
       defaultCurrentDate="2023-03-22"
@@ -111,16 +114,16 @@ const Calendar = () => {
       onAppointmentChangesChange={setChangedAppointemnt}
       editingAppointment={editingAppointment}
       onEditingAppointmentChange={setEditingdAppointemnt}
-    />
+      />
     <WeekView
       startDayHour={9}
       endDayHour={22}
-    />
+      />
     <MonthView />
     <GroupingState
           grouping={grouping}
           //groupOrientation={groupOrientation}
-    />
+          />
     <DayView />
     <IntegratedEditing />
      <Toolbar  />
@@ -133,14 +136,14 @@ const Calendar = () => {
     <Resources
           data={resources}
           mainResourceName="priorityId"
-    />
+          />
 
     <IntegratedGrouping />
     <GroupingPanel />
     <AppointmentTooltip
             showCloseButton
             showOpenButton
-          />
+            />
     <DragDropProvider />
     <CurrentTimeIndicator
       shadePreviousCells={true}
@@ -149,6 +152,7 @@ const Calendar = () => {
     />
     <AppointmentForm />
   </Scheduler>
+</Box>
  )
 };
 

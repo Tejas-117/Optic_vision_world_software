@@ -7,7 +7,7 @@ import { useEffect, useContext } from "react";
 import { AppContext } from "../../context/ContextProvider";
 import CustomerFinder from "../../api/CustomerFinder";
 
-const Contacts = () => {
+const CustomerIndex = () => {
   // const [customers, setCustomers] = useState([]);
   const theme = useTheme();
   const colors = token(theme.palette.mode);
@@ -119,4 +119,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default CustomerIndex;
