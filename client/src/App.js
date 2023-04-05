@@ -15,6 +15,7 @@ import AlternateSidebar from './pages/global/AlternateSidebar';
 import Contacts from './pages/Contacts';
 import Invoices from './pages/Invoices';
 import Addcustomer from './pages/AddCustomer/AddCustomer';
+import CustomerPost from './pages/CustomerPost/CustomerPost';
 import { AppContext } from './context/ContextProvider';
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
               
               <Route path ="/customers" element={<Contacts />} />
               <Route path ="/customers/add" element={<Addcustomer />} />
+              <Route path ="/customers/view" element={<CustomerPost />} />
               
               <Route path ="/invoices" element={<Invoices />} />
             </Routes>
