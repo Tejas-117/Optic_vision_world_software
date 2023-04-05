@@ -174,6 +174,22 @@ const Addcustomer = () => {
                 helperText={touched.name && errors.name}
                 sx={{ gridColumn: "span 4" }}
               />
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Reference ID"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.phone}
+                name="phone"
+                error={!!touched.phone && !!errors.phone}
+                helperText={touched.phone && errors.phone} 
+                sx={{ gridColumn: "span 4" }}
+              />
+              
+
             </Box>
             <Box display="flex" justifyContent="start" mt="40px">
                   <Button className="submitButton" type="submit" color="secondary" variant="contained" >

@@ -15,6 +15,7 @@ import AlternateSidebar from './pages/global/AlternateSidebar';
 import CustomerIndex from './pages/CustomerIndex';
 import Invoices from './pages/Invoices';
 import Addcustomer from './pages/AddCustomer/AddCustomer';
+import CustomerPost from './pages/CustomerPost/CustomerPost';
 import { AppContext } from './context/ContextProvider';
 import ProductIndex from './pages/ProductIndex/ProductIndex';
 
@@ -68,6 +69,7 @@ function App() {
               
               <Route path ="/customers" element={<CustomerIndex />} />
               <Route path ="/customers/add" element={<Addcustomer />} />
+              <Route path ="/customers/view" element={<CustomerPost />} />
               <Route path ="/products" element={<ProductIndex />} />
               
               <Route path ="/invoices" element={<Invoices />} />
