@@ -1,23 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const { isLoggedIn } = require("../utils/auth");
+//const { isLoggedIn } = require("../utils/auth");
 
 // controller methods
-const { addCustomer, getCustomer, editCustomer, deleteCustomer, getCustomers } = require('../controllers/customer');
+const { addCustomer, getAllCustomers, getCustomer, editCustomer, deleteCustomer } = require('../controllers/customer');
 
 // ADD a new customer
-router.post("/add", isLoggedIn, addCustomer);
+router.post("/add", addCustomer);
 
 // GET all customers
-router.get("/", isLoggedIn, getCustomers);
+router.get("/", getAllCustomers);
 
 // GET a customer info based on name, phone, email
-router.get("/customer", isLoggedIn, getCustomer);
+router.get("/customer",  getCustomer);
 
 // EDIT a customer
-router.put("/:customerId/edit",isLoggedIn, editCustomer);
+router.put("/:customerId/edit", editCustomer);
 
 // DELETE a customer
-router.delete("/:customerId/delete",isLoggedIn, deleteCustomer);
+router.delete("/:customerId/delete", deleteCustomer);
 
 module.exports = router;

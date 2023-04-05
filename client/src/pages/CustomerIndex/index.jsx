@@ -3,18 +3,34 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { token } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
+import { AppContext } from "../../context/ContextProvider";
+import CustomerFinder from "../../api/CustomerFinder";
 
-const Contacts = () => {
-  const [customers, setCustomers] = useState([]);
+const CustomerIndex = () => {
+  // const [customers, setCustomers] = useState([]);
   const theme = useTheme();
   const colors = token(theme.palette.mode);
+  const {customerData, setCustomerData} = useContext(AppContext);
+  useEffect(()=>{
+    const fetchData = async ()=>{
+      try{
+        const response = await CustomerFinder.get("/");
+        setCustomerData(response.data.data);
+      }
+      catch (error) {
+        console.log(error.message);
+     }
+    }
+    fetchData();
+  },[]);
 
   const columns = [
-    { 
-      field: "customer_id",
-      headerName: "ID", 
-      flex: 0.5 
+    { field: "customer_id", headerName: "Customer ID", flex: 0.5 },
+    {
+      field: "designation",
+      headerName: "Designation",
+      flex: 0.5,
     },
     {
       field: "name",
@@ -22,16 +38,13 @@ const Contacts = () => {
       flex: 1,
       cellClassName: "name-column--cell",
     },
-    {
-      field: "designation",
-      headerName: "Designation",
-      flex: 1,
-    },
+    
     {
       field: "dob",
       headerName: "Date of Birth",
       headerAlign: "left",
       align: "left",
+      valueGetter: (params) => new Date(params.value) 
     },
     {
       field: "phone",
@@ -52,21 +65,10 @@ const Contacts = () => {
       field: "entry_date",
       headerName: "Entry Date",
       flex: 1,
+      valueGetter: (params) => new Date(params.value) 
     },
   ];
 
-  async function fetchCustomers() {
-    const res = await fetch(`/customers/`);
-    const { data } = await res.json();
-
-    if(res.status === 200) {
-      setCustomers(data);
-    }
-  }
-
-  useEffect(() => {
-    fetchCustomers();
-  }, [])
 
   return (
     <Box m="20px">
@@ -107,9 +109,9 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={customers}
+          rows={customerData}
           columns={columns}
-          getRowId={(row) => row.customer_id}
+          getRowId={(customerData) => customerData.customer_id}
           components={{ Toolbar: GridToolbar }}
         />
       </Box>
@@ -117,4 +119,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default CustomerIndex;

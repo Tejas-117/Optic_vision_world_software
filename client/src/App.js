@@ -12,15 +12,17 @@ import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import PrescriptionForm from './pages/AddPrescription';
 import AlternateSidebar from './pages/global/AlternateSidebar';
-import Contacts from './pages/Contacts';
+import CustomerIndex from './pages/CustomerIndex';
 import Invoices from './pages/Invoices';
 import Addcustomer from './pages/AddCustomer/AddCustomer';
 import CustomerPost from './pages/CustomerPost/CustomerPost';
 import { AppContext } from './context/ContextProvider';
+import ProductIndex from './pages/ProductIndex/ProductIndex';
 
 function App() {
   const [theme, colorMode] = useMode();
-  const [_, dispatch] = useContext(AppContext);
+  const { state } = useContext(AppContext);
+  const [_,dispatch] = state;
   const navigate = useNavigate();
 
   // Authenticate user on each refresh
@@ -60,16 +62,15 @@ function App() {
               {/* <Route path="/alternateSidebar" element={<AlternateSidebar />} /> */}
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/billing" element={<Bill />} />
-
-              <Route path="/products" element={<Products />} /> 
               <Route path="/products/add" element={<AddProduct />} />        
               <Route path="/products/:productId/edit" element={<EditProduct />} />    
 
               <Route path="/prescription" element={<PrescriptionForm />} />       
               
-              <Route path ="/customers" element={<Contacts />} />
+              <Route path ="/customers" element={<CustomerIndex />} />
               <Route path ="/customers/add" element={<Addcustomer />} />
               <Route path ="/customers/view" element={<CustomerPost />} />
+              <Route path ="/products" element={<ProductIndex />} />
               
               <Route path ="/invoices" element={<Invoices />} />
             </Routes>

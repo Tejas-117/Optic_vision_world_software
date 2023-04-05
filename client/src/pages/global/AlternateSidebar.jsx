@@ -6,7 +6,6 @@ import { ColorModeContext,token } from '../../theme';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -35,8 +34,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SearchIcon  from '@mui/icons-material/Search';
 import LightModeOutlinedIcon  from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon  from '@mui/icons-material/DarkModeOutlined';
-import NotificationsOutlinedIcon  from '@mui/icons-material/NotificationsOutlined';
-import SettingsOutlinedIcon  from '@mui/icons-material/SettingsOutlined';
 import PersonOutlinedIcon  from '@mui/icons-material/PersonOutlined';
 import { Link } from "react-router-dom";
 
@@ -44,78 +41,83 @@ import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
-const openedMixin = (theme) => ({
-  width: drawerWidth,
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: 'hidden',
-});
-
-const closedMixin = (theme) => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
-    }),
-    ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
-    }),
-  }),
-);
-
-
 
 export default function MiniDrawer() {
   const theme = useTheme();
   const colors = token(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
   const [open, setOpen] = React.useState(false);
+
+  const openedMixin = (theme) => ({
+    width: drawerWidth,
+    backgroundColor: colors.primary[400],
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    overflowX: 'hidden',
+  });
+
+  const closedMixin = (theme) => ({
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    backgroundColor: colors.primary[400],
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(${theme.spacing(8)} + 1px)`,
+    },
+  });
+  
+  const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    backgroundColor: colors.primary[400],
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+  }));
+  
+  const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+  })(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: colors.primary[400],
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  }));
+  
+  const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+      width: drawerWidth,
+      flexShrink: 0,
+      whiteSpace: 'nowrap',
+      boxSizing: 'border-box',
+      backgroundColor: colors.primary[400],
+      ...(open && {
+        ...openedMixin(theme),
+        '& .MuiDrawer-paper': openedMixin(theme),
+      }),
+      ...(!open && {
+        ...closedMixin(theme),
+        '& .MuiDrawer-paper': closedMixin(theme),
+      }),
+    }),
+  );
+  
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -172,10 +174,10 @@ export default function MiniDrawer() {
           <Box display="flex">
 
           <IconButton
-            color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
+            color={colors.primary[400]}
             sx={{
               marginRight: 5,
               ...(open && { display: 'none' }),
@@ -185,7 +187,7 @@ export default function MiniDrawer() {
           </IconButton>
 
 
-        <Typography variant="h5" display="flex" alignItems="center" noWrap component="div">
+        <Typography variant="h5" display="flex" alignItems="center" noWrap component="div" color={colors.grey[100]}>
               Optic Vision World 
             </Typography>
 
@@ -196,7 +198,7 @@ export default function MiniDrawer() {
 
 
             <Box display="flex" 
-                backgroundColor = {colors.primary[400]} 
+                backgroundColor = {colors.primary[800]} 
                 borderRadius ="3px">
               <InputBase sx = {{ml: 2 , flex: 1 }} placeholder = "Search" />
                 <IconButton type='button' sx={{p:1}}>
@@ -208,12 +210,6 @@ export default function MiniDrawer() {
               <IconButton onClick={colorMode.toggleColorMode}>
                 {theme.palette.mode === "dark" ?  (<DarkModeOutlinedIcon />) : (<LightModeOutlinedIcon />)}
               </IconButton>
-              {/* <IconButton>
-                <NotificationsOutlinedIcon />
-              </IconButton>
-              <IconButton>
-                <SettingsOutlinedIcon />
-              </IconButton> */}
               <IconButton>
                 <PersonOutlinedIcon />
               </IconButton>
@@ -227,7 +223,7 @@ export default function MiniDrawer() {
 
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose} >
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
