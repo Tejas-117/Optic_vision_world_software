@@ -48,7 +48,7 @@ function Bill(){
       {showInvoice ?(
         
         <div ref={componentRef} className="p-5">
-     <Header handelPrint={handelPrint}/>
+     <Header1 handelPrint={handelPrint}/>
     <MainDetails name={name} address={address}/>
    <ClientDetails name={name} invoicedate={invoicedate} invoicenumber={invoicenumber} accnumber={accnumber}/>
    <Dates invoicenumber={invoicenumber} invoicedate={invoicedate} />

@@ -168,8 +168,8 @@ const Addcustomer = () => {
                 label="Entry Date"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.name}
-                name="Pincode"
+                value={values.entry_date}
+                name="entry_date"
                 error={!!touched.name && !!errors.name}
                 helperText={touched.name && errors.name}
                 sx={{ gridColumn: "span 4" }}
