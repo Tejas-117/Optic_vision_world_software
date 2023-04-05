@@ -5,6 +5,6 @@ CREATE TABLE "admin_session" (
 )
 WITH (OIDS=FALSE);
 
-ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE "admin_session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
 
-CREATE INDEX "IDX_session_expire" ON "session" ("expire");
+CREATE INDEX "IDX_session_expire" ON "admin_session" ("expire");

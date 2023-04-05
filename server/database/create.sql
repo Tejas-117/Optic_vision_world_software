@@ -13,10 +13,14 @@ CREATE TABLE IF NOT EXISTS prescription (
    prescription_id BIGSERIAL PRIMARY KEY,
    customer_id BIGINT REFERENCES customer (customer_id),
 
-   eye CHAR(1) NOT NULL check(eye in ('R', 'L')),
-   sph REAL,
-   cyl REAL,
-   axis SMALLINT,
+   lsph REAL,
+   lcyl REAL,
+   laxis SMALLINT,
+   
+   rsph REAL,
+   rcyl REAL,
+   raxis SMALLINT,
+   
    va VARCHAR(10),
    pd REAL,
    addition REAL,
@@ -75,7 +79,7 @@ CREATE TABLE IF NOT EXISTS order_item (
    sub_total INT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISITS admin (
+CREATE TABLE IF NOT EXISTS admin (
    admin_id SERIAL PRIMARY KEY,
    name VARCHAR(40) UNIQUE NOT NULL,
    password TEXT NOT NULL

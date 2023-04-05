@@ -6,26 +6,24 @@ const addPrescription = async (req, res, next) => {
    const data = req.body;
    const { customerId } = req.params;
    
-   const requiredFields = ['eye'];
-   const missingFields = checkRequiredFields(requiredFields, data);
-
-   if(missingFields.length > 0) {
-      return res.status(400).json({
-         message: `Missing fields: ${missingFields.join(",")}`
-      })
-   }
-
    try {
+      // retrieve the customer from the given id and verify if it is valid
+      const customer = await db.query(`SELECT * FROM customer WHERE customer_id = ${customerId}`, []);
+      
+      if(customer.rowCount === 0) {
+         return res.status(400).json({ message: "Customer not found" });
+      }
+
       await db.query(`
          INSERT INTO prescription 
-         (customer_id, eye, sph, cyl, axis, va, pd, addition, remarks)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
+         (customer_id, lsph, lcyl, laxis, rsph, rcyl, raxis, va, pd, addition, remarks)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);
       `,
-      [customerId, data.eye, data.sph, data.cyl, data.axis, data.va, data.pd, data.addition, data.remarks]);
+      [customerId, data.lsph, data.lcyl, data.laxis, data.rsph, data.rcyl, data.raxis, data.va, data.pd, data.addition, data.remarks]);
    } 
    catch (error) {
       console.log(error);
-      return res.status(400).json({ message: "Internal Server Error" });
+      return res.status(500).json({ message: "Internal Server Error" });
    }
 
    return res.status(200).json({ message: "Prescription added" })

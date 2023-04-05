@@ -62,21 +62,23 @@ const getCustomer = async (req, res, next) => {
 
    try {
       const { rows } = await db.query(`
-         SELECT * FROM customer WHERE name = $1 OR phone = $2 OR email = $3
-      `, [name, phone, email]); 
+         SELECT * FROM customer WHERE phone = $1 OR email = $2 OR name = $3
+      `, [phone, email, name]); 
 
-      queryRes = rows;
+      queryRes = rows[0];
    } 
    catch (error) {
       console.log(error.message);
-      return res.status(500).json({
-         message: "Internal server error"
-      })
+      return res.status(500).json({ message: "Internal server error" });
+   }
+
+   // if the customer is not found, return error
+   if(queryRes === undefined) {
+      return res.status(404).json({ message: "Customer not found" });
    }
 
    return res.status(200).json({ 
-      data: queryRes[0],
-      message: "Retrieved customer successfully."
+      data: queryRes, message: "Retrieved customer successfully."
    })
 }
 
