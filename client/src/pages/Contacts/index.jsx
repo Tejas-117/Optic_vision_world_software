@@ -8,14 +8,14 @@ import { AppContext } from "../../context/ContextProvider";
 import CustomerFinder from "../../api/CustomerFinder";
 
 const Contacts = () => {
-  const [customers, setCustomers] = useState([]);
+  // const [customers, setCustomers] = useState([]);
   const theme = useTheme();
   const colors = token(theme.palette.mode);
   const {customerData, setCustomerData} = useContext(AppContext);
   useEffect(()=>{
     const fetchData = async ()=>{
       try{
-        const response = await CustomerFinder.get("/")
+        const response = await CustomerFinder.get("/");
         setCustomerData(response.data.data);
       }
       catch (error) {

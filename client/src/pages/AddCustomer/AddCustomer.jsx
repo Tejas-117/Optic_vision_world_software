@@ -70,9 +70,7 @@ const Addcustomer = () => {
                   id="demo-simple-select-filled"
                   value={values.designation}
                   name="designation"
-                  value={values.designation}
                   onChange={handleChange}
-                  name="designation"
                 >
                   <MenuItem value="">
                     <em>None</em>
