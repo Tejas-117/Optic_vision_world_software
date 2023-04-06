@@ -35,9 +35,9 @@ html,body,#root,.app-light-mode,.app-dark-mode,.content{
 
 .app-light-mode{
   background-image: url(../src/assets/LightModeImage.jpg);
-  background-position: 103% 75%;
-  background-size: 91%;
-
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 ::-webkit-scrollbar{
   width: 10%;
