@@ -3,10 +3,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { token } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import { useEffect, useContext } from "react";
-import { AppContext } from "../../context/ContextProvider";
-import ProductFinder from "../../api/ProductFinder";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TextField } from "@mui/material"
 
 const ProductIndex = () => {
@@ -15,20 +12,24 @@ const ProductIndex = () => {
   const [FilteredProductData, setFilteredProductData] = useState([]);
   const theme = useTheme();
   const colors = token(theme.palette.mode);
-  const {productData, setProductData} = useContext(AppContext);
-  useEffect(()=>{
+  const [productData, setProductData] = useState([]);
+  
+  useEffect(() => {
     const fetchData = async ()=>{
-      try{
-        const response = await ProductFinder.get("/");
-        console.log(response);
-        setProductData(response.data.data);
+      const res = await fetch("/products/", {
+        method: "GET",
+        credentials: "include"
+      })
+
+      const data = await res.json();
+      
+      if(res.status === 200) {
+        setProductData(data.data)
       }
-      catch (error) {
-        console.log(error.message);
-     }
     }
+
     fetchData();
-  },[]);
+  }, []);
 
   const columns = [
     { field: "product_id", headerName: "Product ID", flex: 0.5 },

@@ -3,8 +3,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { token } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import { useEffect, useContext } from "react";
-import { AppContext } from "../../context/ContextProvider";
+import { useEffect, useState } from "react";
 import CustomerFinder from "../../api/CustomerFinder";
 import { useState } from "react";
 import { TextField } from "@mui/material"
@@ -16,19 +15,20 @@ const CustomerIndex = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredCustomerData, setFilteredCustomerData] = useState([]);
   const colors = token(theme.palette.mode);
-  
-  
-  const {customerData, setCustomerData} = useContext(AppContext);
+  const [customerData, setCustomerData] = useState([]);
+
   useEffect(()=>{
-    const fetchData = async ()=>{
-      try{
-        const response = await CustomerFinder.get("/");
-        setCustomerData(response.data.data);
+    const fetchData = async () => {
+      const res = await fetch('/customers/', {
+        "credentials": "include"
+      })
+      const { data } = await res.json();
+      
+      if(res.status === 200) {
+        setCustomerData(data)
       }
-      catch (error) {
-        console.log(error.message);
-     }
     }
+    
     fetchData();
   },[]);
 
