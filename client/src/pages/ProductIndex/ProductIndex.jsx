@@ -1,10 +1,10 @@
-import { Box,Typography } from "@mui/material";
+import { Box,Typography,TextField } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { token } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import { useEffect, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/ContextProvider";
 import ProductFinder from "../../api/ProductFinder";
@@ -34,7 +34,27 @@ const ProductIndex = () => {
     }
 
     fetchData();
-  },[]);
+  },[]);let navigate = useNavigate();
+
+  const handleEdit = (id)=>{
+    console.log(id);
+    navigate(`/products/${id}/edit`)
+  }
+  const handleDelete = async(id)=>{
+      const res = await fetch(`/products/${id}/delete`, {
+        method: "DELETE",
+        credentials: "include"
+      })
+
+      const data = await res.json();
+      console.log(res.status);
+
+      if(res.status === 200) {
+        setProductData(productData.filter((product) =>{   
+        return product.product_id !== id      // if the function is true then the element will be included - filter
+      }))
+    }
+  };
   
 
   const columns = [
