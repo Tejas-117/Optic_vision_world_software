@@ -9,7 +9,7 @@ function reducer(state = initialState, { type, payload}) {
    
       case "LOGIN": {
          return {
-            ...state, user: payload
+            ...state, user: payload.user
          }
       }
 

@@ -13,40 +13,28 @@ import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 
 const ProductIndex = () => {
   // const [customers, setCustomers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [FilteredProductData, setFilteredProductData] = useState([]);
   const theme = useTheme();
   const colors = token(theme.palette.mode);
-  const {productData, setProductData} = useContext(AppContext);
-  useEffect(()=>{
+  const [productData, setProductData] = useState([]);
+  
+  useEffect(() => {
     const fetchData = async ()=>{
-      try{
-        const response = await ProductFinder.get("/");
-        console.log(response);
-        setProductData(response.data.data);
+      const res = await fetch("/products/", {
+        method: "GET",
+        credentials: "include"
+      })
+
+      const data = await res.json();
+      
+      if(res.status === 200) {
+        setProductData(data.data)
       }
-      catch (error) {
-        console.log(error.message);
-     }
     }
+
     fetchData();
   },[]);
-  let navigate = useNavigate();
-
-  const handleEdit = (id)=>{
-    console.log(id);
-    navigate(`/products/${id}/edit`)
-  }
-  const handleDelete = async(id)=>{
-    console.log(id);
-    try{
-      const response = await ProductFinder.delete(`/${id}/delete`);
-      setProductData(productData.filter((product) =>{   
-        return product.product_id !== id      // if the function is true then the element will be included - filter
-      }));
-    }
-    catch(err){
-      console.log(err);
-    }
-};
   
 
   const columns = [
@@ -151,6 +139,15 @@ const ProductIndex = () => {
       ),
     },
   ];
+  // Search hook
+  useEffect(() => {
+    const filteredData = productData.filter((products) =>
+      products.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      products.product_code?.toLowerCase().includes(searchQuery) 
+      
+    );
+    setFilteredProductData(filteredData);
+  }, [searchQuery, productData]);
 
 
   return (
@@ -159,6 +156,12 @@ const ProductIndex = () => {
         title="PRODUCT INDEX"
         subtitle="List of products for Inventory Reference"
       />
+    {/* search field */}
+      <TextField
+      label="Search by product_code or name"
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)} /><Box m="20px"></Box>
+
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -195,7 +198,7 @@ const ProductIndex = () => {
         }}
       >
         <DataGrid
-          rows={productData}
+          rows={FilteredProductData}
           columns={columns}
           getRowId={(productData) => productData.product_id}
           components={{ Toolbar: GridToolbar }}

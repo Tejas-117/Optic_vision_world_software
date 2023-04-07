@@ -6,18 +6,18 @@ const { isLoggedIn } = require("../utils/auth");
 const { addCustomer, getAllCustomers, getCustomer, editCustomer, deleteCustomer } = require('../controllers/customer');
 
 // ADD a new customer
-router.post("/add",  isLoggedIn, addCustomer);
+router.post("/add", isLoggedIn, addCustomer);
 
 // GET all customers
-router.get("/", getAllCustomers);
+router.get("/", isLoggedIn, getAllCustomers);
 
 // GET a customer info based on name, phone, email
-router.get("/customer",   isLoggedIn, getCustomer);
+router.get("/customer", isLoggedIn, getCustomer);
 
 // EDIT a customer
-router.put("/:customerId/edit", isLoggedIn,  editCustomer);
+router.put("/:customerId/edit", isLoggedIn, editCustomer);
 
 // DELETE a customer
-router.delete("/:customerId/delete",  isLoggedIn, deleteCustomer);
+router.delete("/:customerId/delete", isLoggedIn, deleteCustomer);
 
 module.exports = router;

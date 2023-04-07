@@ -41,6 +41,7 @@ const addCustomer = async (req, res, next) => {
 const getAllCustomers = async (req,res,next) =>{
    try{
       const {rows} = await db.query("SELECT * FROM customer");
+      
       res.status(200).json({ 
          data: rows,
          message: "Retrieved all the customer successfully."

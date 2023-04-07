@@ -8,8 +8,7 @@ function Login() {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
-    const {state} = useContext(AppContext);
-    const [_,dispatch] = state;
+    const [state, dispatch] = useContext(AppContext);
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
@@ -24,23 +23,18 @@ function Login() {
             body: JSON.stringify({ name: userName, password })
         });
         const data = await res.json();
+        console.log(data);
         setMessage(data.message);
 
         if(res.status === 200) {
             // save the logged in user info in the context and/or localStorage of the browser.            
-            dispatch({ type: "LOGIN", payload: { message: "hello"} })
+            dispatch({ type: "LOGIN", payload: { user: data.user } })
 
             setTimeout(() => {
                 navigate("/calendar");
             }, 1500);
         }
     }
-
-    useEffect(() => {
-        console.clear();
-        console.table({ userName, password });
-    }, [userName, password])
-    
 
     return (
         <div className="container-fluid" style={{height: 100+'vh'}}>
