@@ -142,10 +142,61 @@ const deleteCustomer = async (req, res, next) => {
    return res.status(200).json({ message: "Customer successfully deleted. "})
 }
 
+// GET customer history
+const getCustomerHistory = async (req, res, next) => {
+   const { customerId } = req.params;
+
+   let queryRes = {};
+
+   try {
+      // const { rows } = await db.query(
+      // `SELECT prescription, order_items, customer.* FROM customer 
+      // JOIN  
+      //    (SELECT json_agg(row_to_json(prescription)) AS prescription FROM (SELECT * FROM prescription) AS prescription) AS all_prescription 
+      //    JOIN 
+      //    (SELECT json_agg(row_to_json(items)) AS order_items FROM (SELECT * FROM order_item) AS items) AS order_items 
+      //    ON 1=1 
+      // ON 1=1 
+      // WHERE customer_id = $1`
+      // , [customerId]);
+
+      const { rows } = await db.query(
+      `SELECT prescription, purchased_products, customer.* FROM customer
+       JOIN 
+         (SELECT json_agg(row_to_json(prescription)) AS prescription FROM (SELECT * FROM prescription) AS prescription) AS all_prescription
+         JOIN 
+         (SELECT json_agg(row_to_json(product_info)) AS purchased_products FROM (SELECT product.product_id, product.product_code, product.name, product.net_price, order_item.bill_id, order_item.quantity, order_item.sub_total FROM order_item JOIN product ON product.product_id = order_item.product_id) AS product_info) AS all_products
+         ON 1=1
+       ON 1=1
+       WHERE customer.customer_id = $1`
+      , [customerId]);
+
+      console.log(rows[0]);
+      console.log(rows[0]);
+      queryRes = rows[0];
+   } 
+   catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Internal Server Error" });
+   }
+
+   return res.status(200).json({ message: "Successfully retrieved customer data", data: queryRes });
+}
+
 module.exports = {
    addCustomer,
    getAllCustomers,
    getCustomer,
    editCustomer,
    deleteCustomer,
+   getCustomerHistory
 }
+
+// SELECT prescription, purchased_products, customer.* FROM customer
+// JOIN 
+// (SELECT json_agg(row_to_json(prescription)) AS prescription FROM (SELECT * FROM prescription) AS prescription) AS all_prescription
+// JOIN 
+// (SELECT json_agg(row_to_json(product_info)) AS purchased_products FROM (SELECT product.product_id, product.product_code, product.name, product.net_price, order_item.bill_id, order_item.quantity, order_item.sub_total FROM order_item JOIN product ON product.product_id = order_item.product_id) AS product_info) AS all_products
+// ON 1=1
+// ON 1=1
+// WHERE customer.customer_id = 21;

@@ -6,7 +6,9 @@ CREATE TABLE IF NOT EXISTS customer (
    phone TEXT NOT NULL,
    email VARCHAR(30),
    dob DATE,
+   reference_id VARCHAR(30)
    entry_date DATE DEFAULT NOW()::DATE NOT NULL
+   joined_on DATE DEFAULT NOW()::DATE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS prescription (
