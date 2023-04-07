@@ -6,9 +6,13 @@ import { useTheme } from "@mui/material";
 import { useEffect, useContext } from "react";
 import { AppContext } from "../../context/ContextProvider";
 import ProductFinder from "../../api/ProductFinder";
+import { useState } from "react";
+import { TextField } from "@mui/material"
 
 const ProductIndex = () => {
   // const [customers, setCustomers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [FilteredProductData, setFilteredProductData] = useState([]);
   const theme = useTheme();
   const colors = token(theme.palette.mode);
   const {productData, setProductData} = useContext(AppContext);
@@ -95,6 +99,15 @@ const ProductIndex = () => {
     },
     
   ];
+  // Search hook
+  useEffect(() => {
+    const filteredData = productData.filter((products) =>
+      products.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      products.product_code?.toLowerCase().includes(searchQuery) 
+      
+    );
+    setFilteredProductData(filteredData);
+  }, [searchQuery, productData]);
 
 
   return (
@@ -103,6 +116,12 @@ const ProductIndex = () => {
         title="Customer Index"
         subtitle="List of Contacts for Future Reference"
       />
+    {/* search field */}
+      <TextField
+      label="Search by product_code or name"
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)} /><Box m="20px"></Box>
+
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -139,7 +158,7 @@ const ProductIndex = () => {
         }}
       >
         <DataGrid
-          rows={productData}
+          rows={FilteredProductData}
           columns={columns}
           getRowId={(productData) => productData.product_id}
           components={{ Toolbar: GridToolbar }}
