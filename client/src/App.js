@@ -32,10 +32,13 @@ function App() {
       credentials: "include"
     });
     const data = await res.json();
+    console.log(data);
+    console.log(res.status);
 
     if(res.status !== 200) {
       // redirect user to login page
       dispatch({ type: "LOGOUT", payload: null });
+      console.log('here');
       navigate("/login");
     } 
     else {

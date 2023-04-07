@@ -1,11 +1,15 @@
-import { Box } from "@mui/material";
+import { Box,Typography } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { GridActionsCellItem } from "@mui/x-data-grid";
 import { token } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/ContextProvider";
 import ProductFinder from "../../api/ProductFinder";
+import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 
 const ProductIndex = () => {
   // const [customers, setCustomers] = useState([]);
@@ -25,6 +29,25 @@ const ProductIndex = () => {
     }
     fetchData();
   },[]);
+  let navigate = useNavigate();
+
+  const handleEdit = (id)=>{
+    console.log(id);
+    navigate(`/products/${id}/edit`)
+  }
+  const handleDelete = async(id)=>{
+    console.log(id);
+    try{
+      const response = await ProductFinder.delete(`/${id}/delete`);
+      setProductData(productData.filter((product) =>{   
+        return product.product_id !== id      // if the function is true then the element will be included - filter
+      }));
+    }
+    catch(err){
+      console.log(err);
+    }
+};
+  
 
   const columns = [
     { field: "product_id", headerName: "Product ID", flex: 0.5 },
@@ -68,14 +91,24 @@ const ProductIndex = () => {
         flex:0.5,
     },
     {
-        field: "purchasing_price",
+        field: "purchase_price",
         headerName: "Purchsing Price",
         flex:0.5,
+        renderCell: (params) =>          
+          (
+          <Typography color={colors.greenAccent[500]}>
+            Rs {params.row.purchase_price} /-
+          </Typography>)
     },
     {
         field: "selling_price",
         headerName: "Selling Price",
         flex:0.5,
+        renderCell: (params) =>          
+          (
+          <Typography color={colors.blueAccent[500]}>
+            Rs {params.row.selling_price} /-
+          </Typography>)
     },
     {
         field: "cgst",
@@ -92,16 +125,39 @@ const ProductIndex = () => {
         headerName: "Net Price",
         flex:0.5,
         cellClassName: "net_price-column--cell",
+        renderCell: (params) =>          
+          (
+          <Typography color={colors.redAccent[500]}>
+            Rs {params.row.net_price} /-
+          </Typography>)
     },
-    
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      width: 150,
+      flex: 0.5,
+      renderCell: (params) => (
+        <Box display="flex" justifyContent="space-between">
+          <GridActionsCellItem
+            icon={<ModeEditOutlineIcon />}
+            onClick={() => handleEdit(params.id)}
+            label="Edit" />
+          <GridActionsCellItem
+          icon={<DeleteIcon />}
+          onClick={() => handleDelete(params.id)}
+          label="Delete" />
+          
+        </Box>
+      ),
+    },
   ];
 
 
   return (
     <Box m="20px">
       <Header
-        title="Customer Index"
-        subtitle="List of Contacts for Future Reference"
+        title="PRODUCT INDEX"
+        subtitle="List of products for Inventory Reference"
       />
       <Box
         m="40px 0 0 0"
