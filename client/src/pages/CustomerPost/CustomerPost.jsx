@@ -1,24 +1,41 @@
 import {Box, Button , Divider, Text, Typography,useTheme } from "@mui/material";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-
-
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { token } from "../../theme";
-// import "./style.css";
-
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import formatDate from "../../utils/formatDate";
 
 const CustomerPost = () =>{
     const isNonMobile = useMediaQuery("(min-width:600px");
     const theme = useTheme();
     const colors = token(theme.palette.mode);
+    
+    const { customerId } = useParams();
+    const [customerInfo, setCustomerInfo] = useState({});
+
+
+    // fetch customer data using customerId
+    async function fetchCustomer() {
+      const res = await fetch(`/customers/${customerId}/history`);
+      const data = await res.json();
+      
+      if(res.status === 200) {
+        console.log(data.data);
+        setCustomerInfo(data.data)
+      }
+    }
+
+    useEffect(() => {
+      fetchCustomer();
+    }, []);
 
     return (
         <Box m="20px" p="10px">
             <Header title="Customer Details" subtitle="Detailed view of a customer's information." />
 
-            
                     <Box
                         display="grid"
                         gap="30px"
@@ -30,7 +47,7 @@ const CustomerPost = () =>{
 
                           {/* Customer Details  */}
 
-                    <Card
+                        <Card
                           display="grid"
                           mb="30px"
                           sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
@@ -38,10 +55,10 @@ const CustomerPost = () =>{
                             <CardContent>
                                 <Box display="flex" justifyContent="space-between" 
                                     sx= {{ mx : 3}}>
-                                    <Typography variant="h1" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>Mr. Tejas CS</Typography>
+                                    <Typography variant="h1" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>{ customerInfo.designation + " " + customerInfo.name }</Typography>
                                     <Box sx={{ mx : 3 }}>
                                         <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 0 }}>Joined on:</Typography>
-                                        <Typography variant="h3" fontWeight="bold">05 April, 2023</Typography>
+                                        <Typography variant="h3" fontWeight="bold">{ formatDate(customerInfo.joined_on) }</Typography>
                                     </Box>
                                 </Box>
 
@@ -53,12 +70,12 @@ const CustomerPost = () =>{
 
                                     <Box >
                                         <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} >Phone Number: </Typography>
-                                        <Typography variant="h3" fontWeight="bold">+91 78564 34341 </Typography>
+                                        <Typography variant="h3" fontWeight="bold"> { customerInfo.phone } </Typography>
                                     </Box>
 
                                     <Box sx= {{ mx : 2 }}>
                                         <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} >Email ID: </Typography>
-                                        <Typography variant="h3" fontWeight="bold"> tejaschadmale@gmail.com </Typography>
+                                        <Typography variant="h3" fontWeight="bold"> { customerInfo.email } </Typography>
                                     </Box>
 
                                 </Box>
@@ -68,7 +85,7 @@ const CustomerPost = () =>{
                                     
                                     <Box>
                                         <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} >Address: </Typography>
-                                        <Typography variant="h3" fontWeight="bold" style={{ wordWrap: "break-word" }} > chinchin street, chinchin town, <br /> New Zealand - 560046. </Typography>
+                                        <Typography variant="h3" fontWeight="bold" style={{ wordWrap: "break-word" }}> { customerInfo.address } </Typography>
                                     </Box>
 
                                 </Box>
@@ -78,12 +95,12 @@ const CustomerPost = () =>{
 
                                     <Box>
                                         <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} >DOB: </Typography>
-                                        <Typography variant="h3" fontWeight="bold"  >05 April, 2023</Typography>
+                                        <Typography variant="h3" fontWeight="bold">{ formatDate(customerInfo.dob) || "-" }</Typography>
                                     </Box>
 
                                     <Box sx={{ mr : 8 }}>
                                         <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} >Reference ID: </Typography>
-                                        <Typography variant="h3" fontWeight="bold"  >42069</Typography>
+                                        <Typography variant="h3" fontWeight="bold">{ customerInfo.reference_id || "-" }</Typography>
                                     </Box>
 
                                 </Box>
@@ -170,9 +187,6 @@ const CustomerPost = () =>{
                           </Card>
                     </Box>
 
-
-
-
                           <Box
                             display="grid"
                             gap="30px"
@@ -188,7 +202,7 @@ const CustomerPost = () =>{
                                 <Card
                                     display="grid"
                                     gap="50px"
-                                    gridTemplateRows="repeat(3,minmax(0,2fr))"
+                                    gridtemplaterows="repeat(3,minmax(0,2fr))"
                                     sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
                                     backgroundColor: colors.primary[400], boxShadow: 3}}>
                                       <CardContent>
@@ -201,14 +215,10 @@ const CustomerPost = () =>{
                                           <Box>  
                                             {/* generate everything in this container for each prescription  */}
                                           <Divider sx ={{ my : 2 ,  borderBottomWidth: 3 }}/>
-
-
                                                 <Box sx= {{ my : 3 }}>
                                                   <Typography variant="h7" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" > Checked on: </Typography>
-                                                  <Typography variant="h4" fontStyle="" fontWeight="bold" > 24 December, 2022 </Typography>                                             
+                                                  <Typography variant="h4" fontStyle="" fontWeight="bold" > { formatDate(customerInfo?.prescription?.[0]?.test_date) } </Typography>                                             
                                                 </Box>
-
-
 
                                                 <Box display= "flex" justifyContent="space-between"> 
 
@@ -221,17 +231,17 @@ const CustomerPost = () =>{
 
                                                   <Box sx={{ mr: 3 }}>
                                                     <Typography variant="h7" fontStyle="" fontWeight="bold" color={colors.blueAccent[500]}> SPH </Typography>
-                                                    <Typography variant="h1" fontStyle="" fontWeight="bold"> 00 </Typography>
+                                                    <Typography variant="h1" fontStyle="" fontWeight="bold"> { customerInfo?.prescription?.[0]?.lsph } </Typography>
                                                   </Box>
 
                                                   <Box sx={{ mr: 3 }}>
                                                     <Typography variant="h7" fontStyle="" fontWeight="bold" color={colors.blueAccent[500]}> CYL </Typography>
-                                                    <Typography variant="h1" fontStyle="" fontWeight="bold"> 00 </Typography>
+                                                    <Typography variant="h1" fontStyle="" fontWeight="bold"> { customerInfo?.prescription?.[0]?.lcyl } </Typography>
                                                   </Box>
 
                                                   <Box sx={{ mr: 3 }}>
                                                     <Typography variant="h7" fontStyle="" fontWeight="bold" color={colors.blueAccent[500]}> Axis </Typography>
-                                                    <Typography variant="h1" fontStyle="" fontWeight="bold"> 00 </Typography>
+                                                    <Typography variant="h1" fontStyle="" fontWeight="bold"> { customerInfo?.prescription?.[0]?.laxis } </Typography>
                                                   </Box>
 
                                                 </Box>
@@ -246,17 +256,17 @@ const CustomerPost = () =>{
 
                                                   <Box sx={{ mr: 3 }}>
                                                     <Typography variant="h7" fontStyle="" fontWeight="bold" color={colors.blueAccent[500]} > SPH </Typography>
-                                                    <Typography variant="h1" fontStyle="" fontWeight="bold"> 00 </Typography>
+                                                    <Typography variant="h1" fontStyle="" fontWeight="bold"> { customerInfo?.prescription?.[0]?.rsph } </Typography>
                                                   </Box>
 
                                                   <Box sx={{ mr: 3 }}>
                                                     <Typography variant="h7" fontStyle="" fontWeight="bold" color={colors.blueAccent[500]} > CYL </Typography>
-                                                    <Typography variant="h1" fontStyle="" fontWeight="bold"> 00 </Typography>
+                                                    <Typography variant="h1" fontStyle="" fontWeight="bold"> { customerInfo?.prescription?.[0]?.rcyl } </Typography>
                                                   </Box>
 
                                                   <Box sx={{ mr: 3 }}>
                                                     <Typography variant="h7" fontStyle="" fontWeight="bold" color={colors.blueAccent[500]} > Axis </Typography>
-                                                    <Typography variant="h1" fontStyle="" fontWeight="bold"> 00 </Typography>
+                                                    <Typography variant="h1" fontStyle="" fontWeight="bold"> { customerInfo?.prescription?.[0]?.raxis } </Typography>
                                                   </Box>
 
                                                 </Box>
@@ -271,12 +281,12 @@ const CustomerPost = () =>{
                                                 <Box display= "flex">
                                                   <Box sx = {{ mr : 4 }}>
                                                     <Typography variant="h7" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" > PD </Typography>
-                                                    <Typography variant="h1" fontStyle="" fontWeight="bold" > 00 </Typography>                                             
+                                                    <Typography variant="h1" fontStyle="" fontWeight="bold" > { customerInfo?.prescription?.[0]?.pd || "-"} </Typography>                                             
                                                   </Box>
 
                                                   <Box>
                                                     <Typography variant="h7" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" > Addition </Typography>
-                                                    <Typography variant="h1" fontStyle="" fontWeight="bold" > 00 </Typography>                                             
+                                                    <Typography variant="h1" fontStyle="" fontWeight="bold" > { customerInfo?.prescription?.[0]?.addition || "-"} </Typography>                                             
                                                   </Box>
                                                 </Box>
 
@@ -284,7 +294,7 @@ const CustomerPost = () =>{
                                                 </Box>
                                                     <Box>
                                                       <Typography variant="h7" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" > Remarks: </Typography>
-                                                      <Typography variant="h3" fontStyle="" fontWeight="bold" > omae wa mou shindeiru </Typography> 
+                                                      <Typography variant="h3" fontStyle="" fontWeight="bold" > { customerInfo?.prescription?.[0]?.remarks || 'no remarks' } </Typography> 
                                                     </Box>
                                                 </Box>
 
@@ -299,7 +309,7 @@ const CustomerPost = () =>{
                                                             <Card
                                     display="grid"
                                     gap="50px"
-                                    gridTemplateRows="repeat(3,minmax(0,2fr))"
+                                    gridtemplaterows="repeat(3,minmax(0,2fr))"
                                     sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
                                     backgroundColor: colors.primary[400], boxShadow: 3}}>
                                       <CardContent>
@@ -330,18 +340,7 @@ const CustomerPost = () =>{
 
                             </Box>
                             </Box>    
-
-
-
-                      
-                        
-
-
       )
 }
-
-
-
-
 
 export default CustomerPost; 
