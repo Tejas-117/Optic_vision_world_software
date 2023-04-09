@@ -8,9 +8,9 @@ import Footer from "./billcomponents/Footer"
 import ReactToPrint from "react-to-print";
 import Header1 from "./billcomponents/Header1"
 import TableForm from "./billcomponents/TableForm"
-import { useTheme } from "@mui/material";
+import { Typography, useTheme } from "@mui/material";
 import { token } from "../../theme";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Header from "../../components/Header";
 
 function Bill(){
@@ -39,7 +39,7 @@ function Bill(){
   return (
   <Box m="20px">
   <Header title="BILLING INVOICE" subtitle="Create your bill here" />
-  <Box backgroundColor={colors.primary[400]} 
+  <Box backgroundColor={colors.grey[700]} 
     m="100px"
     p="15px"
     >
@@ -105,12 +105,19 @@ function Bill(){
     <input type="text" className="mt-2 bg-gray-100 mb-" name="text" id="address" placeholder="Account number" value={accnumber} onChange={(e) => setaccnumber(e.target.value)} />
     
     </div>
+    <Typography variant="h2" color={colors.greenAccent[400]} fontWeight="bolder" mt="20px">
+      Item Details
+    </Typography>
      <article>
        <TableForm description={description} setdescription={setdescription} quantity={quantity} setquantity={setquantity} price={price} setprice={setprice} amount={amount} setamount={setamount} 
        setList={setList} list={list} total={total}
        setTotal={setTotal}/> 
     </article> 
-    <button onClick={()=> setShowInvoice(true)} className="bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:bg-transparent hover:text-blue-500 transition-all duraction-300">Print here</button>
+    <Box display="flex" justifyContent="start" mt="10px" mr="60px" ml="20px">
+          <Button className="submitButton" type="submit" onClick={()=> setShowInvoice(true)}  color="secondary" variant="contained">
+                    Print here
+          </Button>
+      </Box>
     </>
    )}
    
