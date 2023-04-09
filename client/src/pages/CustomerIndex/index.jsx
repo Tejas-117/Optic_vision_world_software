@@ -4,17 +4,16 @@ import { token } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import CustomerFinder from "../../api/CustomerFinder";
 import { TextField } from "@mui/material"
+import { useNavigate } from "react-router-dom";
 
 const CustomerIndex = () => {
-  // const [customers, setCustomers] = useState([]);
-  
   const theme = useTheme();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredCustomerData, setFilteredCustomerData] = useState([]);
   const colors = token(theme.palette.mode);
   const [customerData, setCustomerData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(()=>{
     const fetchData = async () => {
@@ -130,6 +129,7 @@ const CustomerIndex = () => {
             rows={filteredCustomerData}
             columns={columns}
             getRowId={(customerData) => customerData.customer_id}
+            onRowClick={(row) => navigate(`/customers/${row.id}`)}
             components={{ Toolbar: GridToolbar }} />
         </Box>
       </Box></>

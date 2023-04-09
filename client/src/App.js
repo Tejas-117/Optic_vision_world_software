@@ -104,7 +104,7 @@ function App() {
                     <Addcustomer />
                   </RequireAuth>
                 } />
-                <Route path ="/customers/view" element={
+                <Route path ="/customers/:customerId" element={
                   <RequireAuth>
                     <CustomerPost />
                   </RequireAuth>
