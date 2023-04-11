@@ -55,7 +55,7 @@ const CustomerPost = () =>{
                             <CardContent>
                                 <Box display="flex" justifyContent="space-between" 
                                     sx= {{ mx : 3}}>
-                                    <Typography variant="h1" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>{ customerInfo.designation + " " + customerInfo.name }</Typography>
+                                    <Typography variant="h1" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" sx={{ m: "10px 0 0 0"}}>{ (customerInfo.designation || "") + " " + customerInfo.name }</Typography>
                                     <Box sx={{ mx : 3 }}>
                                         <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 0 }}>Joined on:</Typography>
                                         <Typography variant="h3" fontWeight="bold">{ formatDate(customerInfo.joined_on) }</Typography>
@@ -95,7 +95,7 @@ const CustomerPost = () =>{
 
                                     <Box>
                                         <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} >DOB: </Typography>
-                                        <Typography variant="h3" fontWeight="bold">{ formatDate(customerInfo.dob) || "-" }</Typography>
+                                        <Typography variant="h3" fontWeight="bold">{ customerInfo.dob ? formatDate(customerInfo.dob) : "-" }</Typography>
                                     </Box>
 
                                     <Box sx={{ mr : 8 }}>

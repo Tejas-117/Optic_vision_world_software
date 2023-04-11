@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useNavigate, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Login from "./pages/Login/Login";
 import AddProduct from './pages/AddProduct/AddProduct';
 import EditProduct from './pages/EditProduct/EditProduct';
@@ -22,7 +22,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [theme, colorMode] = useMode();
   const [_,dispatch] = useContext(AppContext);
-  const navigate = useNavigate();
 
   // Authenticate user on each refresh
   async function authenticateUser() {
@@ -31,14 +30,10 @@ function App() {
       credentials: "include"
     });
     const data = await res.json();
-    console.log(data);
-    console.log(res.status);
-
+    
     if(res.status !== 200) {
       // redirect user to login page
       dispatch({ type: "LOGOUT", payload: null });
-      console.log('here');
-      navigate("/login");
     } 
     else {
       // if user is already logged in, save it in context
