@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import "../AddProduct/AddProduct.css"
+import Header from '../../components/Header';
+import { Box, Button , FormControl } from '@mui/material';
+import {useTheme} from "@mui/material";
+import { token } from '../../theme';
 
 function EditProduct() {
    const { productId } = useParams();
    console.log();
+   const theme = useTheme();
+   const colors = token(theme.palette.mode);
    const navigate = useNavigate();
    
    // state to represent form fields
@@ -33,6 +39,7 @@ function EditProduct() {
          headers: {
             "Content-Type": "application/json",
          },
+         credentials: "include",
          body: JSON.stringify(form)
       })
 
@@ -81,11 +88,20 @@ function EditProduct() {
    useEffect(() => fetchProduct, [])
 
    return (
-      <div className='add_product_container'>
-            <h1>Edit Product</h1>
+      <Box m="20px">
+         <Header title="EDIT PRODUCT" subtitle="Modify the product details" />
+      <Box className='add_product_container' mb="20px">
 
-            <form className='add_product_form' action="" onSubmit={editProduct}>
-               <label htmlFor="productCode">Product Code: </label>
+            <form action="" onSubmit={editProduct}>
+               <FormControl  sx={{backgroundColor:colors.blueAccent[800],
+                                   display: "flex",
+                                   flexDirection: "column",
+                                   width: "600px",
+                                   padding: "30px",
+                                   borderRadius: "20px",
+                                   marginBottom: "70px",}}>
+
+               <label htmlFor="productCode" >Product Code: </label>
                <input onChange={handleChange} value={form.product_code} type="text" name="product_code" required />
 
                <label htmlFor="name">Name: </label>
@@ -101,6 +117,7 @@ function EditProduct() {
                <label htmlFor="brand">Brand: </label>
                <input onChange={handleChange} value={form.brand} type="text" name="brand"  />
 
+         
                <label htmlFor="color">Color: </label>
                <input onChange={handleChange} value={form.color} type="text" name="color" />
 
@@ -130,10 +147,15 @@ function EditProduct() {
 
                <label htmlFor="net_price">Net Price: </label>
                <input onChange={(e) => handleChange(e, 'integer')} value={form.net_price.toString()} type="number" name="net_price" required />
-
-               <button>Edit Product</button>
+               <Box display="flex" justifyContent="center" mt="30px">
+                  <Button className="add_product_form button" type="submit" color="secondary" variant="contained" sx={{fontWeight:"bolder",fontSize:"15px"}}>
+                              Edit Product
+                  </Button>
+               </Box>
+               </FormControl>
             </form>      
-      </div>
+      </Box>
+    </Box>
    );
 }
 

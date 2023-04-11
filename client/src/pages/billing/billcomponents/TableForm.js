@@ -1,8 +1,13 @@
 import React, {useState,useEffect} from "react"
 import {v4 as uuidv4} from "uuid"
-import {AiOutlineDelete} from "react-icons/ai"
+import {AiOutlineDelete} from "react-icons/ai";
+import { Card,Box,Button,Typography,useTheme } from "@mui/material";
+import { token
+ } from "../../../theme";
 export default function TableForm({description,setdescription,price,setprice,amount,setamount,quantity,setquantity,list,setList,total,setTotal}){
-  
+    const theme = useTheme();
+    const colors = token(theme.palette.mode);
+
     const handleSubmit=(e)=>{
     e.preventDefault()
     const newItems={
@@ -43,7 +48,14 @@ export default function TableForm({description,setdescription,price,setprice,amo
     setList(list.filter((row) => row.id !== id))}
     return(
         <>
-       <form onSubmit={handleSubmit} >
+     
+
+       <form onSubmit={handleSubmit} style={{marginLeft:"0px"}}  >
+       <Card sx={{m:"30px",
+                backgroundColor:colors.primary[400],
+                p:"17px",
+                borderRadius:"15px",
+                }} >
        <div className="flex flex-col">
        <label htmlFor="description "className="font-bold mt-1">Item description</label>
         <input type="text" name="description" id="description"
@@ -60,35 +72,47 @@ export default function TableForm({description,setdescription,price,setprice,amo
         placeholder="Item price" value={price} onChange={(e) => setprice(e.target.value)} />
        </div>
        <div className="flex flex-col">
-      <label hrmlFor="amount" className="font-bold mt-1 mb-1">Amount </label>
-      <p>{amount}</p>
+      {/* <label hrmlFor="amount" className="font-bold mt-1 mb-1">Amount </label> */}
+      <Typography variant="h5" m="10px" fontStyle='italic' fontWeight="bolder">Amount</Typography>
+      <Typography variant="h3" m="10px 30px" mt="0px">Rs {amount} /-</Typography>
       </div>
-      <button type="submit"  className="mt-1 inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ">Add Item</button>
+      <Box display="flex" justifyContent="start" mt="10px" mr="60px" ml="20px">
+          <Button className="submitButton" type="submit" color="secondary" variant="contained">
+                              Add Item
+          </Button>
+      </Box>
+      </Card>
        </form>
        {/* Table items */}
-       
-       <table width="100%">
-       <thead>
-                    <tr className="bg-gray-50 p-1">
-                        <td className="font-bold">Item description</td>
-                        <td className="font-bold">Quantity</td>
-                        <td className="font-bold">Price</td>
-                        <td className="font-bold">Amount</td>
+
+      <Card sx={{m:"30px",
+                backgroundColor:colors.greenAccent[800],
+                p:"17px",
+                borderRadius:"15px",
+                }} >
+
+       <table width="100%" className="table table-hover table-striped ">
+       <thead >
+                    <tr className="text-white bg-success" >
+                        <th className="h6 font-bold" scope="col">Item description</th>
+                        <th className="h6 font-bold" scope="col">Quantity</th>
+                        <th className="h6 font-bold" scope="col">Price</th>
+                        <th className="h6 font-bold" scope="col">Amount</th>
                     </tr>
 
                 </thead>
         {list.map(({id,description,quantity,price,amount})=>(
-            <>
+          <>
                 
             <React.Fragment key={id}>
             
                 <tbody>
-                    <tr>
-                        <td>{description}</td>
-                        <td>{quantity}</td>
-                        <td>{price}</td>
+                    <tr className="text-white" scope="row">
+                        <td className="text-white">{description}</td>
+                        <td className="text-white" >{quantity}</td>
+                        <td className="text-white">{price}</td>
 
-                        <td className="amount">{amount}</td>
+                        <td className="amount text-warning">{amount}</td>
                         {/* <td><button onClick={() => deleteRow(id)}><AiOutlineDelete className="text-red-500 font-bold text-xl" /></button></td> */}
                     
 
@@ -99,9 +123,10 @@ export default function TableForm({description,setdescription,price,setprice,amo
                 </React.Fragment></>
         ))}
         </table>
+        </Card>
         <div>
-        <h2 className="flex items-end justify-end text-gray-800 text-4xl font-bold">
-           Total ${total.toLocaleString()}
+        <h2 className="flex items-end justify-end text-white-800 text-4xl font-bold">
+           Total:- Rs {total.toLocaleString()} /-
         </h2>
       </div>
        

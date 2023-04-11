@@ -3,25 +3,30 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { token } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import { useEffect, useContext } from "react";
-import { AppContext } from "../../context/ContextProvider";
-import CustomerFinder from "../../api/CustomerFinder";
+import { useEffect, useState } from "react";
+import { TextField } from "@mui/material"
+import { useNavigate } from "react-router-dom";
 
 const CustomerIndex = () => {
-  // const [customers, setCustomers] = useState([]);
   const theme = useTheme();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredCustomerData, setFilteredCustomerData] = useState([]);
   const colors = token(theme.palette.mode);
-  const {customerData, setCustomerData} = useContext(AppContext);
+  const [customerData, setCustomerData] = useState([]);
+  const navigate = useNavigate();
+
   useEffect(()=>{
-    const fetchData = async ()=>{
-      try{
-        const response = await CustomerFinder.get("/");
-        setCustomerData(response.data.data);
+    const fetchData = async () => {
+      const res = await fetch('/customers/', {
+        "credentials": "include"
+      })
+      const { data } = await res.json();
+      
+      if(res.status === 200) {
+        setCustomerData(data)
       }
-      catch (error) {
-        console.log(error.message);
-     }
     }
+    
     fetchData();
   },[]);
 
@@ -68,8 +73,15 @@ const CustomerIndex = () => {
       valueGetter: (params) => new Date(params.value) 
     },
   ];
-
-
+  //filter and search
+  useEffect(() => {
+    const filteredData = customerData.filter((customer) =>
+      customer.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      customer.phone?.includes(searchQuery) ||
+      customer.email?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredCustomerData(filteredData);
+  }, [searchQuery, customerData]);
   return (
     <Box m="10px"
     p = "10px" >
@@ -119,5 +131,6 @@ const CustomerIndex = () => {
     </Box>
   );
 };
+
 
 export default CustomerIndex;

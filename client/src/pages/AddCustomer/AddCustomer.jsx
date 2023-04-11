@@ -24,13 +24,14 @@ const Addcustomer = () => {
       headers: {
         "Content-Type": "application/json"
       },
+      credentials: "include",
       body: JSON.stringify(values),
     })
 
-    const { message } = await res.json();
+    const data = await res.json();
     
     // TODO: display the message from server.
-    setMessage(message);
+    setMessage(data.message);
 
     if(res.status === 200) {
       setTimeout(() => {
@@ -179,8 +180,10 @@ const Addcustomer = () => {
                 label="Entry date"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.dob}
-                name="dob"
+                value={values.entry_date}
+                name="entry_date"
+                error={!!touched.name && !!errors.name}
+                helperText={touched.name && errors.name}
                 sx={{ gridColumn: "span 4" }}
               />
 
@@ -191,13 +194,12 @@ const Addcustomer = () => {
                 label="Reference ID"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.phone}
+                value={values.reference_id}
                 name="phone"
                 error={!!touched.phone && !!errors.phone}
                 helperText={touched.phone && errors.phone} 
                 sx={{ gridColumn: "span 4" }}
-              />
-              
+              />              
 
             </Box>
 
@@ -237,7 +239,8 @@ const initialValues = {
     phone: "",
     address: "",
     dob:"",
-    entry_date: ""
+    entry_date: "",
+    reference_id: ""
 };
   
 export default Addcustomer;

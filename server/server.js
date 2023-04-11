@@ -29,6 +29,7 @@ const sessionOption = {
       httpOnly: true,
       secure: false, // true in production
       maxAge: 1000 * 60 * 60 * 24 // 1 day in milliseconds
+      // maxAge: 1000 * 10
    }
 };
 app.use(session(sessionOption));
