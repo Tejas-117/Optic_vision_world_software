@@ -20,6 +20,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import LogoutIcon from '@mui/icons-material/Logout';
 import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined";
 import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlined";
 import SmsOutlinedIcon from "@mui/icons-material/SmsOutlined";
@@ -36,6 +37,10 @@ import LightModeOutlinedIcon  from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon  from '@mui/icons-material/DarkModeOutlined';
 import PersonOutlinedIcon  from '@mui/icons-material/PersonOutlined';
 import { Link } from "react-router-dom";
+import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
+import RunningWithErrorsIcon from '@mui/icons-material/RunningWithErrors';
+import EventIcon from '@mui/icons-material/Event';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 
 
@@ -282,7 +287,7 @@ export default function MiniDrawer() {
                 {theme.palette.mode === "dark" ?  (<DarkModeOutlinedIcon />) : (<LightModeOutlinedIcon />)}
               </IconButton>
               <IconButton>
-                <PersonOutlinedIcon />
+                <LogoutIcon />
               </IconButton>
             </Box>
 
@@ -583,7 +588,7 @@ export default function MiniDrawer() {
                   </ListItem>
                   </Link>
 
-                  <ListItem key="Products Cheatsheet" disablePadding sx={{ display: 'block'}}>
+                  {/* <ListItem key="Products Cheatsheet" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton
                     sx={{
                       minHeight: 48,
@@ -602,7 +607,7 @@ export default function MiniDrawer() {
                         </ListItemIcon>
                         <ListItemText primary='Products Cheatsheet' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
-                  </ListItem>
+                  </ListItem> */}
                   </List>
 
                   <Divider variant="middle"/>
@@ -640,7 +645,7 @@ export default function MiniDrawer() {
                     </ListItemButton>
                   </ListItem>
 
-                  <ListItem key="Edit SMS" disablePadding sx={{ display: 'block'}}>
+                  {/* <ListItem key="Edit SMS" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton
                     sx={{
                       minHeight: 48,
@@ -659,7 +664,7 @@ export default function MiniDrawer() {
                         </ListItemIcon>
                         <ListItemText primary='Edit SMS' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
-                  </ListItem>
+                  </ListItem> */}
 
                 </List >
 
@@ -736,7 +741,7 @@ export default function MiniDrawer() {
                             justifyContent: 'center',
                           }}
                         >
-                          {<CalendarTodayOutlinedIcon />} 
+                          {<EventIcon />} 
                         </ListItemIcon>
                         <ListItemText primary='Event Calender' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
@@ -758,7 +763,7 @@ export default function MiniDrawer() {
                             justifyContent: 'center',
                           }}
                         >
-                          {<TimelineOutlinedIcon />} 
+                          {<RunningWithErrorsIcon />} 
                         </ListItemIcon>
                         <ListItemText primary='Due Reminders' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
@@ -779,9 +784,30 @@ export default function MiniDrawer() {
                             justifyContent: 'center',
                           }}
                         >
-                          {<TimelineOutlinedIcon />} 
+                          {<DeliveryDiningIcon />} 
                         </ListItemIcon>
                         <ListItemText primary='Delivery Reminders' sx={{ opacity: open ? 1 : 0 }} />
+                    </ListItemButton>
+                  </ListItem>
+
+                  <ListItem key="Check-up Reminders" disablePadding sx={{ display: 'block'}}>
+                    <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                    }}>
+
+                        <ListItemIcon
+                          sx={{
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          {<FavoriteBorderIcon />} 
+                        </ListItemIcon>
+                        <ListItemText primary='Check-up Reminders' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
                   </ListItem>
 
