@@ -170,19 +170,26 @@ const ProductIndex = () => {
 
   return (
     <Box m="20px">
-      <Header
-        title="PRODUCT INDEX"
-        subtitle="List of products for Inventory Reference"
-      />
-    {/* search field */}
-      <TextField
-      label="Search by product_code or name"
-      value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)} /><Box m="20px"></Box>
+
+      <Box display="flex" justifyContent="space-between"> 
+          <Header
+            title="PRODUCT INDEX"
+            subtitle="List of products for Inventory Reference"
+          />
+
+        {/* search field */}
+          <TextField 
+          variant = "outlined" 
+          sx = {{ width : 1/4 }}
+          label="Search by product code or name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)} /> 
+      </Box>
+
 
       <Box
-        m="40px 0 0 0"
-        height="75vh"
+        m="10px 0 0 0"
+        height="70vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
