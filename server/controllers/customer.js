@@ -51,8 +51,6 @@ const getAllCustomers = async (req,res,next) =>{
       console.log(error.message);
       return res.status(500).json({ message: "Internal server error" });
    }
-
-   return res.status(200).json({ data: customers });
 }
 
 // GET a customer based on name, phone, email
