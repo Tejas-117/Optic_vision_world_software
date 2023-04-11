@@ -38,20 +38,18 @@ const addCustomer = async (req, res, next) => {
 }
 
 //GET all customers details
-const getAllCustomers = async (req,res,next) =>{
-   try{
-      const {rows} = await db.query("SELECT * FROM customer");
-      res.status(200).json({ 
-         data: rows,
-         message: "Retrieved all the customer successfully."
-      })
+const getCustomers = async (req, res, next) => {
+   let customers = null;
+
+   try {
+      const { rows } = await db.query(`SELECT * FROM customer`, []);
+      customers = rows;
+   } catch (error) {
+      console.log(error);
+      return res.status(500);
    }
-   catch (err){
-      console.log(err.message);
-      return res.status(500).json({
-         message: "Internal server error"
-      })
-   }
+
+   return res.status(200).json({ data: customers });
 }
 
 // GET a customer based on name, phone, email

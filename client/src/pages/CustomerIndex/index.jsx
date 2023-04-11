@@ -71,14 +71,15 @@ const CustomerIndex = () => {
 
 
   return (
-    <Box m="20px">
+    <Box m="10px"
+    p = "10px" >
       <Header
         title="Customer Index"
         subtitle="List of Contacts for Future Reference"
       />
       <Box
-        m="40px 0 0 0"
-        height="75vh"
+        m="10px 0 0 0"
+        height="73vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",

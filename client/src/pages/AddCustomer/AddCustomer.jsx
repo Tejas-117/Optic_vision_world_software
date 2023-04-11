@@ -1,5 +1,7 @@
 import React,{useContext} from 'react';
-import { Box, Button, Card, TextField } from "@mui/material";
+import { Box, Button, Card, TextField, useTheme } from "@mui/material";
+import CardContent from '@mui/material/CardContent';
+import { boxShadow } from '@mui/system';
 import {Formik, Field} from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -9,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useNavigate } from "react-router-dom";
+import { token } from "../../theme";
 
 const Addcustomer = () => {
   const [message, setMessage] = React.useState("");
@@ -35,12 +38,20 @@ const Addcustomer = () => {
       }, 1500);
     }
   };
+  const theme = useTheme();
+  const colors = token(theme.palette.mode);
 
   return (
     <Box m="20px">
       <Header title="New Customer Entry" subtitle="Create a New Customer Profile" />
 
-      <Formik
+      <Card
+        display="grid"
+        m = "20px"
+        sx = {{backgroundColor : colors.primary[400], boxShadow: 3}}>
+        <CardContent>
+
+        <Formik sx={{ m : 0 }}
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
         validationSchema={checkoutSchema}
@@ -53,8 +64,9 @@ const Addcustomer = () => {
           handleBlur,
           handleSubmit,
         }) => (
-          <form onSubmit={handleSubmit}>
+          <Box onSubmit={handleSubmit} >
             <Box
+              padding="10px"
               display="grid"
               gap="30px"
               gridTemplateColumns="repeat(8 , minmax(0, 1fr))"
@@ -98,7 +110,6 @@ const Addcustomer = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.name}
-                name="name"
                 error={!!touched.name && !!errors.name}
                 helperText={touched.name && errors.name}
                 sx={{ gridColumn: "span 6" }}
@@ -165,13 +176,11 @@ const Addcustomer = () => {
                 fullWidth
                 variant="filled"
                 type="date"
-                label="Entry Date"
+                label="Entry date"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.name}
-                name="Pincode"
-                error={!!touched.name && !!errors.name}
-                helperText={touched.name && errors.name}
+                value={values.dob}
+                name="dob"
                 sx={{ gridColumn: "span 4" }}
               />
 
@@ -191,14 +200,20 @@ const Addcustomer = () => {
               
 
             </Box>
-            <Box display="flex" justifyContent="start" mt="40px">
-                  <Button className="submitButton" type="submit" color="secondary" variant="contained" >
+
+          </Box>
+        )}
+      </Formik>
+        </CardContent>
+      </Card>
+
+      <Box display="flex" justifyContent="start" mt="40px">
+                  <Button sx ={{ m : 0 }} className="submitButton" type="submit" color="secondary" variant="contained" >
                               Create new Customer
                   </Button>
               </Box>
-          </form>
-        )}
-      </Formik>
+
+
     </Box>
   );
 };

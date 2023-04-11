@@ -95,7 +95,7 @@ const PrescriptionForm = () =>{
                               value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)}
                               sx={{m: 2, backgroundColor:colors.primary[400] }}/>
 
-                              <Button className="submitButton" color="secondary" variant="contained" onClick={getCustomerInfo}>
+                              <Button sx={{ ml : 2 }} className="submitButton" color="secondary" variant="contained" onClick={getCustomerInfo}>
                                     Get Customer
                               </Button>
                             </Box>                            
