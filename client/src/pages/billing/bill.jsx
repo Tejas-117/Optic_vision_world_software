@@ -8,9 +8,9 @@ import Footer from "./billcomponents/Footer"
 import ReactToPrint from "react-to-print";
 import Header1 from "./billcomponents/Header1"
 import TableForm from "./billcomponents/TableForm"
-import { Typography, useTheme } from "@mui/material";
+import { CardContent, Typography, useTheme } from "@mui/material";
 import { token } from "../../theme";
-import { Box, Button } from "@mui/material";
+import { Card, Box, Button } from "@mui/material";
 import Header from "../../components/Header";
 
 function Bill(){
@@ -34,45 +34,51 @@ function Bill(){
   const colors = token(theme.palette.mode);
 
   const handelPrint = () =>{
-   window.print()
+    window.print()
   }
   return (
-  <Box m="20px">
+  <Box p="20px">
   <Header title="BILLING INVOICE" subtitle="Create your bill here" />
-  <Box backgroundColor={colors.grey[700]} 
-    m="100px"
-    p="15px"
+  <Card backgroundColor={colors.primary[800]} 
+    m="30px"
+    p="30px"
     >
+
+      <CardContent>
+
+      </CardContent>
+
+    
 
     <main className=" p-5 xl:max-w-10xl xl:mx-auto rounded shadow">
       {showInvoice ?(
         
         <div ref={componentRef} className="p-5">
-     <Header1 handelPrint={handelPrint}/>
-    <MainDetails name={name} address={address}/>
-   <ClientDetails name={name} invoicedate={invoicedate} invoicenumber={invoicenumber} accnumber={accnumber}/>
-   <Dates invoicenumber={invoicenumber} invoicedate={invoicedate} />
-   {/* <Table  />      */}
-   <Some description={description} quantity={quantity} amount={amount} price={price} list={list} setList={setList} />
-    <Notes />
-  
-   <Footer name={name} email={email} address={address} phno={phno} accnumber={accnumber}/>
-   <button onClick={()=> setShowInvoice(false)} className="mt-5 bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:bg-transparent hover:text-blue-500 transition-all duraction-300">Edit here here</button>
-   </div>) :(
-     
-     <>
-    <article className="md:grid grid-cols-2 gap-5">
-    <div className="flex flex-col justify-center">
-      
-      <div className="flex flex-col ">
-      <label htmlFor="name" className="font-bold">Enter your name</label>
-    <input type="text" name="text" className="mt-2 bg-gray-100"id="name" placeholder="Enter your name" value={name} onChange={(e) => setName(e.target.value)} />
-    </div>
-    <div className="flex flex-col">
-    <label htmlFor="name"className="mt-5 font-bold">Enter Phone number</label>
-    <input type="text" name="text"className="mt-2 bg-gray-100" id="address" placeholder="Enter number" value={phno} onChange={(e) => setphno(e.target.value)} />
-    </div>
-   
+            <Header1 handelPrint={handelPrint}/>
+            <MainDetails name={name} address={address}/>
+          <ClientDetails name={name} invoicedate={invoicedate} invoicenumber={invoicenumber} accnumber={accnumber}/>
+          <Dates invoicenumber={invoicenumber} invoicedate={invoicedate} />
+          {/* <Table  />      */}
+          <Some description={description} quantity={quantity} amount={amount} price={price} list={list} setList={setList} />
+            <Notes />
+          
+          <Footer name={name} email={email} address={address} phno={phno} accnumber={accnumber}/>
+          <button onClick={()=> setShowInvoice(false)} className="mt-5 bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:bg-transparent hover:text-blue-500 transition-all duraction-300">Edit here here</button>
+          </div>) :(
+            
+            <>
+            <article className="md:grid grid-cols-2 gap-5">
+            <div className="flex flex-col justify-center">
+              
+              <div className="flex flex-col ">
+              <label htmlFor="name" className="font-bold">Enter your name</label>
+            <input type="text" name="text" className="mt-2 bg-gray-100"id="name" placeholder="Enter your name" value={name} onChange={(e) => setName(e.target.value)} />
+            </div>
+            <div className="flex flex-col">
+            <label htmlFor="name"className="mt-5 font-bold">Enter Phone number</label>
+            <input type="text" name="text"className="mt-2 bg-gray-100" id="address" placeholder="Enter number" value={phno} onChange={(e) => setphno(e.target.value)} />
+            </div>
+          
     </div>
     
   
@@ -108,22 +114,21 @@ function Bill(){
     <Typography variant="h2" color={colors.greenAccent[400]} fontWeight="bolder" mt="20px">
       Item Details
     </Typography>
-     <article>
-       <TableForm description={description} setdescription={setdescription} quantity={quantity} setquantity={setquantity} price={price} setprice={setprice} amount={amount} setamount={setamount} 
-       setList={setList} list={list} total={total}
-       setTotal={setTotal}/> 
-    </article> 
+      <article>
+        <TableForm description={description} setdescription={setdescription} quantity={quantity} setquantity={setquantity} price={price} setprice={setprice} amount={amount} setamount={setamount} 
+        setList={setList} list={list} total={total}
+        setTotal={setTotal}/> 
+      </article> 
     <Box display="flex" justifyContent="start" mt="10px" mr="60px" ml="20px">
           <Button className="submitButton" type="submit" onClick={()=> setShowInvoice(true)}  color="secondary" variant="contained">
                     Print here
           </Button>
       </Box>
     </>
-   )}
-   
-   
+  )}
+
     </main>
- </Box>
+  </Card>
 </Box>
   )
 }

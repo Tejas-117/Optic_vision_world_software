@@ -73,8 +73,6 @@ function AddProduct() {
          <Card 
                display="grid"
                m = "20px"
-               
-               sx = {{backgroundColor : colors.primary[400], boxShadow: 3}}
                >
 
                   <CardContent>
