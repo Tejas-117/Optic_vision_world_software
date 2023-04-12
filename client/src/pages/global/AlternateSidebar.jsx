@@ -624,6 +624,13 @@ export default function MiniDrawer() {
                           sx={{
                             my: open ? 0 : 2
                           }}>
+
+            <Link to="/mail" 
+                style={{
+                color: 'inherit',
+                textDecoration: 'none',
+            }}
+            >
               <ListItem key="Edit Email" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton
                     sx={{
@@ -644,6 +651,7 @@ export default function MiniDrawer() {
                         <ListItemText primary='Edit Mail' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
                   </ListItem>
+            </Link>
 
                   {/* <ListItem key="Edit SMS" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton

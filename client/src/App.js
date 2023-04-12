@@ -16,6 +16,7 @@ import Addcustomer from './pages/AddCustomer/AddCustomer';
 import CustomerPost from './pages/CustomerPost/CustomerPost';
 import { AppContext } from './context/ContextProvider';
 import ProductIndex from './pages/ProductIndex/ProductIndex';
+import MailService from './pages/MailService/MailService';
 import RequireAuth from './utils/RequireAuth';
 
 function App() {
@@ -107,6 +108,12 @@ function App() {
                 <Route path ="/products" element={
                   <RequireAuth>
                     <ProductIndex />
+                  </RequireAuth>
+                } />
+
+                <Route path ="/mail" element={
+                  <RequireAuth>
+                    <MailService />
                   </RequireAuth>
                 } />
                 
