@@ -195,7 +195,7 @@ const Addcustomer = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.reference_id}
-                name="phone"
+                name="reference_id"
                 error={!!touched.phone && !!errors.phone}
                 helperText={touched.phone && errors.phone} 
                 sx={{ gridColumn: "span 4" }}
@@ -210,12 +210,10 @@ const Addcustomer = () => {
       </Card>
 
       <Box display="flex" justifyContent="start" mt="40px">
-                  <Button sx ={{ m : 0 }} className="submitButton" type="submit" color="secondary" variant="contained" >
-                              Create new Customer
-                  </Button>
-              </Box>
-
-
+        <Button sx ={{ m : 0 }} className="submitButton" type="submit" color="secondary" variant="contained" >
+          Create new Customer
+        </Button>
+      </Box>
     </Box>
   );
 };
