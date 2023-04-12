@@ -98,6 +98,7 @@ export default function TableForm({description,setdescription,price,setprice,amo
                         <th className="h6 font-bold" scope="col">Quantity</th>
                         <th className="h6 font-bold" scope="col">Price</th>
                         <th className="h6 font-bold" scope="col">Amount</th>
+                        <th className="h6 font-bold" scope="col">Edit/Delete</th>
                     </tr>
 
                 </thead>
@@ -113,7 +114,7 @@ export default function TableForm({description,setdescription,price,setprice,amo
                         <td className="text-white">{price}</td>
 
                         <td className="amount text-warning">{amount}</td>
-                        {/* <td><button onClick={() => deleteRow(id)}><AiOutlineDelete className="text-red-500 font-bold text-xl" /></button></td> */}
+                        { <td><button onClick={() => deleteRow(id)}><AiOutlineDelete className="text-red-500 font-bold text-xl" /></button></td> }
                     
 
 
