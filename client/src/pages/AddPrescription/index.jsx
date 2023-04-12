@@ -95,10 +95,12 @@ const PrescriptionForm = () =>{
                               <TextField id="customerPhone" label="Phone Number" variant="filled" required
                               value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)}
                               sx={{m: 2, backgroundColor:colors.primary[400] }}/>
+                              <Box display="flex">
+                                <Button sx={{ mx : 2 }} color="secondary" variant="contained" onClick={getCustomerInfo}>
+                                      <b>Get Customer</b>
+                                </Button>
+                              </Box>
 
-                              <Button sx={{ ml : 2 }} className="submitButton" color="secondary" variant="contained" onClick={getCustomerInfo}>
-                                    Get Customer
-                              </Button>
                             </Box>                            
                         </CardContent>
                       </Card>
