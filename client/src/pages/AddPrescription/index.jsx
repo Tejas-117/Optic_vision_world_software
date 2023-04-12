@@ -88,11 +88,11 @@ const PrescriptionForm = () =>{
                             display="grid"
                             gap="30px"
                             gridTemplateColumns="3fr 2fr">
-                              <TextField id="customerName" label="Customer Name" variant="outlined" size="small" required
+                              <TextField id="customerName" label="Customer Name" variant="filled" required
                               value={customerName} onChange={(e) => setCustomerName(e.target.value)} 
                               sx={{m: 2, backgroundColor:colors.primary[400] }}/>
 
-                              <TextField id="customerPhone" label="Phone Number" variant="outlined" size="small" required
+                              <TextField id="customerPhone" label="Phone Number" variant="filled" required
                               value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)}
                               sx={{m: 2, backgroundColor:colors.primary[400] }}/>
 
