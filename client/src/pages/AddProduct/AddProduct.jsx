@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Card, TextField, useTheme } from "@mui/material";
 import CardContent from '@mui/material/CardContent';
-import { Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import './AddProduct.css';
@@ -80,7 +80,7 @@ function AddProduct() {
                      handleBlur,
                      handleSubmit,
                   }) => (
-                     <Box onSubmit={handleSubmit} >
+                     <form onSubmit={handleSubmit} style={{marginLeft:"0px"}} >
                         <Box
                            padding="10px"
                            display="grid"
@@ -329,7 +329,7 @@ function AddProduct() {
                               />  
                            </Box>
                         </Box>
-                     </Box>
+                     </form>
                   )}
                </Formik>
             </CardContent>

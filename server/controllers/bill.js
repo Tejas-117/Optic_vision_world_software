@@ -47,14 +47,18 @@ const addBill = async (req, res, next) => {
             const eachOrderItemList = [];
    
             eachOrderItemList.push(billId);
-            eachOrderItemList.push(orderItem.product_id);
+            eachOrderItemList.push(orderItem.product_code);
+            eachOrderItemList.push(orderItem.product_name);
+            eachOrderItemList.push(orderItem.discount);
             eachOrderItemList.push(orderItem.quantity);
+            eachOrderItemList.push(orderItem.cgst);
+            eachOrderItemList.push(orderItem.sgst);
             eachOrderItemList.push(orderItem.sub_total);
    
             orderItemsList.push(eachOrderItemList);
          });
    
-         const insertOrderItemsQuery = SqlString.format(`INSERT INTO order_item(bill_id, product_id, quantity, sub_total) VALUES ? RETURNING product_id, quantity, sub_total ;`, [orderItemsList]);
+         const insertOrderItemsQuery = SqlString.format(`INSERT INTO order_item(bill_id, product_code, product_name, discount, quantity, cgst, sgst, sub_total) VALUES ? RETURNING product_code, quantity, sub_total`, [orderItemsList]);
          
          queryRes = await db.query(insertOrderItemsQuery);
       }
