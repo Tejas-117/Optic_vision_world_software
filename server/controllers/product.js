@@ -46,7 +46,6 @@ const getProduct = async (req, res, next) => {
 // ADD a new product
 const addProduct = async (req, res, next) => {
    const data = req.body;
-   console.log(data);
 
    const requiredFields = ['product_code', 'purchase_price', 'selling_price', 'cgst', 'sgst', 'net_price', 'name'];
    const missingFields = checkRequiredFields(requiredFields, data);
@@ -59,6 +58,8 @@ const addProduct = async (req, res, next) => {
    }
 
    try {
+      // TODO: avoid adding product with duplciate product_code
+
       await db.query(`
          INSERT INTO product 
          (product_code, category, brand, color, size, model_number, quantity, purchase_price, selling_price, cgst, sgst, net_price, name)
