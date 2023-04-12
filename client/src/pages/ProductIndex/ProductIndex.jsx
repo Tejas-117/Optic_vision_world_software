@@ -10,7 +10,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 
 const ProductIndex = () => {
-  // const [customers, setCustomers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [FilteredProductData, setFilteredProductData] = useState([]);
   const theme = useTheme();

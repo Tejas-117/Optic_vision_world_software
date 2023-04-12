@@ -4,7 +4,6 @@ import { token } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { TextField } from "@mui/material"
 import { useNavigate } from "react-router-dom";
 
 const CustomerIndex = () => {
@@ -122,6 +121,7 @@ const CustomerIndex = () => {
         }}
       >
         <DataGrid
+          onRowClick={(row) => navigate(`/customers/${row.id}`)}
           rows={customerData}
           columns={columns}
           getRowId={(customerData) => customerData.customer_id}
