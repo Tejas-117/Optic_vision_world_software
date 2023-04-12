@@ -76,8 +76,12 @@ CREATE TABLE IF NOT EXISTS bill (
 CREATE TABLE IF NOT EXISTS order_item (
    order_item_id BIGSERIAL PRIMARY KEY,
    bill_id BIGINT REFERENCES bill (bill_id) ON DELETE CASCADE,
-   product_id BIGINT REFERENCES product (product_id) ON DELETE CASCADE,
+   product_code VARCHAR(30) NOT NULL,
+   product_name TEXT NOT NULL,
    quantity INT NOT NULL DEFAULT 1,
+   discount INT DEFAULT 0,
+   cgst INT NOT NULL,
+   sgst INT NOT NULL,
    sub_total INT NOT NULL
 );
 
