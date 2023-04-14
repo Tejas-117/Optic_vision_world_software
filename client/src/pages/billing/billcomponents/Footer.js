@@ -1,24 +1,23 @@
+import React from 'react';
+import { Typography, Box, Divider } from '@mui/material';
+
+
 export default function Footer({name,address,email,phno,accnumber}) {
     return(
-        <footer className="footer border-t-2 border-gray-300 pt-5">
-        <ul className="flex flex-wrap items-center justify-center">
-         <li><span className="font-bold gap-10">name:</span>{name}
-         </li>
-         <li><strong>email:</strong>{email}
-         </li>
-         <li><strong>ph number:</strong>{phno}
-         </li>
-         <li><strong>Bank:</strong>HDFC
-         </li>
-         <li><strong>Account holder:</strong>{name}
-         </li>
-         <li><strong>Account number:</strong>{accnumber}
-         </li>
-         <li><strong>website:</strong>whatever.com
-         </li>
-        </ul>
-     
-     
-         </footer>
+       <>
+       <Divider sx={{ mt: 3, backgroundColor: 'white' }} />
+      <Box sx={{ py: 3, display: 'flex', justifyContent: 'space-between' }}>
+      <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
+        Customer Signature
+      </Typography>
+      <Typography variant="body1" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
+        Thank you, visit again
+      </Typography>
+      <Typography variant="body1" component="div" sx={{ flexGrow: 1, textAlign: 'right' }}>
+        Optic Vision World
+      </Typography>
+      <Divider sx={{ mt: 3, backgroundColor: 'white' }} />
+    </Box>
+       </>
     )
 }

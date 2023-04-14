@@ -6,12 +6,10 @@ import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../../context/ContextProvider";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 
 const ProductIndex = () => {
-  // const [customers, setCustomers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [FilteredProductData, setFilteredProductData] = useState([]);
   const theme = useTheme();
@@ -171,19 +169,26 @@ const ProductIndex = () => {
 
   return (
     <Box m="20px">
-      <Header
-        title="PRODUCT INDEX"
-        subtitle="List of products for Inventory Reference"
-      />
-    {/* search field */}
-      <TextField
-      label="Search by product_code or name"
-      value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)} /><Box m="20px"></Box>
+
+      <Box display="flex" justifyContent="space-between"> 
+          <Header
+            title="PRODUCT INDEX"
+            subtitle="List of products for Inventory Reference"
+          />
+
+        {/* search field */}
+          <TextField 
+          variant = "outlined" 
+          sx = {{ width : 1/4 }}
+          label="Search by product code or name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)} /> 
+      </Box>
+
 
       <Box
-        m="40px 0 0 0"
-        height="75vh"
+        m="10px 0 0 0"
+        height="70vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",

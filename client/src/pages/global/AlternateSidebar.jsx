@@ -20,6 +20,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import LogoutIcon from '@mui/icons-material/Logout';
 import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined";
 import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlined";
 import SmsOutlinedIcon from "@mui/icons-material/SmsOutlined";
@@ -36,10 +37,85 @@ import LightModeOutlinedIcon  from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon  from '@mui/icons-material/DarkModeOutlined';
 import PersonOutlinedIcon  from '@mui/icons-material/PersonOutlined';
 import { Link } from "react-router-dom";
+import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
+import RunningWithErrorsIcon from '@mui/icons-material/RunningWithErrors';
+import EventIcon from '@mui/icons-material/Event';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 
+
+// const drawerWidth = 240;
+
+// const theme = useTheme();
+// const colors = token(theme.palette.mode);
 
 const drawerWidth = 240;
+
+// const openedMixin = (theme) => ({
+//   width: drawerWidth,
+//   // backgroundColor: colors.primary[400],
+//   transition: theme.transitions.create('width', {
+//     easing: theme.transitions.easing.sharp,
+//     duration: theme.transitions.duration.enteringScreen,
+//   }),
+//   overflowX: 'hidden',
+// });
+
+// const closedMixin = (theme) => ({
+//   transition: theme.transitions.create('width', {
+//     easing: theme.transitions.easing.sharp,
+//     duration: theme.transitions.duration.leavingScreen,
+//   }),
+//   overflowX: 'hidden',
+//   width: `calc(${theme.spacing(7)} + 1px)`,
+//   [theme.breakpoints.up('sm')]: {
+//     width: `calc(${theme.spacing(8)} + 1px)`,
+//   },
+// });
+
+// const DrawerHeader = styled('div')(({ theme }) => ({
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'flex-end',
+//   padding: theme.spacing(0, 1),
+//   // necessary for content to be below app bar
+//   ...theme.mixins.toolbar,
+// }));
+
+// const AppBar = styled(MuiAppBar, {
+//   shouldForwardProp: (prop) => prop !== 'open',
+// })(({ theme, open }) => ({
+//   zIndex: theme.zIndex.drawer + 1,
+//   transition: theme.transitions.create(['width', 'margin'], {
+//     easing: theme.transitions.easing.sharp,
+//     duration: theme.transitions.duration.leavingScreen,
+//   }),
+//   ...(open && {
+//     marginLeft: drawerWidth,
+//     width: `calc(100% - ${drawerWidth}px)`,
+//     transition: theme.transitions.create(['width', 'margin'], {
+//       easing: theme.transitions.easing.sharp,
+//       duration: theme.transitions.duration.enteringScreen,
+//     }),
+//   }),
+// }));
+
+// const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+//   ({ theme, open }) => ({
+//     width: drawerWidth,
+//     flexShrink: 0,
+//     whiteSpace: 'nowrap',
+//     boxSizing: 'border-box',
+//     ...(open && {
+//       ...openedMixin(theme),
+//       '& .MuiDrawer-paper': openedMixin(theme),
+//     }),
+//     ...(!open && {
+//       ...closedMixin(theme),
+//       '& .MuiDrawer-paper': closedMixin(theme),
+//     }),
+//   }),
+// );
 
 
 export default function MiniDrawer() {
@@ -211,7 +287,7 @@ export default function MiniDrawer() {
                 {theme.palette.mode === "dark" ?  (<DarkModeOutlinedIcon />) : (<LightModeOutlinedIcon />)}
               </IconButton>
               <IconButton>
-                <PersonOutlinedIcon />
+                <LogoutIcon />
               </IconButton>
             </Box>
 
@@ -512,7 +588,7 @@ export default function MiniDrawer() {
                   </ListItem>
                   </Link>
 
-                  <ListItem key="Products Cheatsheet" disablePadding sx={{ display: 'block'}}>
+                  {/* <ListItem key="Products Cheatsheet" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton
                     sx={{
                       minHeight: 48,
@@ -531,7 +607,7 @@ export default function MiniDrawer() {
                         </ListItemIcon>
                         <ListItemText primary='Products Cheatsheet' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
-                  </ListItem>
+                  </ListItem> */}
                   </List>
 
                   <Divider variant="middle"/>
@@ -548,6 +624,13 @@ export default function MiniDrawer() {
                           sx={{
                             my: open ? 0 : 2
                           }}>
+
+            <Link to="/mail" 
+                style={{
+                color: 'inherit',
+                textDecoration: 'none',
+            }}
+            >
               <ListItem key="Edit Email" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton
                     sx={{
@@ -568,8 +651,9 @@ export default function MiniDrawer() {
                         <ListItemText primary='Edit Mail' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
                   </ListItem>
+            </Link>
 
-                  <ListItem key="Edit SMS" disablePadding sx={{ display: 'block'}}>
+                  {/* <ListItem key="Edit SMS" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton
                     sx={{
                       minHeight: 48,
@@ -588,7 +672,7 @@ export default function MiniDrawer() {
                         </ListItemIcon>
                         <ListItemText primary='Edit SMS' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
-                  </ListItem>
+                  </ListItem> */}
 
                 </List >
 
@@ -665,7 +749,7 @@ export default function MiniDrawer() {
                             justifyContent: 'center',
                           }}
                         >
-                          {<CalendarTodayOutlinedIcon />} 
+                          {<EventIcon />} 
                         </ListItemIcon>
                         <ListItemText primary='Event Calender' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
@@ -687,7 +771,7 @@ export default function MiniDrawer() {
                             justifyContent: 'center',
                           }}
                         >
-                          {<TimelineOutlinedIcon />} 
+                          {<RunningWithErrorsIcon />} 
                         </ListItemIcon>
                         <ListItemText primary='Due Reminders' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
@@ -708,9 +792,30 @@ export default function MiniDrawer() {
                             justifyContent: 'center',
                           }}
                         >
-                          {<TimelineOutlinedIcon />} 
+                          {<DeliveryDiningIcon />} 
                         </ListItemIcon>
                         <ListItemText primary='Delivery Reminders' sx={{ opacity: open ? 1 : 0 }} />
+                    </ListItemButton>
+                  </ListItem>
+
+                  <ListItem key="Check-up Reminders" disablePadding sx={{ display: 'block'}}>
+                    <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                    }}>
+
+                        <ListItemIcon
+                          sx={{
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          {<FavoriteBorderIcon />} 
+                        </ListItemIcon>
+                        <ListItemText primary='Check-up Reminders' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
                   </ListItem>
 

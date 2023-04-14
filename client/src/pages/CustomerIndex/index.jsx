@@ -4,7 +4,6 @@ import { token } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { TextField } from "@mui/material"
 import { useNavigate } from "react-router-dom";
 
 const CustomerIndex = () => {
@@ -83,56 +82,53 @@ const CustomerIndex = () => {
     setFilteredCustomerData(filteredData);
   }, [searchQuery, customerData]);
   return (
-    
-  <><Box m="20px">
-       
-        <Header
-          title="Customer Index"
-          subtitle="List of Contacts for Future Reference" />
-           <TextField
-      label="Search by Customer name phone"
-      value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)} /><Box m="20px"></Box>
-        <Box
-          m="40px 0 0 0"
-          height="75vh"
-          sx={{
-            "& .MuiDataGrid-root": {
-              border: "none",
-            },
-            "& .MuiDataGrid-cell": {
-              borderBottom: "none",
-            },
-            "& .name-column--cell": {
-              color: colors.greenAccent[300],
-            },
-            "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: colors.blueAccent[700],
-              borderBottom: "none",
-            },
-            "& .MuiDataGrid-virtualScroller": {
-              backgroundColor: colors.primary[400],
-            },
-            "& .MuiDataGrid-footerContainer": {
-              borderTop: "none",
-              backgroundColor: colors.blueAccent[700],
-            },
-            "& .MuiCheckbox-root": {
-              color: `${colors.greenAccent[200]} !important`,
-            },
-            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-              color: `${colors.grey[100]} !important`,
-            },
-          }}
-        >
-          <DataGrid
-            rows={filteredCustomerData}
-            columns={columns}
-            getRowId={(customerData) => customerData.customer_id}
-            onRowClick={(row) => navigate(`/customers/${row.id}`)}
-            components={{ Toolbar: GridToolbar }} />
-        </Box>
-      </Box></>
+    <Box m="10px"
+    p = "10px" >
+      <Header
+        title="Customer Index"
+        subtitle="List of Contacts for Future Reference"
+      />
+      <Box
+        m="10px 0 0 0"
+        height="73vh"
+        sx={{
+          "& .MuiDataGrid-root": {
+            border: "none",
+          },
+          "& .MuiDataGrid-cell": {
+            borderBottom: "none",
+          },
+          "& .name-column--cell": {
+            color: colors.greenAccent[300],
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: colors.blueAccent[700],
+            borderBottom: "none",
+          },
+          "& .MuiDataGrid-virtualScroller": {
+            backgroundColor: colors.primary[400],
+          },
+          "& .MuiDataGrid-footerContainer": {
+            borderTop: "none",
+            backgroundColor: colors.blueAccent[700],
+          },
+          "& .MuiCheckbox-root": {
+            color: `${colors.greenAccent[200]} !important`,
+          },
+          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+            color: `${colors.grey[100]} !important`,
+          },
+        }}
+      >
+        <DataGrid
+          onRowClick={(row) => navigate(`/customers/${row.id}`)}
+          rows={customerData}
+          columns={columns}
+          getRowId={(customerData) => customerData.customer_id}
+          components={{ Toolbar: GridToolbar }}
+        />
+      </Box>
+    </Box>
   );
 };
 
