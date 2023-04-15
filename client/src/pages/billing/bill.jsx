@@ -94,7 +94,7 @@ function Bill(){
         <TextField 
           fullWidth
           variant="filled"
-          type="text"
+          type="email"
           label="Email"
           value = {email}
           onChange={(e) => setemail(e.target.value)}
@@ -148,11 +148,11 @@ function Bill(){
 
     </Card>
 
-            <article>
+    <article>
                 <TableForm description={description} setdescription={setdescription} quantity={quantity} setquantity={setquantity} price={price} setprice={setprice} amount={amount} setamount={setamount} 
                 setList={setList} list={list} total={total}
                 setTotal={setTotal}/> 
-            </article> 
+    </article> 
 
 
 
@@ -163,81 +163,80 @@ function Bill(){
       
         <div ref={componentRef} className="p-5">
      <Header1 handelPrint={handelPrint}/>
-    <MainDetails name={name} address={address}/>
+    <ClientDetails name={name} address={address}/>
    <ClientDetails name={name} invoicedate={invoicedate} invoicenumber={invoicenumber} accnumber={accnumber}/>
    <Dates invoicenumber={invoicenumber} invoicedate={invoicedate} />
    {/* <Table  />      */}
    <Some description={description} quantity={quantity} amount={amount} price={price} list={list} setList={setList} />
-    <Notes />
   
    <Footer name={name} email={email} address={address} phno={phno} accnumber={accnumber}/>
    <button onClick={()=> setShowInvoice(false)} className="mt-5 bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:bg-transparent hover:text-blue-500 transition-all duraction-300">Edit here here</button>
-   </div>) :(
+   </div>
+   </>) :
      
-     <>
-    <article className="md:grid grid-cols-2 gap-5">
-    <div className="flex flex-col justify-center">
+    //  <>
+    // <article className="md:grid grid-cols-2 gap-5">
+    // <div className="flex flex-col justify-center">
       
-      <div className="flex flex-col ">
-      <label htmlFor="name" className="font-bold">Enter your name</label>
-    <input type="text" name="text" className="mt-2 bg-gray-100"id="name" placeholder="Enter your name" value={name} onChange={(e) => setName(e.target.value)} />
-    </div>
-    <div className="flex flex-col">
-    <label htmlFor="name"className="mt-5 font-bold">Enter Phone number</label>
-    <input type="text" name="text"className="mt-2 bg-gray-100" id="address" placeholder="Enter number" value={phno} onChange={(e) => setphno(e.target.value)} />
-    </div>
+    //   <div className="flex flex-col ">
+    //   <label htmlFor="name" className="font-bold">Enter your name</label>
+    // <input type="text" name="text" className="mt-2 bg-gray-100"id="name" placeholder="Enter your name" value={name} onChange={(e) => setName(e.target.value)} />
+    // </div>
+    // <div className="flex flex-col">
+    // <label htmlFor="name"className="mt-5 font-bold">Enter Phone number</label>
+    // <input type="text" name="text"className="mt-2 bg-gray-100" id="address" placeholder="Enter number" value={phno} onChange={(e) => setphno(e.target.value)} />
+    // </div>
    
-    </div>
+    // </div>
     
   
     
-    <div className="flex flex-col justify-center">
+    // <div className="flex flex-col justify-center">
   
-    <div className="flex flex-col">
-    <label htmlFor="name"className="font-bold">Enter Billing address</label>
-    <input type="text" className="mt-2 bg-gray-100" name="text" id="address" placeholder="Enter address" value={address} onChange={(e) => setAddress(e.target.value)} />
-    </div>
-    <div className="flex flex-col">
-    <label htmlFor="name"className="mt-5 font-bold">Enter email id</label>
-    <input type="text" name="text" className="mt-2 bg-gray-100" id="address" placeholder="Enter email" value={email} onChange={(e) => setemail(e.target.value)} />
-    </div>
+    // <div className="flex flex-col">
+    // <label htmlFor="name"className="font-bold">Enter Billing address</label>
+    // <input type="text" className="mt-2 bg-gray-100" name="text" id="address" placeholder="Enter address" value={address} onChange={(e) => setAddress(e.target.value)} />
+    // </div>
+    // <div className="flex flex-col">
+    // <label htmlFor="name"className="mt-5 font-bold">Enter email id</label>
+    // <input type="text" name="text" className="mt-2 bg-gray-100" id="address" placeholder="Enter email" value={email} onChange={(e) => setemail(e.target.value)} />
+    // </div>
     
 
-    </div>
-    </article>
+    // </div>
+    // </article>
     
-    <div className="flex flex-col justify-center">
-    <label htmlFor="name"className="mt-5 font-bold">Invoice Date</label>
-    <input type="date" className="mt-2 bg-gray-100" name="date" id="address" placeholder="Invoice date" value={invoicedate} onChange={(e) => setinvoicedate(e.target.value)} />
-    </div>
-    <div className="flex flex-col justify-center">
-    <label htmlFor="name"className="mt-5 font-bold">Invoice Number</label>
-    <input type="text" className="mt-2 bg-gray-100" name="text" id="address" placeholder="Invoice Number" value={invoicenumber} onChange={(e) => setinvoicenumber(e.target.value)} />
-    </div>
-    <div className="flex flex-col justify-center">
-    <label htmlFor="name"className="mt-5 font-bold">Account Number</label>
-    <input type="text" className="mt-2 bg-gray-100 mb-" name="text" id="address" placeholder="Account number" value={accnumber} onChange={(e) => setaccnumber(e.target.value)} />
+    // <div className="flex flex-col justify-center">
+    // <label htmlFor="name"className="mt-5 font-bold">Invoice Date</label>
+    // <input type="date" className="mt-2 bg-gray-100" name="date" id="address" placeholder="Invoice date" value={invoicedate} onChange={(e) => setinvoicedate(e.target.value)} />
+    // </div>
+    // <div className="flex flex-col justify-center">
+    // <label htmlFor="name"className="mt-5 font-bold">Invoice Number</label>
+    // <input type="text" className="mt-2 bg-gray-100" name="text" id="address" placeholder="Invoice Number" value={invoicenumber} onChange={(e) => setinvoicenumber(e.target.value)} />
+    // </div>
+    // <div className="flex flex-col justify-center">
+    // <label htmlFor="name"className="mt-5 font-bold">Account Number</label>
+    // <input type="text" className="mt-2 bg-gray-100 mb-" name="text" id="address" placeholder="Account number" value={accnumber} onChange={(e) => setaccnumber(e.target.value)} />
     
-    </div>
-    <Typography variant="h2" color={colors.greenAccent[400]} fontWeight="bolder" mt="20px">
-      Item Details
-    </Typography> */}
-      {/* <article>
-        <TableForm description={description} setdescription={setdescription} quantity={quantity} setquantity={setquantity} price={price} setprice={setprice} amount={amount} setamount={setamount} 
-        setList={setList} list={list} total={total}
-        setTotal={setTotal}/> 
-      </article>  */}
-    <Box display="flex" justifyContent="start" >
-          <Button className="submitButton" type="submit" onClick={()=> setShowInvoice(true)}  color="secondary" variant="contained">
-                    Print Bill
-          </Button>
-      </Box>
-    </>
-  )}
+    // </div>
+    // <Typography variant="h2" color={colors.greenAccent[400]} fontWeight="bolder" mt="20px">
+    //   Item Details
+    // </Typography> 
+    (
+       <><article>
+              <TableForm description={description} setdescription={setdescription} quantity={quantity} setquantity={setquantity} price={price} setprice={setprice} amount={amount} setamount={setamount}
+                setList={setList} list={list} total={total}
+                setTotal={setTotal} />
+            </article><Box display="flex" justifyContent="start">
+                <Button className="submitButton" type="submit" onClick={() => setShowInvoice(true)} color="secondary" variant="contained">
+                  Print Bill
+                </Button>
+              </Box></>
+       )}
 
     </main>
+      </Box>
   
-</Box>
-  )
+)
 }
 export default Bill;

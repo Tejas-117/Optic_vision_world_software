@@ -2,8 +2,7 @@ import React, {useState,useEffect} from "react"
 import {v4 as uuidv4} from "uuid"
 import {AiOutlineDelete} from "react-icons/ai";
 import { Card,Box,Button,TextField,Typography,useTheme, CardContent } from "@mui/material";
-import { token
- } from "../../../theme";
+import { token} from "../../../theme";
 export default function TableForm({description,setdescription,price,setprice,amount,setamount,quantity,setquantity,list,setList,total,setTotal}){
     const theme = useTheme();
     const colors = token(theme.palette.mode);
@@ -11,16 +10,17 @@ export default function TableForm({description,setdescription,price,setprice,amo
     const handleSubmit=(e)=>{
     e.preventDefault()
     const newItems={
-        id:uuidv4(),
+      id:uuidv4(),
          description,
           quantity,
          price,
          amount,
     }
-    setdescription("")
-    setquantity("")
-    setprice("")
-    setamount("")
+    console.log(list);
+    setdescription(description)
+    setquantity(quantity)
+    setprice(price)
+    setamount(amount)
     setList([...list,newItems])
   }
   useEffect(() => {
@@ -78,9 +78,9 @@ export default function TableForm({description,setdescription,price,setprice,amo
                 variant="filled"
                 type="text"
                 label="Product Name"
-                // value = {address}
-                // id ="address"
-                // onChange={(e) => setAddress(e.target.value)}
+                value = {description}
+                id ="description"
+                onChange={(e) => setdescription(e.target.value)}
                 sx = {{ gridcolumn : "span 1"}}
                 />
 
@@ -229,13 +229,14 @@ export default function TableForm({description,setdescription,price,setprice,amo
                 </React.Fragment></>
         ))}
         </table>
+     </CardContent>
         </Card>
         <div>
         <h2 className="flex items-end justify-end text-white-800 text-4xl font-bold">
            Total:- Rs {total.toLocaleString()} /-
         </h2>
       </div>
-       
+
         </>
     )
 }
