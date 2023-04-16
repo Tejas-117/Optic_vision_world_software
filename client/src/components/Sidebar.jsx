@@ -2,7 +2,7 @@
 import InputBase from '@mui/material/InputBase';
 import React, { useContext } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import { ColorModeContext,token } from '../../theme';
+import { ColorModeContext,token } from '../theme';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -381,7 +381,7 @@ export default function MiniDrawer() {
                 >
                   {<PeopleOutlinedIcon />} 
                 </ListItemIcon>
-                <ListItemText primary='Customer Index' sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary='Customer' sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
           </Link>
@@ -554,7 +554,7 @@ export default function MiniDrawer() {
                         >
                           {<Inventory2OutlinedIcon />} 
                         </ListItemIcon>
-                        <ListItemText primary='Product Index' sx={{ opacity: open ? 1 : 0 }} />
+                        <ListItemText primary='Product' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
                   </ListItem>
                   </Link>

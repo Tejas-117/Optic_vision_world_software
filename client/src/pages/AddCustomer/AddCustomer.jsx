@@ -2,7 +2,7 @@ import React,{useContext} from 'react';
 import { Box, Button, Card, TextField, useTheme } from "@mui/material";
 import CardContent from '@mui/material/CardContent';
 import { boxShadow } from '@mui/system';
-import {Formik, Field} from "formik";
+import {Formik, Field, Form } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
@@ -19,6 +19,7 @@ const Addcustomer = () => {
   const navigate = useNavigate();
 
   async function handleFormSubmit(values) {
+    console.log("Form submitted");
     const res = await fetch(`/customers/add`, {
       method: "POST",
       headers: {
@@ -29,7 +30,8 @@ const Addcustomer = () => {
     })
 
     const data = await res.json();
-    
+    console.log(data);
+
     // TODO: display the message from server.
     setMessage(data.message);
 
@@ -53,10 +55,10 @@ const Addcustomer = () => {
         <CardContent>
 
         <Formik sx={{ m : 0 }}
-        onSubmit={handleFormSubmit}
-        initialValues={initialValues}
-        validationSchema={checkoutSchema}
-      >
+          onSubmit={handleFormSubmit}
+          initialValues={initialValues}
+          validationSchema={checkoutSchema}
+        >
         {({
           values,
           errors,
@@ -65,7 +67,7 @@ const Addcustomer = () => {
           handleBlur,
           handleSubmit,
         }) => (
-          <Box onSubmit={handleSubmit} >
+          <Form>
             <Box
               padding="10px"
               display="grid"
@@ -111,6 +113,7 @@ const Addcustomer = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.name}
+                name="name"
                 error={!!touched.name && !!errors.name}
                 helperText={touched.name && errors.name}
                 sx={{ gridColumn: "span 6" }}
@@ -203,17 +206,19 @@ const Addcustomer = () => {
 
             </Box>
 
-          </Box>
+            <Box display="flex" justifyContent="start" mt="40px">
+              <Button sx ={{ m : 0 }} className="submitButton" type="submit" color="secondary" variant="contained" >
+                Create new Customer
+              </Button>
+            </Box>
+
+          </Form>
         )}
       </Formik>
         </CardContent>
       </Card>
 
-      <Box display="flex" justifyContent="start" mt="40px">
-        <Button sx ={{ m : 0 }} className="submitButton" type="submit" color="secondary" variant="contained" >
-          Create new Customer
-        </Button>
-      </Box>
+      
     </Box>
   );
 };

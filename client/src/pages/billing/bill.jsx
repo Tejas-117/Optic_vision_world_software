@@ -1,11 +1,8 @@
 import { useState,useRef,useEffect } from "react"
 import ClientDetails from "./billcomponents/ClientDetails"
-
 import Dates from "./billcomponents/Dates"
-
 import Some from "./billcomponents/Some"
 import Footer from "./billcomponents/Footer"
-import ReactToPrint from "react-to-print";
 import Header1 from "./billcomponents/Header1"
 import TableForm from "./billcomponents/TableForm"
 import { CardContent, TextField, Typography, useTheme } from "@mui/material";
@@ -13,8 +10,6 @@ import { token } from "../../theme";
 import { Card, Box, Button } from "@mui/material";
 import Header from "../../components/Header";
 import CssBaseline from '@mui/material/CssBaseline';
-
-import Container from '@mui/material/Container';
 
 
 function Bill(){
