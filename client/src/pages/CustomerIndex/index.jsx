@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import formatDate from "../../utils/formatDate";
 
 const CustomerIndex = () => {
   const theme = useTheme();
@@ -69,7 +70,7 @@ const CustomerIndex = () => {
       field: "entry_date",
       headerName: "Entry Date",
       flex: 1,
-      valueGetter: (params) => new Date(params.value) 
+      valueGetter: (params) => formatDate(params.value)
     },
   ];
   //filter and search

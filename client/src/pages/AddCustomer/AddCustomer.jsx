@@ -1,8 +1,7 @@
-import React,{useContext} from 'react';
+import { useContext, useState } from 'react';
 import { Box, Button, Card, TextField, useTheme } from "@mui/material";
 import CardContent from '@mui/material/CardContent';
-import { boxShadow } from '@mui/system';
-import {Formik, Field, Form } from "formik";
+import {Formik, Form } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
@@ -12,14 +11,18 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useNavigate } from "react-router-dom";
 import { token } from "../../theme";
+import Loader from '../../components/Loader/Loader';
 
 const Addcustomer = () => {
-  const [message, setMessage] = React.useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
 
+  // Submit the form data to API
   async function handleFormSubmit(values) {
-    console.log("Form submitted");
+    setIsLoading(true);
+
     const res = await fetch(`/customers/add`, {
       method: "POST",
       headers: {
@@ -31,14 +34,14 @@ const Addcustomer = () => {
 
     const data = await res.json();
     console.log(data);
-
-    // TODO: display the message from server.
+    
+    setIsLoading(false);
     setMessage(data.message);
 
     if(res.status === 200) {
       setTimeout(() => {
         navigate("/customers");        
-      }, 1500);
+      }, 2500);
     }
   };
   const theme = useTheme();
@@ -210,6 +213,10 @@ const Addcustomer = () => {
               <Button sx ={{ m : 0 }} className="submitButton" type="submit" color="secondary" variant="contained" >
                 Create new Customer
               </Button>
+
+                {/* TODO: Style it properly */}
+                { isLoading && <Loader /> }
+                <Box display="grid" mt="20px">{message}</Box>
             </Box>
 
           </Form>

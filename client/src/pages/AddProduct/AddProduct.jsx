@@ -10,6 +10,9 @@ import Select from '@mui/material/Select';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
+import { useState } from "react";
+import Loader from "../../components/Loader/Loader";
+import { useNavigate } from "react-router-dom";
 
 function AddProduct() {
    const initialValues = {
@@ -29,9 +32,14 @@ function AddProduct() {
    };
    const theme = useTheme();
    const colors = token(theme.palette.mode);
+   const [isLoading, setIsLoading] = useState(false);
+   const [message, setMessage] = useState("");
+   const navigate = useNavigate();
    
    // function to sumbit form data to the API
-   async function handleFormSubmit(values) {      
+   async function handleFormSubmit(values) { 
+      setIsLoading(true);
+      
       const res = await fetch(`/products/add`, {
          method: 'POST',
          headers: {
@@ -40,9 +48,16 @@ function AddProduct() {
          credentials: "include",
          body: JSON.stringify(values)
       });
-
+      
       const data = await res.json();
-      console.log(data);
+      setMessage(data.message);
+
+      // if the product was successfully added, redirect the user
+      if(res.status === 200) {
+         setTimeout(() => navigate("/products"), 2500);
+      }
+
+      setIsLoading(false);
    }
    
    // all fields: product_code, name, category(id), brand, color, size, model_number, quantity, purchase_price, selling_price, cgst, sgst, net_price
@@ -323,7 +338,12 @@ function AddProduct() {
                            <Button sx ={{ m : 0 }} className="submitButton" type="submit" color="secondary" variant="contained" >
                               Add Product
                            </Button>
+
+                           {/* TODO: Style it properly */}
+                           { isLoading && <Loader /> }
+                           <Box display="grid" mt="20px">{message}</Box>
                         </Box>
+
 
                      </Form>
                   )}
