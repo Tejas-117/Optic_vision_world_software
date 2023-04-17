@@ -277,7 +277,7 @@ export default function TableForm({productName, setProductName, productPrice,set
                         <td className="text-white">{productPrice}</td>
 
                         <td className="amount text-warning">{amount}</td>
-                        {/* <td><button onClick={() => deleteRow(id)}><AiOutlineDelete className="text-red-500 font-bold text-xl" /></button></td> */}
+                        <td><button onClick={() => deleteRow(id)}><AiOutlineDelete className="text-red-500 font-bold text-xl" /></button></td> 
                     
 
 
@@ -292,7 +292,7 @@ export default function TableForm({productName, setProductName, productPrice,set
         <div>
           
         <h2 className="flex items-end justify-end text-white-800 text-4xl font-bold">
-           Total:- Rs {total.toLocaleString()} /-
+           Total:- Rs {total} /-
         </h2>
       </div>
 

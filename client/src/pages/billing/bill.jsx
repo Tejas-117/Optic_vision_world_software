@@ -1,11 +1,8 @@
 import { useState,useRef,useEffect } from "react"
 import ClientDetails from "./billcomponents/ClientDetails"
-
 import Dates from "./billcomponents/Dates"
-
 import Some from "./billcomponents/Some"
 import Footer from "./billcomponents/Footer"
-import ReactToPrint from "react-to-print";
 import Header1 from "./billcomponents/Header1"
 import TableForm from "./billcomponents/TableForm"
 import { CardContent, TextField, Typography, useTheme } from "@mui/material";
@@ -13,8 +10,6 @@ import { token } from "../../theme";
 import { Card, Box, Button } from "@mui/material";
 import Header from "../../components/Header";
 import CssBaseline from '@mui/material/CssBaseline';
-
-import Container from '@mui/material/Container';
 
 
 function Bill(){
@@ -68,45 +63,43 @@ function Bill(){
     window.print()
   }
   return (
-  <Box p="20px">
-  <Header title="BILLING INVOICE" subtitle="Create your bill here" />
-  <Card sx = {{backgroundColor : colors.primary[400], m : 3 , }} 
-    p="30px"
-    >
-
-      <CardContent>
-
-        
-        <Box 
-        padding="10px"
-        display="grid"
-        gridTemplateColumns="1fr 1fr"
-        gap="30px"
+        <Box p="20px">
+        <Header title="BILLING INVOICE" subtitle="Create your bill here" />
+        <Card sx={{ backgroundColor: colors.primary[400], m: 3, }}
+          p="30px"
         >
 
-            <Typography variant="h4" color={colors.greenAccent[400]} fontWeight="bolder" sx = {{ gridColumn : "span 2" }} > Enter Customer details here</Typography>
+          <CardContent>
 
-          <TextField 
-          fullWidth
-          variant="filled"
-          type="text"
-          label="Name"
-          value = {name}
-          id ="name"
-          onChange={(e) => setName(e.target.value)}
-          sx = {{ gridcolumn : "span 1"}}
-          />
 
-        <TextField 
-          fullWidth
-          variant="filled"
-          type="text"
-          label="Billing Address"
-          value = {address}
-          id ="address"
-          onChange={(e) => setAddress(e.target.value)}
-          sx = {{ gridcolumn : "span 1"}}
-          />
+            <Box
+              padding="10px"
+              display="grid"
+              gridTemplateColumns="1fr 1fr"
+              gap="30px"
+            >
+
+              <Typography variant="h4" color={colors.greenAccent[400]} fontWeight="bolder" sx={{ gridColumn: "span 2" }}> Enter Customer details here</Typography>
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Name"
+                value={name}
+                id="name"
+                onChange={(e) => setName(e.target.value)}
+                sx={{ gridcolumn: "span 1" }} />
+
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Billing Address"
+                value={address}
+                id="address"
+                onChange={(e) => setAddress(e.target.value)}
+                sx={{ gridcolumn: "span 1" }} />
 
         <TextField 
           fullWidth
@@ -118,63 +111,58 @@ function Bill(){
           sx = {{ gridcolumn : "span 1"}}
           />
 
-        <TextField 
-          fullWidth
-          variant="filled"
-          type="email"
-          label="Email"
-          value = {email}
-          onChange={(e) => setemail(e.target.value)}
-          sx = {{ gridcolumn : "span 1"}}
-          />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="email"
+                label="Email"
+                value={email}
+                onChange={(e) => setemail(e.target.value)}
+                sx={{ gridcolumn: "span 1" }} />
 
-        <TextField 
-          fullWidth
-          variant="filled"
-          type="date"
-          label="Invoice date"
-          value = {invoicedate}
-          onChange={(e) => setinvoicedate(e.target.value)}
-          sx = {{ gridcolumn : "span 1"}}
-          />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="date"
+                label="Invoice date"
+                value={invoicedate}
+                onChange={(e) => setinvoicedate(e.target.value)}
+                sx={{ gridcolumn: "span 1" }} />
 
-        <TextField 
-          fullWidth
-          variant="filled"
-          type="text"
-          label="Invoice number"
-          value = {invoicenumber}
-          onChange={(e) => setinvoicenumber(e.target.value)}
-          sx = {{ gridcolumn : "span 1"}}
-          />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Invoice number"
+                value={invoicenumber}
+                onChange={(e) => setinvoicenumber(e.target.value)}
+                sx={{ gridcolumn: "span 1" }} />
 
-        <TextField 
-          fullWidth
-          variant="filled"
-          type="text"
-          label="Account number"
-          value = {accnumber}
-          onChange={(e) => setaccnumber(e.target.value)}
-          sx = {{ gridcolumn : "span 1"}}
-          />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Account number"
+                value={accnumber}
+                onChange={(e) => setaccnumber(e.target.value)}
+                sx={{ gridcolumn: "span 1" }} />
 
-        <TextField 
-          fullWidth
-          variant="filled"
-          type="text"
-          label="Account number"
-          value = {accnumber}
-          onChange={(e) => setaccnumber(e.target.value)}
-          sx = {{ gridcolumn : "span 1"}}
-          />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Account number"
+                value={accnumber}
+                onChange={(e) => setaccnumber(e.target.value)}
+                sx={{ gridcolumn: "span 1" }} />
 
 
-          
-        </Box>
-      </CardContent>
 
-    </Card>
+            </Box>
+          </CardContent>
 
+        </Card>
+   
     <article>
                 <TableForm productName = {productName} setProductName={setProductName} productPrice={productPrice} setProductPrice={setProductPrice} productCGST={productCGST} setProductCGST={setProductCGST} productSGST={productSGST} setProductSGST={setProductSGST} total={total} setTotal={setTotal} discount={discount} setDiscount={setDiscount} amount={amount} setamount={setamount}
                  quantity = {quantity} setquantity={setquantity}
@@ -206,11 +194,11 @@ function Bill(){
                   Print Bill
                 </Button>
               </Box></>
-       )}
+          )}
 
-    </main>
-      </Box>
+      </main>
+      
   
-)
+  </Box>)
 }
 export default Bill;

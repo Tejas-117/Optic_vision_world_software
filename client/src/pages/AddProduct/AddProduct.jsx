@@ -1,7 +1,6 @@
-import React from 'react';
 import { Box, Button, Card, TextField, useTheme } from "@mui/material";
 import CardContent from '@mui/material/CardContent';
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import './AddProduct.css';
@@ -11,6 +10,9 @@ import Select from '@mui/material/Select';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
+import { useState } from "react";
+import Loader from "../../components/Loader/Loader";
+import { useNavigate } from "react-router-dom";
 
 function AddProduct() {
    const initialValues = {
@@ -30,34 +32,37 @@ function AddProduct() {
    };
    const theme = useTheme();
    const colors = token(theme.palette.mode);
-
-   // handle any change in form field
-   // function handleChange(e, type = 'string') {
-   //    setForm({ ...form, [e.target.name]: (type === 'string') ?  e.target.value : parseInt(e.target.value) || 0 });
-   // }
+   const [isLoading, setIsLoading] = useState(false);
+   const [message, setMessage] = useState("");
+   const navigate = useNavigate();
    
    // function to sumbit form data to the API
-   async function handleFormSubmit(e) {
-      console.log(e);
-      console.log("Hello there!!");
-      // e.preventDefault();
+   async function handleFormSubmit(values) { 
+      setIsLoading(true);
       
-      // const res = await fetch(`/products/add`, {
-      //    method: 'POST',
-      //    headers: {
-      //       "Content-Type": "application/json",
-      //    },
-      //    credentials: "include",
-      //    body: JSON.stringify(initialValues)
-      // });
+      const res = await fetch(`/products/add`, {
+         method: 'POST',
+         headers: {
+            "Content-Type": "application/json",
+         },
+         credentials: "include",
+         body: JSON.stringify(values)
+      });
+      
+      const data = await res.json();
+      setMessage(data.message);
 
-      // const data = await res.json();
-      // console.log(data);
+      // if the product was successfully added, redirect the user
+      if(res.status === 200) {
+         setTimeout(() => navigate("/products"), 2500);
+      }
+
+      setIsLoading(false);
    }
    
    // all fields: product_code, name, category(id), brand, color, size, model_number, quantity, purchase_price, selling_price, cgst, sgst, net_price
-
    // required fields: product_code, name, purchase_price, selling_price, cgst, sgst, net_price
+
    return (
       <Box p = "20px">
          <Header title="ADD PRODUCT" subtitle="Enter the details of the product" />
@@ -69,9 +74,10 @@ function AddProduct() {
          >
             <CardContent>
                <Formik
-               initialValues={initialValues}
-               sx={{ m : 0 }}
-               onSubmit={handleFormSubmit}>
+                  initialValues={initialValues}
+                  sx={{ m : 0 }}
+                  onSubmit={handleFormSubmit}
+               >
                   {({
                      values,
                      errors,
@@ -80,7 +86,7 @@ function AddProduct() {
                      handleBlur,
                      handleSubmit,
                   }) => (
-                     <form onSubmit={handleSubmit} style={{marginLeft:"0px"}} >
+                     <Form>
                         <Box
                            padding="10px"
                            display="grid"
@@ -154,11 +160,11 @@ function AddProduct() {
                               <TextField
                                  fullWidth
                                  variant="filled"
-                                 type="text"
+                                 type="number"
                                  label="Model Number"
                                  onBlur={handleBlur}
                                  onChange={handleChange}
-                                 value={values.model_number}
+                                 value={values.model_number.toString()}
                                  name="model_number"
                                  // error={!!touched.name && !!errors.name}
                                  // helperText={touched.name && errors.name}
@@ -212,11 +218,9 @@ function AddProduct() {
                                  type="number"
                                  label="Size"
                                  onBlur={handleBlur}
-                                 onChange={(e) => handleChange(e, 'integer')}
+                                 onChange={handleChange}
                                  value={values.size.toString()}
                                  name="size"
-                                 multiline
-                                 maxRows={4}
                                  // error={!!touched.address && !!errors.address}
                                  // helperText={touched.address && errors.address}
                                  sx={{ gridColumn: "span 1" }}
@@ -254,7 +258,7 @@ function AddProduct() {
                                  type="number"
                                  label="CGST"
                                  onBlur={handleBlur}
-                                 onChange={(e) => handleChange(e, 'integer')}
+                                 onChange={handleChange}
                                  value={values.cgst.toString()}
                                  name="cgst"
                                  // error={!!touched.phone && !!errors.phone}
@@ -268,7 +272,7 @@ function AddProduct() {
                                  type="number"
                                  label="SGST"
                                  onBlur={handleBlur}
-                                 onChange={(e) => handleChange(e, 'integer')}
+                                 onChange={handleChange}
                                  value={values.sgst.toString()}
                                  name="sgst"
                                  // error={!!touched.phone && !!errors.phone}
@@ -291,7 +295,7 @@ function AddProduct() {
                                  type="number"
                                  label="Purchase Price"
                                  onBlur={handleBlur}
-                                 onChange={(e) => handleChange(e, 'integer')}
+                                 onChange={handleChange}
                                  value={values.purchase_price.toString()}
                                  name="purchase_price"
                                  // error={!!touched.phone && !!errors.phone}
@@ -305,7 +309,7 @@ function AddProduct() {
                                  type="number"
                                  label="Selling Price"
                                  onBlur={handleBlur}
-                                 onChange={(e) => handleChange(e, 'integer')}
+                                 onChange={handleChange}
                                  value={values.selling_price.toString()}
                                  name="selling_price"
                                  // error={!!touched.phone && !!errors.phone}
@@ -320,8 +324,8 @@ function AddProduct() {
                                  type="number"
                                  label="Net Price"
                                  onBlur={handleBlur}
-                                 onChange={(e) => handleChange(e, 'integer')}
-                                 value={values.net_price.toString()}
+                                 onChange={handleChange}
+                                 value={values.net_price}
                                  name="net_price"
                                  // error={!!touched.phone && !!errors.phone}
                                  // helperText={touched.phone && errors.phone} 
@@ -329,85 +333,23 @@ function AddProduct() {
                               />  
                            </Box>
                         </Box>
-                     </form>
+
+                        <Box display="grid" mt="20px">
+                           <Button sx ={{ m : 0 }} className="submitButton" type="submit" color="secondary" variant="contained" >
+                              Add Product
+                           </Button>
+
+                           {/* TODO: Style it properly */}
+                           { isLoading && <Loader /> }
+                           <Box display="grid" mt="20px">{message}</Box>
+                        </Box>
+
+
+                     </Form>
                   )}
                </Formik>
             </CardContent>
-         </Card>
-
-         <Box display="grid" mt="20px">
-            <Button sx ={{ m : 0 }} className="submitButton" type="submit" color="secondary" variant="contained" >
-               Add Product
-            </Button>
-         </Box>
-
-
-
-      {/* <Box className='add_product_container' mb="20px">
-
-            <form action="" onSubmit={addProduct}>
-               <FormControl  sx={{backgroundColor:colors.blueAccent[800],
-                                 display: "flex",
-                                 flexDirection: "column",
-                                 width: "600px",
-                                 padding: "30px",
-                                 borderRadius: "20px",
-                                 marginBottom: "70px",}}>
-
-               <label htmlFor="productCode" >Product Code: </label>
-               <input onChange={handleChange} value={form.product_code} type="text" name="product_code" required />
-
-               <label htmlFor="name">Name: </label>
-               <input onChange={handleChange} value={form.name} type="text" name="name" required />
-
-               <label htmlFor="category">Category: </label>
-               <select onChange={handleChange} value={form.category} name="category" required>
-                  <option value="1">Category one</option>
-                  <option value="2">Category two</option>
-                  <option value="3">Category three</option>
-               </select>
-
-               <label htmlFor="brand">Brand: </label>
-               <input onChange={handleChange} value={form.brand} type="text" name="brand"  />
-
-               <label htmlFor="color">Color: </label>
-               <input onChange={handleChange} value={form.color} type="text" name="color" />
-
-
-               <label htmlFor="size">Size: </label>
-               <input onChange={(e) => handleChange(e, 'integer')} value={form.size.toString()} type="number" name="size" />
-
-               <label htmlFor="model_number">Model Number: </label>
-               <input onChange={handleChange} value={form.model_number} type="text" name="model_number" />
-
-               
-               <label htmlFor="quantity">Quantity: </label>
-               <input onChange={handleChange} value={form.quantity} type="text" name="quantity" />
-
-
-               <label htmlFor="purchase_price">Purchase Price: </label>
-               <input onChange={(e) => handleChange(e, 'integer')} value={form.purchase_price.toString()} type="number" name="purchase_price" required />
-
-               <label htmlFor="selling_price">Selling Price: </label>
-               <input onChange={(e) => handleChange(e, 'integer')} value={form.selling_price.toString()} type="number" name="selling_price" required />
-
-               <label htmlFor="cgst">CGST: </label>
-               <input onChange={(e) => handleChange(e, 'integer')} value={form.cgst.toString()} type="number" name="cgst" required />
-
-               <label htmlFor="sgst">SGST: </label>
-               <input onChange={(e) => handleChange(e, 'integer')} value={form.sgst.toString()} type="number" name="sgst" required />
-
-               <label htmlFor="net_price">Net Price: </label>
-               <input onChange={(e) => handleChange(e, 'integer')} value={form.net_price.toString()} type="number" name="net_price" required />
-               <Box display="flex" justifyContent="center" mt="30px">
-                  <Button className="add_product_form button" type="submit" color="secondary" variant="contained" sx={{fontWeight:"bolder",fontSize:"15px"}}>
-                     ADD Product
-                  </Button>
-               </Box>
-               </FormControl>
-            </form>       
-       </Box> */}
-      
+         </Card>      
       </Box>
    );
 }

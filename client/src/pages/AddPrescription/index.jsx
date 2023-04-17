@@ -1,16 +1,14 @@
-import {Box, Button , Text, Typography,useTheme } from "@mui/material";
+import {Box, Button , Typography, useTheme } from "@mui/material";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import {Formik, Field} from "formik";
-import { boxShadow } from '@mui/system';
-import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { token } from "../../theme";
 import "./style.css";
 import { useState } from "react";
+import Loader from "../../components/Loader/Loader";
 
 //SPH - Decimal - -25 to 25(0.25)
 //CYL - Decimal - -6 to 6(0.25)
@@ -29,28 +27,38 @@ const PrescriptionForm = () =>{
     const [customerName, setCustomerName] = useState("");
     const [customerPhone, setCustomerPhone] = useState("");
     const [customer, setCustomer] = useState({});
-    const [message, setMessage] = useState("");
 
-  // TODO: display message in UI
+    const [customerMessage, setCustomerMessage] = useState("");
+    const [message, setMessage] = useState("");
+    const [isLoading, setIsLoading] = useState("");
 
     // get customer info
     async function getCustomerInfo() {
+      setIsLoading(true);
+      setCustomerMessage("");
+
       const res = await fetch(`/customers/customer?name=${customerName}&phone=${customerPhone}`);
       const data = await res.json();
       
       console.log(data);
-
-      setMessage(data.message);
+      setCustomerMessage(data.message);
 
       if(res.status === 200) {
         setCustomer(data.data);
         setCustomerName(data.data.name);
         setCustomerPhone(data.data.phone);
+
+        // setTimeout(() => setCustomerMessage(""), 2000);
       }
+
+      setIsLoading(false);
     }
 
     // submit the data to the API
     async function handleFormSubmit (values) {
+      setIsLoading(true);
+      setMessage("");
+      
       const res = await fetch(`/prescriptions/${customer.customer_id}/add`, {
         method: "POST",
         headers: {
@@ -59,11 +67,16 @@ const PrescriptionForm = () =>{
         credentials: "include",
         body: JSON.stringify(values)
       })
-
+      
       const data = await res.json();
-
       console.log(data);
+      
       setMessage(data.message)
+      setIsLoading(false);
+
+      if(res.status === 200) {
+        // redirect user to billing page...
+      }
     };
 
     return (
@@ -97,8 +110,11 @@ const PrescriptionForm = () =>{
                               sx={{m: 2, backgroundColor:colors.primary[400] }}/>
                               <Box display="flex">
                                 <Button sx={{ mx : 2 }} color="secondary" variant="contained" onClick={getCustomerInfo}>
-                                      <b>Get Customer</b>
+                                    <b>Get Customer</b>
                                 </Button>
+
+                                {/* TODO: Add styling */}
+                                {customerMessage}
                               </Box>
 
                             </Box>                            
@@ -322,8 +338,12 @@ const PrescriptionForm = () =>{
                       
                       <Box display="flex" justifyContent="start" mt="30px">
                         <Button className="submitButton" type="submit" color="secondary" variant="contained">
-                              Add Prescription
+                          Add Prescription
                         </Button>
+
+                        {/* TODO: Style it properly */}
+                        { isLoading && <Loader /> }
+                        <Box display="grid" mt="20px">{message}</Box>
                       </Box>
                     </form>)}
             </Formik>

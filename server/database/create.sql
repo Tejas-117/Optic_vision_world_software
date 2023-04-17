@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS customer (
    customer_id BIGSERIAL PRIMARY KEY,
    name VARCHAR(50) NOT NULL,
-   designation VARCHAR(5),
+   designation VARCHAR(10),
    address TEXT,
    phone TEXT NOT NULL,
    email VARCHAR(30),

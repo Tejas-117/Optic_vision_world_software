@@ -3,13 +3,11 @@ import { Routes, Route } from 'react-router-dom';
 import Login from "./pages/Login/Login";
 import AddProduct from './pages/AddProduct/AddProduct';
 import EditProduct from './pages/EditProduct/EditProduct';
-import Topbar from './pages/global/Topbar';
 import Calendar from './pages/Calendar';
 import Bill from './pages/billing/bill';
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import PrescriptionForm from './pages/AddPrescription';
-import AlternateSidebar from './pages/global/AlternateSidebar';
 import CustomerIndex from './pages/CustomerIndex';
 import Invoices from './pages/Invoices';
 import Addcustomer from './pages/AddCustomer/AddCustomer';
@@ -18,6 +16,8 @@ import { AppContext } from './context/ContextProvider';
 import ProductIndex from './pages/ProductIndex/ProductIndex';
 import MailService from './pages/MailService/MailService';
 import RequireAuth from './utils/RequireAuth';
+import Topbar from './components/Topbar';
+import Sidebar from './components/Sidebar';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -51,7 +51,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className={theme.palette.mode === "dark" ? 'app-dark-mode' : 'app-light-mode'} >
-          <AlternateSidebar />
+          <Sidebar />
             <main className='content'>
               <Topbar />
 

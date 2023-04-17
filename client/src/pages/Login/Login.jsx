@@ -3,27 +3,38 @@ import logo from '../../assets/LOGO.svg';
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/ContextProvider";
+import { Box, Button, Card, TextField, useTheme } from "@mui/material";
+import CardContent from '@mui/material/CardContent';
+import Header from '../../components/Header'; 
+import Typography from '@mui/material/Typography';
+import { token } from '../../theme';
+import { Form , Formik } from "formik";   
+
 
 function Login() {
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [state, dispatch] = useContext(AppContext);
     const navigate = useNavigate();
+    const theme = useTheme();
+    const colors = token(theme.palette.mode);
 
-    async function handleSubmit(e) {
-        e.preventDefault();
+    const initialValues = {
+        name: "",
+        password: ""
+    }
+
+    async function handleFormSubmit(values) {
         setMessage('');
+        console.log(values);
 
         const res = await fetch(`/admin/login`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ name: userName, password })
+            body: JSON.stringify(values)
         });
         const data = await res.json();
-        console.log(data);
         setMessage(data.message);
 
         if(res.status === 200) {
@@ -37,15 +48,83 @@ function Login() {
     }
 
     return (
-        <div className="container-fluid" style={{height: 100+'vh'}}>
-            <div className="row">
-                <div className="col-sm-3">
+        <Box height="100vh" display="flex" justifyContent="center" alignItems="center">
+
+            <Card display="flex" width="100" sx={{ p : 3, backgroundColor : colors.primary[400], boxShadow: 3,  borderRadius: '10px'}}>
+                <CardContent>
+
+        
+                    <Header title="Welcome Back !" subtitle="Enter your login details to continue with your work..." />
+
+                        <Formik 
+                            onSubmit={handleFormSubmit} 
+                            initialValues={initialValues}
+                        >
+                        {({
+                        values,
+                        errors,
+                        touched,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        }) => (
+                            <Form 
+
+                            style={{marginLeft: '0px'}}
+                            >
+
+                                <Box                             
+                                display="flex" 
+                                flexDirection="column" 
+                                gap="30px">
+                                    <TextField
+                                        fullWidth
+                                        variant="filled"
+                                        required
+                                        type="text"
+                                        label="Admin Email"
+                                        value={values.name}
+                                        name="name"
+                                        onChange={handleChange}
+                                    />  
+
+                                    <TextField
+                                        fullWidth
+                                        variant="filled"
+                                        required
+                                        type="password"
+                                        label="Password"
+                                        value={values.password}
+                                        name="password"
+                                        onChange={handleChange}
+                                    />
+
+                                    <Button sx ={{ m : 0 , width : 1 }} 
+                                    display="flex" type="submit" name="submitAll" color="secondary" variant="contained" >
+                                        Login
+                                    </Button>
+
+                                    { message && <Typography display="flex" paragraph={true} justifyContent="center"
+                                    sx={{m : 0 }}
+                                    // className="d-flex flex-row justify-content-center py-2 ovw-text-color-2 "
+                                    >{message}
+                                    </Typography>}
+                                </Box>
+                            </Form>
+                        )}
+                        </Formik>            
+                </CardContent>
+            </Card>
+
+
+            {/* <div className="row"> */}
+                {/* <div className="col-sm-3">
                     <div className="d-flex pb-2 m-4 mb-2 h5 border-bottom border-3 ovw-text-color-3 ">
                         Administration & Management Services </div>
                     <div className="d-flex mx-4 mb-2" style={{width: 200 +'px'}}><img className="img-fluid" src={logo} alt=""/></div>
-                </div>
+                </div> */}
 
-                <div className="col-sm-6 align-items-center jutify-content-center" style={{height: 100+'vh'}}>
+                {/* <div className="col-sm-6 align-items-center jutify-content-center" style={{height: 100+'vh'}}>
                     <div className="d-flex flex-column align-items-center justify-content-center" style={{height: 100+'vh'}} > 
                         <form className="d-flex flex-column ovw-bg-color-0 p-5   rounded-4 shadow" onSubmit={handleSubmit}>
                             <h1 className="h2 ovw-text-color-3">Welcome back !</h1>
@@ -87,8 +166,8 @@ function Login() {
                     </div>
                 </div>
                 <div className="col-sm-3"></div>
-            </div>
-        </div>
+            </div> */}
+        </Box>
     );
 }
 

@@ -1,8 +1,6 @@
-// import * as React from 'react';
-import InputBase from '@mui/material/InputBase';
-import React, { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import { ColorModeContext,token } from '../../theme';
+import { ColorModeContext,token } from '../theme';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -21,27 +19,23 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import LogoutIcon from '@mui/icons-material/Logout';
-import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined";
 import AlternateEmailOutlinedIcon from "@mui/icons-material/AlternateEmailOutlined";
-import SmsOutlinedIcon from "@mui/icons-material/SmsOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import CssBaseline from '@mui/material/CssBaseline';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import SearchIcon  from '@mui/icons-material/Search';
 import LightModeOutlinedIcon  from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon  from '@mui/icons-material/DarkModeOutlined';
-import PersonOutlinedIcon  from '@mui/icons-material/PersonOutlined';
 import { Link } from "react-router-dom";
 import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
 import RunningWithErrorsIcon from '@mui/icons-material/RunningWithErrors';
 import EventIcon from '@mui/icons-material/Event';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-
+import { AppContext } from "../context/ContextProvider";
+import logo from "../assets/LOGO.svg"
 
 
 // const drawerWidth = 240;
@@ -122,7 +116,8 @@ export default function MiniDrawer() {
   const theme = useTheme();
   const colors = token(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [_, dispatch] = useContext(AppContext);
 
   const openedMixin = (theme) => ({
     width: drawerWidth,
@@ -203,6 +198,10 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
+  const logoutUser = () => {
+    dispatch({ type:"LOGOUT", payload: null })
+  }
+
   return (
     <Box display="flex"
     sx = {{
@@ -248,51 +247,43 @@ export default function MiniDrawer() {
         }}>
 
           <Box display="flex">
+            <IconButton
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              color={colors.primary[400]}
+              sx={{
+                marginRight: 5,
+                ...(open && { display: 'none' }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
 
-          <IconButton
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            color={colors.primary[400]}
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-
-
-        <Typography variant="h5" display="flex" alignItems="center" noWrap component="div" color={colors.grey[100]}>
+            <img src={logo} style={{width: 200 +'px'}}/>
+            {/* <Typography variant="h5" display="flex" alignItems="center" noWrap component="div" color={colors.grey[100]}>
               Optic Vision World 
-            </Typography>
-
-
+            </Typography> */}
           </Box>
 
-
-
-
-            <Box display="flex" 
-                backgroundColor = {colors.primary[800]} 
-                borderRadius ="3px">
-              <InputBase sx = {{ml: 2 , flex: 1 }} placeholder = "Search" />
-                <IconButton type='button' sx={{p:1}}>
-                  <SearchIcon />
-                </IconButton>
-            </Box>
-
-            <Box display= "flex">
-              <IconButton onClick={colorMode.toggleColorMode}>
-                {theme.palette.mode === "dark" ?  (<DarkModeOutlinedIcon />) : (<LightModeOutlinedIcon />)}
+          {/* <Box display="flex" 
+              backgroundColor = {colors.primary[800]} 
+              borderRadius ="3px">
+            <InputBase sx = {{ml: 2 , flex: 1 }} placeholder = "Search" />
+              <IconButton type='button' sx={{p:1}}>
+                <SearchIcon />
               </IconButton>
-              <IconButton>
-                <LogoutIcon />
-              </IconButton>
-            </Box>
+          </Box> */}
 
+          <Box display= "flex">
+            <IconButton onClick={colorMode.toggleColorMode}>
+              {theme.palette.mode === "dark" ?  (<DarkModeOutlinedIcon />) : (<LightModeOutlinedIcon />)}
+            </IconButton>
+            <IconButton onClick={logoutUser}>
+              <LogoutIcon />
+            </IconButton>
+          </Box>
         </Box>
-
       </AppBar>
 
             {/* Side drawer*/}
@@ -381,7 +372,7 @@ export default function MiniDrawer() {
                 >
                   {<PeopleOutlinedIcon />} 
                 </ListItemIcon>
-                <ListItemText primary='Customer Index' sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary='Customers' sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
           </Link>
@@ -554,7 +545,7 @@ export default function MiniDrawer() {
                         >
                           {<Inventory2OutlinedIcon />} 
                         </ListItemIcon>
-                        <ListItemText primary='Product Index' sx={{ opacity: open ? 1 : 0 }} />
+                        <ListItemText primary='Products' sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
                   </ListItem>
                   </Link>
