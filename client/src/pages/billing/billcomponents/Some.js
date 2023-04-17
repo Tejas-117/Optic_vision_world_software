@@ -3,7 +3,8 @@ import {AiOutlineDelete} from "react-icons/ai";
 import { Card,Box,Button,Typography,useTheme } from "@mui/material";
 import { token
 } from "../../../theme";
-export default function Some({list,total}) {
+
+export default function Some({list,total,productName,quantity,productPrice, setList}) {
     const theme = useTheme();
     const colors = token(theme.palette.mode);
     return(
@@ -25,16 +26,16 @@ export default function Some({list,total}) {
                     </tr>
 
                 </thead>
-        {list.map(({id,description,quantity,price,amount})=>(
+        {list.map(({id,productName,quantity,productPrice,amount})=>(
           <>
                 
             <React.Fragment key={id}>
             
                 <tbody>
                     <tr className="text-white" scope="row">
-                        <td className="text-white">{description}</td>
+                        <td className="text-white">{productName}</td>
                         <td className="text-white" >{quantity}</td>
-                        <td className="text-white">{price}</td>
+                        <td className="text-white">{productPrice}</td>
 
                         <td className="amount text-warning">{amount}</td>
                         {/* { <td><button onClick={() => deleteRow(id)}><AiOutlineDelete className="text-red-500 font-bold text-xl" /></button></td> } */}

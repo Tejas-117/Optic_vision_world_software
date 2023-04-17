@@ -3,47 +3,106 @@ import {v4 as uuidv4} from "uuid"
 import {AiOutlineDelete} from "react-icons/ai";
 import { Card,Box,Button,TextField,Typography,useTheme, CardContent } from "@mui/material";
 import { token} from "../../../theme";
-export default function TableForm({description,setdescription,price,setprice,amount,setamount,quantity,setquantity,list,setList,total,setTotal}){
+
+export default function TableForm({productName, setProductName, productPrice,setProductPrice, productCGST,setProductCGST,productSGST,setProductSGST,total,setTotal,discount,setDiscount, amount,setamount,quantity,setquantity,list,setList}){
     const theme = useTheme();
     const colors = token(theme.palette.mode);
-
+    
     const handleSubmit=(e)=>{
     e.preventDefault()
     const newItems={
       id:uuidv4(),
-         description,
+         productName,
           quantity,
-         price,
+         productPrice,
          amount,
     }
-    console.log(list);
-    setdescription(description)
+    setProductName(productName);
+    setProductPrice(productPrice);
     setquantity(quantity)
-    setprice(price)
     setamount(amount)
-    setList([...list,newItems])
+    setList([...list,newItems]);
+    
+  
   }
-  useEffect(() => {
-    const calc = (amount) => {
-      setamount(quantity * price)
+ // console.log(list);
+
+    useEffect(() => { const calc = (amount) => {
+      // Calculate total discount
+      const total_discount = productPrice * (discount / 100);
+      console.log(total_discount);
+
+       // Calculate discounted selling price
+       const discounted_selling_price = productPrice - total_discount;
+
+       // Calculate CGST amount
+       const cgst_amount = discounted_selling_price * (productCGST / 100);
+
+       // Calculate SGST amount
+       const sgst_amount = discounted_selling_price * (productSGST / 100);
+
+       // Calculate total price
+       const total_price = quantity * (discounted_selling_price + cgst_amount + sgst_amount);
+      setamount(total_price.toFixed(2))
+      console.log(amount);
     }
 
     calc(amount)
-  }, [amount, price, quantity, setamount])
+
+  }, [amount, productPrice,quantity,productCGST,productSGST,discount,setamount])
+  
+    
 
   // Calculate total amount of items in table
-  useEffect(() => {
-    let rows = document.querySelectorAll(".amount")
-    let sum = 0
+ 
+  
+    useEffect(()=>{
+      const rows = document.querySelectorAll(".amount");
+      let sum = 0;
+      console.log(rows)
+  
+      for (let i = 0; i < rows.length; i++) {
+        if (rows[i].classList.contains("text-warning")) {
+          const val = parseInt(rows[i].innerHTML);
+          sum += isNaN(val) ? 0 : val;
+        }
+      }
+      console.log("SUM",sum);
+  
+      if (sum !== total) {
+        setTotal(sum);
+    }
+    console.log("Totl",total);
+  },[list])
+  
 
-    for (let i = 0; i < rows.length; i++) {
-      if (rows[i].className === "amount") {
-        sum += isNaN(rows[i].innerHTML) ? 0 : parseInt(rows[i].innerHTML)
-        setTotal(sum)
+  
+  //Searching for product based on id
+  const getProduct = async (id)=>{
+    try{
+      
+      const res = await fetch(`/products/${id}`);
+      const data = await res.json();
+      
+      console.log(data);
+
+      if(res.status === 200) {
+        setProductName(data.data.name);
+        setProductPrice(data.data.selling_price);
+        setProductCGST(data.data.cgst);
+        setProductSGST(data.data.sgst);
+ 
+       
       }
     }
-  })
-   
+    catch(err){
+      console.log(err);
+    }
+    }
+
+
+  
+
    const deleteRow = (id) =>{ 
     setList(list.filter((row) => row.id !== id))}
     return(
@@ -67,9 +126,8 @@ export default function TableForm({description,setdescription,price,setprice,amo
                 variant="filled"
                 type="text"
                 label="Product ID"
-                // value = {name}
-                // id ="name"
-                // onChange={(e) => setName(e.target.value)}
+                value={null}
+                onChange={(e) => getProduct(e.target.value)}
                 sx = {{ gridcolumn : "span 1"}}
                 />
 
@@ -78,9 +136,9 @@ export default function TableForm({description,setdescription,price,setprice,amo
                 variant="filled"
                 type="text"
                 label="Product Name"
-                value = {description}
                 id ="description"
-                onChange={(e) => setdescription(e.target.value)}
+                value={productName}
+                onChange={(e) => setProductName(e.target.value)}
                 sx = {{ gridcolumn : "span 1"}}
                 />
 
@@ -101,8 +159,8 @@ export default function TableForm({description,setdescription,price,setprice,amo
                 type="text"
                 label="Price"
                 id ="price"
-                value = {price}
-                onChange={(e) => setprice(e.target.value)}
+                value={productPrice}
+                onChange={(e) => setProductPrice(e.target.value)}
                 sx = {{ gridcolumn : "span 4"}}
                 />
 
@@ -116,9 +174,9 @@ export default function TableForm({description,setdescription,price,setprice,amo
                       variant="filled"
                       type="text"
                       label="CGST"
-                      id ="quantity"
-                      // value = {quantity}
-                      // onChange={(e) => setquantity(e.target.value)}
+                      id ="cgst"
+                      value={productCGST}
+                      onChange={(e) => setProductCGST(e.target.value)}
                       sx = {{ gridcolumn : "span 1"}}
                       />
 
@@ -127,9 +185,9 @@ export default function TableForm({description,setdescription,price,setprice,amo
                       variant="filled"
                       type="text"
                       label="SGST"
-                      id ="quantity"
-                      // value = {quantity}
-                      // onChange={(e) => setquantity(e.target.value)}
+                      id ="sgst"
+                      value={productSGST}
+                      onChange={(e) => setProductSGST(e.target.value)}
                       sx = {{ gridcolumn : "span 1"}}
                       />
 
@@ -138,9 +196,9 @@ export default function TableForm({description,setdescription,price,setprice,amo
                       variant="filled"
                       type="text"
                       label="Discount"
-                      id ="quantity"
-                      // value = {quantity}
-                      // onChange={(e) => setquantity(e.target.value)}
+                      id ="discount"
+                      value = {discount}
+                      onChange={(e) => setDiscount(e.target.value)}
                       sx = {{ gridcolumn : "span 1"}}
                       />
 
@@ -158,7 +216,7 @@ export default function TableForm({description,setdescription,price,setprice,amo
 
                   <Box>
                           <Typography variant="h5" color={colors.greenAccent[400]} fontWeight="bolder">Amount</Typography>
-                          <Typography fontWeight="bolder" variant="h2" mt = "0px "> Rs. {amount} /-</Typography>
+                          <Typography className="amount" fontWeight="bolder" variant="h2" mt = "0px "> Rs. {amount} /-</Typography>
                   </Box>
                 </Box>
 
@@ -207,16 +265,16 @@ export default function TableForm({description,setdescription,price,setprice,amo
                     </tr>
 
                 </thead>
-        {list.map(({id,description,quantity,price,amount})=>(
+        {list.map(({id,productName,quantity,productPrice,amount})=>(
           <>
                 
             <React.Fragment key={id}>
             
                 <tbody>
                     <tr className="text-white" scope="row">
-                        <td className="text-white">{description}</td>
+                        <td className="text-white">{productName}</td>
                         <td className="text-white" >{quantity}</td>
-                        <td className="text-white">{price}</td>
+                        <td className="text-white">{productPrice}</td>
 
                         <td className="amount text-warning">{amount}</td>
                         {/* <td><button onClick={() => deleteRow(id)}><AiOutlineDelete className="text-red-500 font-bold text-xl" /></button></td> */}
@@ -232,6 +290,7 @@ export default function TableForm({description,setdescription,price,setprice,amo
      </CardContent>
         </Card>
         <div>
+          
         <h2 className="flex items-end justify-end text-white-800 text-4xl font-bold">
            Total:- Rs {total.toLocaleString()} /-
         </h2>
