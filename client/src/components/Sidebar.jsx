@@ -35,6 +35,7 @@ import RunningWithErrorsIcon from '@mui/icons-material/RunningWithErrors';
 import EventIcon from '@mui/icons-material/Event';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { AppContext } from "../context/ContextProvider";
+import logo from "../assets/LOGO.svg"
 
 
 // const drawerWidth = 240;
@@ -259,9 +260,10 @@ export default function MiniDrawer() {
               <MenuIcon />
             </IconButton>
 
-            <Typography variant="h5" display="flex" alignItems="center" noWrap component="div" color={colors.grey[100]}>
+            <img src={logo} style={{width: 200 +'px'}}/>
+            {/* <Typography variant="h5" display="flex" alignItems="center" noWrap component="div" color={colors.grey[100]}>
               Optic Vision World 
-            </Typography>
+            </Typography> */}
           </Box>
 
           {/* <Box display="flex" 
