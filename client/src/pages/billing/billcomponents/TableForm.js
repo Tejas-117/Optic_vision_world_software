@@ -262,6 +262,7 @@ export default function TableForm({productName, setProductName, productPrice,set
                         <th className="h6 font-bold" scope="col">Quantity</th>
                         <th className="h6 font-bold" scope="col">Price</th>
                         <th className="h6 font-bold" scope="col">Amount</th>
+                        <th className="h6 font-bold" scope="col">Delete Item</th>
                     </tr>
 
                 </thead>

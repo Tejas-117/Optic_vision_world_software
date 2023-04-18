@@ -19,7 +19,7 @@ export default function Some({list,total,productName,quantity,productPrice, setL
        <thead >
                     <tr className="text-white bg-success" >
                         <th className="h6 font-bold" scope="col">Item description</th>
-                        <th className="h6 font-bold" scope="col">Quantity</th>
+                        <th className="h6 font-bold" scope="col">Quantity</th> 
                         <th className="h6 font-bold" scope="col">Price</th>
                         <th className="h6 font-bold" scope="col">Amount</th>
                         {/* <th className="h6 font-bold" scope="col">Edit/Delete</th> */}

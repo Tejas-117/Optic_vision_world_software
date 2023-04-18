@@ -8,13 +8,13 @@ export default function ClientDetails({name,address,accnumber}) {
         <>
        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
       <Typography variant="h6" sx={{ mb: 1 }}>
-        Client name:{name}
+        Client name : {name}
       </Typography>
       <Typography variant="body1" sx={{ mb: 1 }}>
-        Account number: {accnumber}
+        Account number : {accnumber}
       </Typography>
       <Typography variant="body1" sx={{ mb: 1 }}>
-        Address: {address}
+        Address : {address}
       </Typography>
     </Box>
         </>

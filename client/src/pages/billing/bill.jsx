@@ -178,8 +178,8 @@ function Bill(){
       
         <div ref={componentRef} className="p-5">
      <Header1 handelPrint={handelPrint}/>
-    <ClientDetails name={name} address={address}/>
-   <ClientDetails name={name} invoicedate={invoicedate} invoicenumber={invoicenumber} accnumber={accnumber}/>
+    {/* <ClientDetails name={name} address={address}/> */}
+   <ClientDetails name={name} invoicedate={invoicedate} invoicenumber={invoicenumber} accnumber={accnumber} address={address}/>
    <Dates invoicenumber={invoicenumber} invoicedate={invoicedate} />
    {/* <Table  />      */}
    <Some productName={productName} quantity={quantity} amount={amount} productPrice={productPrice} list={list} setList={setList} />
