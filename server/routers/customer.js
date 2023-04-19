@@ -3,7 +3,7 @@ const router = express.Router();
 const { isLoggedIn } = require("../utils/auth");
 
 // controller methods
-const { addCustomer, getAllCustomers, getCustomer, editCustomer, deleteCustomer, getCustomerHistory } = require('../controllers/customer');
+const { addCustomer, getAllCustomers, getCustomer, editCustomer, deleteCustomer, getCustomerHistory, getRecentPrescription } = require('../controllers/customer');
 
 // ADD a new customer
 router.post("/add", isLoggedIn, addCustomer);
@@ -22,5 +22,8 @@ router.delete("/:customerId/delete", isLoggedIn, deleteCustomer);
 
 // GET customer history
 router.get("/:customerId/history", isLoggedIn, getCustomerHistory);
+
+// GET recent prescription of the customer
+router.get("/:customerId/prescription", isLoggedIn, getRecentPrescription);
 
 module.exports = router;

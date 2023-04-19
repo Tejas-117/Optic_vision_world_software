@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS customer (
    name VARCHAR(50) NOT NULL,
    designation VARCHAR(10),
    address TEXT,
-   phone TEXT NOT NULL,
+   phone TEXT NOT NULL UNIQUE,
    email VARCHAR(30),
    dob DATE,
    reference_id VARCHAR(30),

@@ -37,16 +37,15 @@ const CustomerPost = () =>{
             <Header title="Customer Details" subtitle="Detailed view of a customer's information." />
 
                     <Box
-                        display="grid"
-                        gap="30px"
-                        my="30px"
-                        // mt="30px"
-                        gridTemplateColumns="3fr 2fr"
-                        sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" }}}>
-
-
-                          {/* Customer Details  */}
-
+                      display="grid"
+                      gap="30px"
+                      my="30px"
+                      // mt="30px"
+                      gridTemplateColumns="3fr 2fr"
+                      sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" }}}
+                    >
+                      
+                        {/* Customer Details  */}
                         <Card
                           display="grid"
                           mb="30px"

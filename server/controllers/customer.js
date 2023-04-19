@@ -18,6 +18,9 @@ const addCustomer = async (req, res, next) => {
    }
    
    try {
+
+      // TODO: don't allow customers with same phone number.
+
       await db.query(`
          INSERT INTO customer 
          (name, designation, address, phone, email, dob, entry_date)
@@ -170,11 +173,38 @@ const getCustomerHistory = async (req, res, next) => {
    return res.status(200).json({ message: "Successfully retrieved customer data", data: queryRes });
 }
 
+// GET recent prescription of the customer
+const getRecentPrescription = async (req, res, next) => {
+   const { customerId } = req.params;
+
+   let prescription = null;
+
+   try{
+      const { rows } = await db.query(`
+         SELECT * 
+         FROM prescription
+         WHERE customer_id = $1
+         ORDER BY prescription_id DESC
+         LIMIT 1
+      `, [customerId]);
+
+      console.log(rows);
+      prescription = rows[0];
+   }
+   catch(error){
+      console.log(error);
+      return res.status(500).json({ message: "Internal Server Error" });
+   }
+
+   return res.status(200).json({ prescription });
+}
+
 module.exports = {
    addCustomer,
    getAllCustomers,
    getCustomer,
    editCustomer,
    deleteCustomer,
-   getCustomerHistory
+   getCustomerHistory,
+   getRecentPrescription
 }
