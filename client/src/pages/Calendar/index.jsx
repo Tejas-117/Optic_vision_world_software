@@ -93,7 +93,7 @@ const Calendar = () => {
     
     console.log("All appointments:- ",data)
  return( 
-  <Box m="20px">
+  <Box m="20px" width="92vw" height="70vh">
   <Header title="CALENDAR" subtitle="Add your important events and reminders here" />
   <Scheduler
     data={data}

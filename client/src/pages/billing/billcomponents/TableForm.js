@@ -209,7 +209,7 @@ export default function TableForm({productName, setProductName, productPrice,set
                 gridColumn= "span 2">
 
                 <Box>
-                      <Button className="submitButton" type="submit" color="secondary" variant="contained" mb = "0px">
+                      <Button style ={{ margin : '10px'}} className="submitButton" type="submit" color="secondary" variant="contained" mb = "0px">
                         Add Item
                       </Button>
                   </Box>
@@ -288,14 +288,14 @@ export default function TableForm({productName, setProductName, productPrice,set
                 </React.Fragment></>
         ))}
         </table>
-     </CardContent>
+    </CardContent>
         </Card>
-        <div>
+        <Box display="flex" justifyContent="end" margin="30px">
           
-        <h2 className="flex items-end justify-end text-white-800 text-4xl font-bold">
-           Total:- Rs {total} /-
-        </h2>
-      </div>
+        <Typography variant="h1" fontStyle="" fontWeight="bold">
+          Total: Rs {total} /-
+        </Typography>
+      </Box>
 
         </>
     )

@@ -336,8 +336,8 @@ const PrescriptionForm = () =>{
                         </CardContent>                  
                       </Card> 
                       
-                      <Box display="flex" justifyContent="start" mt="30px">
-                        <Button className="submitButton" type="submit" color="secondary" variant="contained">
+                      <Box display="flex" justifyContent="end" mt="30px">
+                        <Button className="submitButton" style={{ margin : '0px', marginBottom : '40px' }} type="submit" color="secondary" variant="contained">
                           Add Prescription
                         </Button>
 

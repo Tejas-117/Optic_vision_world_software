@@ -48,7 +48,7 @@ function Login() {
     }
 
     return (
-        <Box height="100vh" display="flex" justifyContent="center" alignItems="center">
+        <Box height="90vh" display="flex" justifyContent="center" alignItems="center">
 
             <Card display="flex" width="100" sx={{ p : 3, backgroundColor : colors.primary[400], boxShadow: 3,  borderRadius: '10px'}}>
                 <CardContent>
@@ -82,7 +82,7 @@ function Login() {
                                         variant="filled"
                                         required
                                         type="text"
-                                        label="Admin Email"
+                                        label="Admin Username"
                                         value={values.name}
                                         name="name"
                                         onChange={handleChange}

@@ -91,7 +91,9 @@ const CustomerIndex = () => {
       />
       <Box
         m="10px 0 0 0"
-        height="73vh"
+        height="70vh"
+        // p= "10px"
+        width="100%"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",

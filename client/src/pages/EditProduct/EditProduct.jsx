@@ -2,9 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import "../AddProduct/AddProduct.css"
 import Header from '../../components/Header';
-import { Box, Button , FormControl } from '@mui/material';
+import { Box, Button, Card, TextField,  FormControl } from '@mui/material';
+import CardContent from '@mui/material/CardContent';
 import {useTheme} from "@mui/material";
 import { token } from '../../theme';
+import { Form, Formik } from "formik";
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import Loader from "../../components/Loader/Loader";
+import MenuItem from '@mui/material/MenuItem';
 
 function EditProduct() {
    const { productId } = useParams();
@@ -88,74 +96,252 @@ function EditProduct() {
    useEffect(() => fetchProduct, [])
 
    return (
-      <Box m="20px">
-         <Header title="EDIT PRODUCT" subtitle="Modify the product details" />
-      <Box className='add_product_container' mb="20px">
+      <Box p="20px">
+         <Header title="EDIT PRODUCT" subtitle="Modify the product details" style={{ gridColumn: "span 2"}} />
 
-            <form action="" onSubmit={editProduct}>
-               <FormControl  sx={{backgroundColor:colors.blueAccent[800],
-                                   display: "flex",
-                                   flexDirection: "column",
-                                   width: "600px",
-                                   padding: "30px",
-                                   borderRadius: "20px",
-                                   marginBottom: "70px",}}>
+      <Box  mb="20px">
 
-               <label htmlFor="productCode" >Product Code: </label>
-               <input onChange={handleChange} value={form.product_code} type="text" name="product_code" required />
+               <Card
+               display="grid"
+               m = "20px"       
+               gap="30px"        
+               sx = {{backgroundColor : colors.primary[400], boxShadow: 3}}
+               >
+               <CardContent >
 
-               <label htmlFor="name">Name: </label>
-               <input onChange={handleChange} value={form.name} type="text" name="name" required />
+                  <form action="" onSubmit={editProduct} style={{ margin: "0px"}}>
+                  <FormControl  
+                  sx={{
+                     display: "flex",
+                     flexDirection: "column",
+                     width: "100%",
+                     }}>
 
-               <label htmlFor="category">Category: </label>
-               <select onChange={handleChange} value={form.category} name="category" required>
-                  <option value="1">Category one</option>
-                  <option value="2">Category two</option>
-                  <option value="3">Category three</option>
-               </select>
+                     <Box
+                        padding="10px"
+                        display="grid"
+                        rowGap="30px"
+                        gridTemplateColumns="1fr 1fr" 
+                     >
 
-               <label htmlFor="brand">Brand: </label>
-               <input onChange={handleChange} value={form.brand} type="text" name="brand"  />
+                     <Typography variant="h4" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold">Primary details</Typography>
+                     <Box
+                        display="grid"
+                        gap="30px"
+                        gridTemplateColumns="1fr 1fr"
+                        sx={{gridColumn: "span 2"}}
+                     >
 
-         
-               <label htmlFor="color">Color: </label>
-               <input onChange={handleChange} value={form.color} type="text" name="color" />
+                                 <TextField 
+                                    fullWidth
+                                    type="text"
+                                    name="product_code"
+                                    variant='filled'
+                                    label="Product Code"
+                                    value={form.product_code}
+                                    onChange={handleChange}
+                                    required 
+                                 />
+
+                                 <TextField 
+                                    fullWidth
+                                    type="text"
+                                    name="name"
+                                    variant='filled'
+                                    label='Name'
+                                    value = {form.name}
+                                    onChange={handleChange}
+                                    required 
+                                 />
+                     </Box>
+
+                     <Box
+                        display="grid"
+                        gap="30px"
+                        gridTemplateColumns="1fr 1fr 1fr"
+                        sx={{
+                        gridColumn: "span 2"
+                     }}>
 
 
-               <label htmlFor="size">Size: </label>
-               <input onChange={(e) => handleChange(e, 'integer')} value={form.size.toString()} type="number" name="size" />
 
-               <label htmlFor="model_number">Model Number: </label>
-               <input onChange={handleChange} value={form.model_number} type="text" name="model_number" />
+                              <FormControl variant="filled" sx={{ minWidth: 120, gridColumn : "span 1" }}>
+                                 <InputLabel id="demo-simple-select-filled-label">Category</InputLabel>
+                                 <Select
+                                    labelId="demo-simple-select-filled-label"
+                                    id="demo-simple-select-filled"
+                                    value={form.category}
+                                    name="category"
+                                    onChange={handleChange}
+                                 >
+                                    <MenuItem value="1" >Category one</MenuItem>
+                                    <MenuItem value="2">Category two</MenuItem>
+                                    <MenuItem value="3" selected>Category three</MenuItem>
+                                 </Select>
+                              </FormControl>
 
-               
-               <label htmlFor="quantity">Quantity: </label>
-               <input onChange={handleChange} value={form.quantity} type="text" name="quantity" />
+                              <TextField 
+                                 fullWidth
+                                 type="text"
+                                 name="model_number"
+                                 variant='filled'
+                                 label='Model Number'
+                                 value = {form.model_number}
+                                 onChange={handleChange}
+                              />
+
+                              <TextField 
+                                 fullWidth
+                                 type="text"
+                                 name="brand"
+                                 variant='filled'
+                                 label='Brand'
+                                 value = {form.brand}
+                                 onChange={handleChange}
+                              />
+                     </Box>
+
+                     <Divider display="grid" sx ={{ my : 1 ,  borderBottomWidth: 3, gridColumn : "span 2" }}/>
+                     <Typography variant="h4" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold">Secondary details</Typography>
+
+                                                
+                     <Box
+                        display="grid"
+                        gap="30px"
+                        gridTemplateColumns="1fr 1fr 1fr"
+                        sx={{
+                        gridColumn: "span 2"
+                     }}>
+
+                              <TextField 
+                                 fullWidth
+                                 type="text"
+                                 name="color"
+                                 variant='filled'
+                                 label='Color'
+                                 value = {form.color}
+                                 onChange={handleChange}
+                              />
+
+                              <TextField 
+                                 fullWidth
+                                 type="number"
+                                 name="size"
+                                 variant='filled'
+                                 label='Size'
+                                 value = {form.size.toString()}
+                                 onChange={handleChange}
+                              />
+
+                              <TextField 
+                                 fullWidth
+                                 type="number"
+                                 name="quantity"
+                                 variant='filled'
+                                 label='Quantity'
+                                 value = {form.quantity.toString()}
+                                 onChange={handleChange}
+                              />
+                     </Box>
+
+                     <Divider display="grid" sx ={{ my : 1 ,  borderBottomWidth: 3, gridColumn : "span 2" }}/>
+                     <Typography variant="h4" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold">Pricing details</Typography>
+
+                     <Box
+                        display="grid"
+                        gap="30px"
+                        gridTemplateColumns="1fr 1fr"
+                        sx={{
+                        gridColumn: "span 2"
+                     }}>
+
+                              <TextField 
+                                 fullWidth
+                                 type="number"
+                                 name="cgst"
+                                 variant='filled'
+                                 label='CGST'
+                                 value = {form.cgst.toString()}
+                                 onChange={handleChange}
+                                 required 
+                              />
+
+                              <TextField 
+                                 fullWidth
+                                 type="number"
+                                 name="sgst"
+                                 variant='filled'
+                                 label='SGST'
+                                 value = {form.sgst.toString()}
+                                 onChange={handleChange}
+                                 required 
+                              />
+                     </Box>
+
+                     <Box
+                        display="grid"
+                        gap="30px"
+                        gridTemplateColumns="1fr 1fr 1fr"
+                        sx={{
+                        gridColumn: "span 2"
+                     }}>
+
+                              <TextField 
+                                 fullWidth
+                                 type="number"
+                                 name="purchase_price"
+                                 variant='filled'
+                                 label='Purchase Price'
+                                 value = {form.purchase_price.toString()}
+                                 onChange={handleChange}
+                                 required 
+                              />
 
 
-               <label htmlFor="purchase_price">Purchase Price: </label>
-               <input onChange={(e) => handleChange(e, 'integer')} value={form.purchase_price} type="number" name="purchase_price" required />
+                              <TextField 
+                                 fullWidth
+                                 type="number"
+                                 name="selling_price"
+                                 variant='filled'
+                                 label='Seliing Price'
+                                 value = {form.selling_price.toString()}
+                                 onChange={handleChange}
+                                 required 
+                              />
 
-               <label htmlFor="selling_price">Selling Price: </label>
-               <input onChange={(e) => handleChange(e, 'integer')} value={form.selling_price.toString()} type="number" name="selling_price" required />
+                              <TextField 
+                                 fullWidth
+                                 type="number"
+                                 name="net_price"
+                                 variant='filled'
+                                 label='Net Price'
+                                 value = {form.net_price.toString()}
+                                 onChange={handleChange}
+                                 required 
+                              />
+                              
 
-               <label htmlFor="cgst">CGST: </label>
-               <input onChange={(e) => handleChange(e, 'integer')} value={form.cgst.toString()} type="number" name="cgst" required />
+                     </Box>
+                  </Box>
 
-               <label htmlFor="sgst">SGST: </label>
-               <input onChange={(e) => handleChange(e, 'integer')} value={form.sgst.toString()} type="number" name="sgst" required />
-
-               <label htmlFor="net_price">Net Price: </label>
-               <input onChange={(e) => handleChange(e, 'integer')} value={form.net_price.toString()} type="number" name="net_price" required />
-               <Box display="flex" justifyContent="center" mt="30px">
-                  <Button className="add_product_form button" type="submit" color="secondary" variant="contained" sx={{fontWeight:"bolder",fontSize:"15px"}}>
+                  <Box display="flex" justifyContent="end" mt="20px">
+                           <Button style ={{ margin : '10px'}} className="submitButton" type="submit" color="secondary" variant="contained" >
                               Edit Product
-                  </Button>
+                           </Button>
+                                    {/* TODO: Style it properly */}
+                                    {/* { isLoading && <Loader /> }
+                  <Box display="grid" mt="20px">{message}</Box> */}
                </Box>
-               </FormControl>
-            </form>      
+
+                  </FormControl>
+               </form>      
+
+               </CardContent>
+
+            </Card>
+
       </Box>
-    </Box>
+   </Box>
    );
 }
 

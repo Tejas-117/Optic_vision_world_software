@@ -75,7 +75,7 @@ function AddProduct() {
             <CardContent>
                <Formik
                   initialValues={initialValues}
-                  sx={{ m : 0 }}
+                  
                   onSubmit={handleFormSubmit}
                >
                   {({
@@ -86,7 +86,9 @@ function AddProduct() {
                      handleBlur,
                      handleSubmit,
                   }) => (
-                     <Form>
+                     <Form
+                     style={{ margin : "0px" }}
+                     >
                         <Box
                            padding="10px"
                            display="grid"
@@ -334,8 +336,8 @@ function AddProduct() {
                            </Box>
                         </Box>
 
-                        <Box display="grid" mt="20px">
-                           <Button sx ={{ m : 0 }} className="submitButton" type="submit" color="secondary" variant="contained" >
+                        <Box display="flex" justifyContent="end" mt="20px">
+                           <Button style ={{ margin : '10px'}} className="submitButton" type="submit" color="secondary" variant="contained" >
                               Add Product
                            </Button>
 

@@ -70,7 +70,7 @@ const Addcustomer = () => {
           handleBlur,
           handleSubmit,
         }) => (
-          <Form>
+          <Form style={{ marginLeft : '0px'}}>
             <Box
               padding="10px"
               display="grid"
@@ -209,8 +209,8 @@ const Addcustomer = () => {
 
             </Box>
 
-            <Box display="flex" justifyContent="start" mt="40px">
-              <Button sx ={{ m : 0 }} className="submitButton" type="submit" color="secondary" variant="contained" >
+            <Box display="flex" justifyContent="end" mt="40px">
+              <Button style={{ margin : ' 0px 10px' }} className="submitButton" type="submit" color="secondary" variant="contained" >
                 Create new Customer
               </Button>
 
