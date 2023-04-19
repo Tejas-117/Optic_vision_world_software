@@ -24,7 +24,7 @@ const CustomerPost = () =>{
       
       if(res.status === 200) {
         console.log(data.data);
-        setCustomerInfo(data.data)
+        setCustomerInfo(data.data);
       }
     }
 
@@ -304,42 +304,46 @@ const CustomerPost = () =>{
                                       </CardContent>
                                 </Card>
 
-                                                            {/* Purchase History */}
-                                
-                                                            <Card
-                                    display="grid"
-                                    gap="50px"
-                                    gridtemplaterows="repeat(3,minmax(0,2fr))"
-                                    sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
-                                    backgroundColor: colors.primary[400], boxShadow: 3}}>
-                                      <CardContent>
+                                {/* Purchase History */}    
+                                <Card
+                                  display="grid"
+                                  gap="50px"
+                                  gridtemplaterows="repeat(3,minmax(0,2fr))"
+                                  sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
+                                  backgroundColor: colors.primary[400], boxShadow: 3}}
+                                >
+                                  <CardContent>
+                                    <Box display="flex"   justifyContent="space-between" 
+                                    sx= {{ mx : 3, my : 2, flexDirection : 'column'}}> 
+                                    
+                                      <Typography variant="h2" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold">Purchase history</Typography>
 
-                                      <Box display="flex"   justifyContent="space-between" 
-                                      sx= {{ mx : 3, my : 2, flexDirection : 'column'}}> 
-                                      
-                                          <Typography variant="h2" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold">Purchase history</Typography>
-
-                                          <Box>  
-                                            {/* generate everything in this container for each prescription  */}
+                                        <Box>  
                                           <Divider sx ={{ my : 2 ,  borderBottomWidth: 3 }}/>
 
-
-                                                <Box sx= {{ my : 3 }}>
-                                                  <Typography variant="h7" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" > Made on: </Typography>
-                                                  <Typography variant="h4" fontStyle="" fontWeight="bold" > 24 December, 2022 </Typography>                                             
-                                                </Box>
-
-                                                  i need more details for this !
-
-
-                                                <Divider sx ={{ my : 2 ,  borderBottomWidth: 3 }}/>
+                                          <Box sx= {{ my : 3 }}>
+                                            <Typography variant="h7" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" > Made on: </Typography>
+                                            <Typography variant="h4" fontStyle="" fontWeight="bold" > 24 December, 2022 </Typography>                                             
                                           </Box>
-                                      </Box>
-                                      </CardContent>
+
+                                          <div>
+                                            { !customerInfo.purchased_products && "NO PURCHASE HISTORY"}
+
+                                            {
+                                              customerInfo?.purchased_products?.map(product => (
+                                                <div key={product.order_item_id}>{JSON.stringify(product)}</div>
+                                              ))
+                                            }
+                                          </div>
+
+                                          <Divider sx ={{ my : 2 ,  borderBottomWidth: 3 }}/>
+                                        </Box>
+                                    </Box>
+                                  </CardContent>
                                 </Card>
 
                             </Box>
-                            </Box>    
+                          </Box>    
       )
 }
 
