@@ -3,7 +3,7 @@ const db = require("../config/db-config");
 const { checkRequiredFields } = require("../utils/requiredFields");
 const { transporter } = require("../config/mail-config");
 
-// create a bill
+// CREATE a bill
 const addBill = async (req, res, next) => {
    const data = req.body;
    const { prescription_id: prescriptionId, customer_id: customerId } = req.query;
@@ -79,9 +79,12 @@ const addBill = async (req, res, next) => {
          text: "Sample message body AGAIN, testing!!",
       };
 
-      transporter.sendMail(mailOptions)
-         .then(messageInfo => console.log(messageInfo))
-         .catch(err => message += err.message)
+      try {
+         const messageInfo = await transporter.sendMail(mailOptions);         
+      } 
+      catch (error) {
+         message += err.message;
+      }
    }
 
    return res.status(200).json({ 
@@ -92,7 +95,7 @@ const addBill = async (req, res, next) => {
    });
 }
 
-// edit a bill
+// EDIT a bill
 const editBill = async (req, res, next) => {
    const { billId } = req.params;
 
