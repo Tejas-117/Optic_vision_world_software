@@ -1,14 +1,17 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { token } from "../../theme";
-import { mockDataInvoices } from "../../data/mockData";
 import Header from "../../components/Header";
+import { useEffect, useState } from "react";
+import formatDate from "../../utils/formatDate";
 
 const Invoices = () => {
   const theme = useTheme();
   const colors = token(theme.palette.mode);
+  const [invoice, setInvoice] = useState([]);
+
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: "bill_id", headerName: "ID" },
     {
       field: "name",
       headerName: "Name",
@@ -26,12 +29,12 @@ const Invoices = () => {
       flex: 1,
     },
     {
-      field: "cost",
-      headerName: "Cost",
+      field: "balance",
+      headerName: "Balance",
       flex: 1,
       renderCell: (params) => (
         <Typography color={colors.greenAccent[500]}>
-          Rs.{params.row.cost * 100}
+          Rs.{params.row.balance}
         </Typography>
       ),
     },
@@ -39,8 +42,24 @@ const Invoices = () => {
       field: "date",
       headerName: "Date",
       flex: 1,
+      renderCell: (params) => (
+        formatDate(params.row.generated_date)
+      )
     },
   ];
+
+  async function fetchInvoiceBalances() {
+    const res = await fetch('bills/balance');
+    const data = await res.json();
+
+    if(res.status === 200) {
+      setInvoice(data.bills);
+    }
+  }
+
+  useEffect(() => {
+    fetchInvoiceBalances();
+  }, [])
 
   return (
     <Box m="20px">
@@ -74,7 +93,12 @@ const Invoices = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
+        <DataGrid 
+          checkboxSelection
+          rows={invoice}
+          columns={columns} 
+          getRowId={(row) => row.bill_id}
+        />
       </Box>
     </Box>
   );

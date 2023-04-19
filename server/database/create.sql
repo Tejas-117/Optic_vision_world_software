@@ -70,6 +70,8 @@ CREATE TABLE IF NOT EXISTS bill (
    amount_paid INT NOT NULL,
    balance INT NOT NULL,
    payment_method TEXT NOT NULL,
+
+   generated_date DATE NOT NULL DEFAULT NOW()::DATE,
    delivery_date DATE
 );
 

@@ -102,7 +102,24 @@ const editBill = async (req, res, next) => {
    return res.status(200).json({ message: "Generated new bill" });
 }
 
+// GET unpaid bills
+const unpaidBills = async (req, res, next) => {   
+   let bills = [];
+   
+   try {
+      const { rows } = await db.query(`SELECT bill.*, customer.name, customer.phone, customer.email FROM bill JOIN customer ON bill.customer_id = customer.customer_id WHERE balance > 0`);
+      bills = rows;
+   } 
+   catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Internal server error" }) ;  
+   }
+
+   return res.status(200).json({ bills });
+}
+
 module.exports = {
    addBill,
-   editBill
+   editBill,
+   unpaidBills
 }
