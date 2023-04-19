@@ -5,9 +5,7 @@ export default function Dates({invoicenumber,invoicedate}) {
         <>
          
          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-      <Typography variant="h6" sx={{ mb: 1 }}>
-        Invoice number :{invoicenumber}
-      </Typography>
+     
       <Typography variant="h6" sx={{ mb: 1 }}>
         Invoice Date :{invoicedate}
       </Typography>

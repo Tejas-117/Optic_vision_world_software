@@ -56,14 +56,44 @@ function Bill(){
       }
     }
 
-
+    const Print = () =>{     
+      //console.log('print');  
+      let printContents = document.getElementById('printablediv').innerHTML;
+      let originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
+      window.print();
+     document.body.innerHTML = originalContents; 
+    }
  
 
   const handelPrint = () =>{
     window.print()
   }
   return (
-        <Box p="20px">
+<>
+    <main className=" p-5 xl:max-w-10xl xl:mx-auto rounded shadow">
+      {showInvoice ?(
+        <>
+        <div id='printablediv'>
+        <CssBaseline />
+      
+        <div ref={componentRef} className="p-5">
+     <Header1 handelPrint={handelPrint} Print={Print}/>
+    {/* <ClientDetails name={name} address={address}/> */}
+   <ClientDetails name={name} invoicedate={invoicedate} invoicenumber={invoicenumber} accnumber={accnumber} address={address}/>
+   <Dates invoicenumber={invoicenumber} invoicedate={invoicedate} />
+   {/* <Table  />      */}
+   <Some productName={productName} quantity={quantity} amount={amount} productPrice={productPrice} list={list} setList={setList} total={total} />
+  
+   <Footer name={name} email={email} address={address} phno={phno} accnumber={accnumber}/>
+   </div>
+   <button onClick={()=> setShowInvoice(false)} className="mt-5 bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:bg-transparent hover:text-blue-500 transition-all duraction-300">Edit here</button>
+   </div>
+   
+   </>) :(
+    <>
+       
+       <Box p="20px">
         <Header title="BILLING INVOICE" subtitle="Create your bill here" />
         <Card sx={{ backgroundColor: colors.primary[400], m: 3, }}
           p="30px"
@@ -129,33 +159,6 @@ function Bill(){
                 onChange={(e) => setinvoicedate(e.target.value)}
                 sx={{ gridcolumn: "span 1" }} />
 
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Invoice number"
-                value={invoicenumber}
-                onChange={(e) => setinvoicenumber(e.target.value)}
-                sx={{ gridcolumn: "span 1" }} />
-
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Account number"
-                value={accnumber}
-                onChange={(e) => setaccnumber(e.target.value)}
-                sx={{ gridcolumn: "span 1" }} />
-
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Account number"
-                value={accnumber}
-                onChange={(e) => setaccnumber(e.target.value)}
-                sx={{ gridcolumn: "span 1" }} />
-
 
 
             </Box>
@@ -169,36 +172,21 @@ function Bill(){
                 setList={setList} list={list} /> 
     </article> 
 
-
-
-    <main className=" p-5 xl:max-w-10xl xl:mx-auto rounded shadow">
-      {showInvoice ?(
-        <>
-        <CssBaseline />
-      
-        <div ref={componentRef} className="p-5">
-     <Header1 handelPrint={handelPrint}/>
-    {/* <ClientDetails name={name} address={address}/> */}
-   <ClientDetails name={name} invoicedate={invoicedate} invoicenumber={invoicenumber} accnumber={accnumber} address={address}/>
-   <Dates invoicenumber={invoicenumber} invoicedate={invoicedate} />
-   {/* <Table  />      */}
-   <Some productName={productName} quantity={quantity} amount={amount} productPrice={productPrice} list={list} setList={setList} />
-  
-   <Footer name={name} email={email} address={address} phno={phno} accnumber={accnumber}/>
-   <button onClick={()=> setShowInvoice(false)} className="mt-5 bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500 hover:bg-transparent hover:bg-transparent hover:text-blue-500 transition-all duraction-300">Edit here here</button>
-   </div>
-   </>) :(
-       <>
             <Box display="flex" justifyContent="start">
                 <Button className="submitButton" type="submit" onClick={() => setShowInvoice(true)} color="secondary" variant="contained">
                   Print Bill
                 </Button>
-              </Box></>
+              </Box>
+              </Box>
+              </>
           )}
-
-      </main>
+          </main>
       
+         
+      
+          </>
   
-  </Box>)
+  
+  )
 }
 export default Bill;
