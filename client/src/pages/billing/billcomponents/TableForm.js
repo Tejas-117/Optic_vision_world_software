@@ -1,65 +1,61 @@
-import React, {useState,useEffect} from "react"
+import React, { useEffect } from "react"
 import {v4 as uuidv4} from "uuid"
 import {AiOutlineDelete} from "react-icons/ai";
 import { Card,Box,Button,TextField,Typography,useTheme, CardContent } from "@mui/material";
 import { token} from "../../../theme";
 
-export default function TableForm({productName, setProductName, productPrice,setProductPrice, productCGST,setProductCGST,productSGST,setProductSGST,total,setTotal,discount,setDiscount, amount,setamount,quantity,setquantity,list,setList}){
+export default function TableForm({prescriptionCharge, productCode, setProductCode, productName, setProductName, productPrice,setProductPrice, productCGST,setProductCGST,productSGST,setProductSGST,total,setTotal,discount,setDiscount, amount,setamount,quantity,setquantity,list,setList}){
     const theme = useTheme();
     const colors = token(theme.palette.mode);
     
-    const handleSubmit=(e)=>{
-    e.preventDefault()
-    const newItems={
-      id:uuidv4(),
-         productName,
+    const handleSubmit = (e) => {
+      e.preventDefault();
+
+      const newItems={
+          id:uuidv4(),
+          product_code: productCode,
+          product_name: productName,
           quantity,
-         productPrice,
-         amount,
+          productPrice,
+          cgst: productCGST,
+          sgst: productSGST,
+          discount,
+          sub_total: amount,
+      }
+      setProductCode(productCode);
+      setProductName(productName);
+      setProductPrice(productPrice);
+      setquantity(quantity)
+      setamount(amount)
+      setList([...list,newItems]);
     }
-    setProductName(productName);
-    setProductPrice(productPrice);
-    setquantity(quantity)
-    setamount(amount)
-    setList([...list,newItems]);
-    
   
-  }
- // console.log(list);
-
-    useEffect(() => { const calc = (amount) => {
+    useEffect(() => { 
       // Calculate total discount
-      const total_discount = productPrice * (discount / 100);
-      console.log(total_discount);
+      // const total_discount = productPrice * (discount / 100);
+      // console.log(total_discount);
 
-       // Calculate discounted selling price
-       const discounted_selling_price = productPrice - total_discount;
+      //  // Calculate discounted selling price
+      //  const discounted_selling_price = productPrice - total_discount;
 
-       // Calculate CGST amount
-       const cgst_amount = discounted_selling_price * (productCGST / 100);
+      //  // Calculate CGST amount
+      //  const cgst_amount = discounted_selling_price * (productCGST / 100);
 
-       // Calculate SGST amount
-       const sgst_amount = discounted_selling_price * (productSGST / 100);
+      //  // Calculate SGST amount
+      //  const sgst_amount = discounted_selling_price * (productSGST / 100);
 
-       // Calculate total price
-       const total_price = quantity * (discounted_selling_price + cgst_amount + sgst_amount);
-      setamount(total_price.toFixed(2))
-      console.log(amount);
-    }
+      // Calculate total price
+      //  const total_price = quantity * (discounted_selling_price + cgst_amount + sgst_amount);
+      const total_price = quantity * (productPrice + productCGST + productSGST - discount) + prescriptionCharge;
+      setamount(total_price? parseInt(total_price) : 0)
 
-    calc(amount)
+    }, [amount, productPrice,quantity,productCGST,productSGST,discount,setamount, prescriptionCharge])
+     
 
-  }, [amount, productPrice,quantity,productCGST,productSGST,discount,setamount])
-  
-    
-
-  // Calculate total amount of items in table
- 
-  
+  // Calculate total amount of items in table   
     useEffect(()=>{
       const rows = document.querySelectorAll(".amount");
       let sum = 0;
-      console.log(rows)
   
       for (let i = 0; i < rows.length; i++) {
         if (rows[i].classList.contains("text-warning")) {
@@ -67,41 +63,35 @@ export default function TableForm({productName, setProductName, productPrice,set
           sum += isNaN(val) ? 0 : val;
         }
       }
-      console.log("SUM",sum);
   
       if (sum !== total) {
         setTotal(sum);
     }
-    console.log("Totl",total);
   },[list])
   
 
   
   //Searching for product based on id
-  const getProduct = async (id)=>{
+  const getProduct = async (pCode) => {
+    setProductCode(pCode)
+
     try{
-      
-      const res = await fetch(`/products/${id}`);
+      const res = await fetch(`/products/-1?product_code=${pCode}`);
       const data = await res.json();
       
       console.log(data);
 
       if(res.status === 200) {
         setProductName(data.data.name);
-        setProductPrice(data.data.selling_price);
-        setProductCGST(data.data.cgst);
-        setProductSGST(data.data.sgst);
- 
-       
+        setProductCGST(parseInt(data.data.cgst));
+        setProductSGST(parseInt(data.data.sgst));
+        setProductPrice(parseInt(data.data.selling_price));
       }
     }
     catch(err){
       console.log(err);
     }
-    }
-
-
-  
+  }
 
    const deleteRow = (id) =>{ 
     setList(list.filter((row) => row.id !== id))}
@@ -125,8 +115,8 @@ export default function TableForm({productName, setProductName, productPrice,set
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Product ID"
-                value={null}
+                label="Product Code"
+                value={productCode}
                 onChange={(e) => getProduct(e.target.value)}
                 sx = {{ gridcolumn : "span 1"}}
                 />
@@ -215,8 +205,8 @@ export default function TableForm({productName, setProductName, productPrice,set
                   </Box>
 
                   <Box>
-                          <Typography variant="h5" color={colors.greenAccent[400]} fontWeight="bolder">Amount</Typography>
-                          <Typography className="amount" fontWeight="bolder" variant="h2" mt = "0px "> Rs. {amount} /-</Typography>
+                    <Typography variant="h5" color={colors.greenAccent[400]} fontWeight="bolder">Amount</Typography>
+                    <Typography className="amount" fontWeight="bolder" variant="h2" mt = "0px "> Rs. {amount} /-</Typography>
                   </Box>
                 </Box>
 
@@ -266,23 +256,19 @@ export default function TableForm({productName, setProductName, productPrice,set
                     </tr>
 
                 </thead>
-        {list.map(({id,productName,quantity,productPrice,amount})=>(
+        {list.map(({id,product_name,quantity,productPrice,sub_total})=>(
           <>
                 
             <React.Fragment key={id}>
             
                 <tbody>
                     <tr className="text-white" scope="row">
-                        <td className="text-white">{productName}</td>
+                        <td className="text-white">{product_name}</td>
                         <td className="text-white" >{quantity}</td>
                         <td className="text-white">{productPrice}</td>
 
-                        <td className="amount text-warning">{amount}</td>
+                        <td className="amount text-warning">{sub_total}</td>
                         <td><button onClick={() => deleteRow(id)}><AiOutlineDelete className="text-red-500 font-bold text-xl" /></button></td> 
-                    
-
-
-
                     </tr>
                 </tbody>
                 </React.Fragment></>

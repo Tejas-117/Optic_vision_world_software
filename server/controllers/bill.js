@@ -2,6 +2,7 @@ const SqlString = require("sqlstring");
 const db = require("../config/db-config");
 const { checkRequiredFields } = require("../utils/requiredFields");
 const { transporter } = require("../config/mail-config");
+const { billSuccessfulMail } = require("../utils/mailBody");
 
 // CREATE a bill
 const addBill = async (req, res, next) => {
@@ -11,6 +12,8 @@ const addBill = async (req, res, next) => {
    if(!customerId) {
       return res.status(400).json({ message: "Invalid customer id" });
    }
+
+   console.log(data);
 
    // check for missing fields in the data.
    const requiredFields = ['amount', 'cgst', 'sgst', 'discount', 'net_price', 'amount_paid', 'balance'];
@@ -22,7 +25,7 @@ const addBill = async (req, res, next) => {
       })
    }
 
-   let customer, billId = -1, queryRes;
+   let customer, bill, queryRes;
 
    try {
       // retrienve the customer
@@ -33,10 +36,10 @@ const addBill = async (req, res, next) => {
       const { rows } = await db.query(`
          INSERT INTO bill (prescription_id, customer_id, seller, amount, cgst, sgst, discount, net_price, amount_paid, balance, payment_method)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-         RETURNING bill_id
+         RETURNING bill_id, amount_paid, balance, generated_date
       `, 
       [prescriptionId, customerId, data.seller, data.amount, data.cgst, data.sgst, data.discount, data.net_price, data.amount_paid, data.balance, data.payment_method]);      
-      billId = rows[0]['bill_id'];
+      bill = rows[0];
 
       // save order items to database if items are purchased.
       const { orderItems } = data;
@@ -46,7 +49,7 @@ const addBill = async (req, res, next) => {
          orderItems.forEach(orderItem => {
             const eachOrderItemList = [];
    
-            eachOrderItemList.push(billId);
+            eachOrderItemList.push(bill.bill_id);
             eachOrderItemList.push(orderItem.product_code);
             eachOrderItemList.push(orderItem.product_name);
             eachOrderItemList.push(orderItem.discount);
@@ -74,9 +77,8 @@ const addBill = async (req, res, next) => {
    if(customer.email) {
       const mailOptions = {
          from: process.env.EMAIL_USER,
-         to: customer.email,
-         subject: "Sample message title!!",
-         text: "Sample message body AGAIN, testing!!",
+         to: "tejasftw117@gmail.com",
+         ...billSuccessfulMail(customer, bill)
       };
 
       try {
@@ -90,7 +92,7 @@ const addBill = async (req, res, next) => {
    return res.status(200).json({ 
       message: "Generated new bill.\t" + message, 
       data: {
-         billId, order_items: queryRes?.rows
+         bill, order_items: queryRes?.rows
       } 
    });
 }
@@ -111,7 +113,6 @@ const unpaidBills = async (req, res, next) => {
       bills = rows;
    } 
    catch (error) {
-      console.log(error);
       return res.status(500).json({ message: "Internal server error" }) ;  
    }
 

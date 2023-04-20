@@ -11,7 +11,7 @@ function checkRequiredFields (fields, data) {
 
       const value = data[field];
       
-      if(!data.hasOwnProperty(field) || value.toString().length === 0) {
+      if(!data.hasOwnProperty(field) || value?.toString().length === 0) {
          missingFields.push(field);
       }
       

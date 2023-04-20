@@ -29,18 +29,21 @@ const getProduct = async (req, res, next) => {
    const {  product_code: productCode } = req.query;
    let product = {};
 
+   console.log(productCode);
+
    try {
       const { rows } = await db.query(`
          SELECT * FROM product WHERE product_id = $1 OR product_code LIKE '%${productCode}%'
       `, [productId]);
       product = rows[0];
+      console.log(product);
    } 
    catch (error) {
       console.log(error);
       return res.status(400).json({ message: "Internal Server Error" });
    }
 
-   return res.status(200).json({ message: "Products retrieved successfully", data: product })
+   return res.status(200).json({ message: "Product retrieved successfully", data: product })
 }
 
 // ADD a new product
