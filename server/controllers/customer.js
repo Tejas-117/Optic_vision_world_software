@@ -18,8 +18,11 @@ const addCustomer = async (req, res, next) => {
    }
    
    try {
+      const { rows } = await db.query(`SELECT * FROM customer WHERE phone = $1`, [data.phone]);
 
-      // TODO: don't allow customers with same phone number.
+      if(rows.length) {
+         return res.status(400).json({ message: "Customer already exists" });
+      }
 
       await db.query(`
          INSERT INTO customer 
@@ -188,7 +191,6 @@ const getRecentPrescription = async (req, res, next) => {
          LIMIT 1
       `, [customerId]);
 
-      console.log(rows);
       prescription = rows[0];
    }
    catch(error){
