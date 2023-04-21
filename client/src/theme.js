@@ -123,11 +123,11 @@ blueAccent: {
         500: "#998352",
         600: "#4c4129",
     }
-   }),  
+}),  
 });
 
 //mui theme settings
- 
+
 export const themeSettings = (mode) =>{
     const colors = token(mode);
 
