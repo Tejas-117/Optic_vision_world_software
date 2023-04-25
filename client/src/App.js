@@ -18,6 +18,7 @@ import MailService from './pages/MailService/MailService';
 import RequireAuth from './utils/RequireAuth';
 import Topbar from './components/Topbar';
 import Sidebar from './components/Sidebar';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -59,7 +60,11 @@ function App() {
               !isLoading && 
 
               <Routes>
-                <Route path='/' element={<Login />} />
+                <Route path='/' element={
+                  <RequireAuth>
+                    <Dashboard />
+                  </RequireAuth>
+                } />
                 <Route path="/login" element={<Login />} />
                 
                 <Route path="/calendar" element={

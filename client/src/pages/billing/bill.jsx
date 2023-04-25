@@ -11,6 +11,8 @@ import { Card, Box, Button } from "@mui/material";
 import Header from "../../components/Header";
 import CssBaseline from '@mui/material/CssBaseline';
 
+// TODO: Add another box in billing form to input payment details
+
 function Bill(){
   const [showInvoice,setShowInvoice] = useState(false)
 
@@ -44,6 +46,11 @@ function Bill(){
 
   const [message, setMessage] = useState("");
 
+  useEffect(() => {
+    console.log(invoicedate);
+    console.log(typeof(invoicedate));
+  }, [invoicedate])
+
   const getCustomerInfo = async(number) =>{
     setphno(number);
 
@@ -63,8 +70,7 @@ function Bill(){
     }
   }
 
-  const Print = () =>{     
-    //console.log('print');  
+  const Print = () =>{    
     let printContents = document.getElementById('printablediv').innerHTML;
     let originalContents = document.body.innerHTML;
     document.body.innerHTML = printContents;
@@ -217,6 +223,7 @@ function Bill(){
                 variant="filled"
                 type="date"
                 label="Invoice date"
+                InputLabelProps={{ shrink: true }}
                 value={invoicedate}
                 onChange={(e) => setinvoicedate(e.target.value)}
                 sx={{ gridcolumn: "span 1" }} />
