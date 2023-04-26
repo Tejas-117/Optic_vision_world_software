@@ -478,7 +478,7 @@ export default function MiniDrawer() {
             </ListItem>
             </Link>
 
-            <Link to="/invoices" 
+            {/* <Link to="/invoices" 
                 style={{
                 color: 'inherit',
                 textDecoration: 'none',
@@ -504,7 +504,7 @@ export default function MiniDrawer() {
                   <ListItemText primary='Invoice Balances' sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            </Link>
+            </Link> */}
 
             </List>
 
@@ -747,26 +747,32 @@ export default function MiniDrawer() {
                   </ListItem>
                   </Link>
 
-                  <ListItem key="Due Reminders" disablePadding sx={{ display: 'block'}}>
-                    <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? 'initial' : 'center',
-                      px: 2.5,
-                    }}>
+                  <Link to="/due-reminders" 
+                    style={{
+                    color: 'inherit',
+                    textDecoration: 'none',
+                  }}>                  
+                    <ListItem key="Due Reminders" disablePadding sx={{ display: 'block'}}>
+                      <ListItemButton
+                      sx={{
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                        px: 2.5,
+                      }}>
 
-                        <ListItemIcon
-                          sx={{
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          {<RunningWithErrorsIcon />} 
-                        </ListItemIcon>
-                        <ListItemText primary='Due Reminders' sx={{ opacity: open ? 1 : 0 }} />
-                    </ListItemButton>
-                  </ListItem>
+                          <ListItemIcon
+                            sx={{
+                              minWidth: 0,
+                              mr: open ? 3 : 'auto',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            {<RunningWithErrorsIcon />} 
+                          </ListItemIcon>
+                          <ListItemText primary='Due Reminders' sx={{ opacity: open ? 1 : 0 }} />
+                      </ListItemButton>
+                    </ListItem>
+                  </Link>
 
                   <ListItem key="Delivery Reminders" disablePadding sx={{ display: 'block'}}>
                     <ListItemButton

@@ -1,4 +1,4 @@
-import { Box, Button, Card, TextField, useTheme } from "@mui/material";
+import { Box, Button, Card, Modal, TextField, useTheme } from "@mui/material";
 import CardContent from '@mui/material/CardContent';
 import { Form, Formik } from "formik";
 import InputLabel from '@mui/material/InputLabel';
@@ -32,9 +32,30 @@ function AddProduct() {
    };
    const theme = useTheme();
    const colors = token(theme.palette.mode);
-   const [isLoading, setIsLoading] = useState(false);
-   const [message, setMessage] = useState("");
+   const [isLoading, setIsLoading] = useState(true);
+   const [message, setMessage] = useState("GET A LIFE BRUH!!!");
    const navigate = useNavigate();
+   const [open, setOpen] = useState(false);
+
+   const style = {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 400,
+      bgcolor: 'background.paper',
+      border: '2px solid #000',
+      boxShadow: 24,
+      p: 4,
+   };
+
+   function handleOpen() {
+      setOpen(true)
+   }
+
+   function handleClose() {
+      setOpen(false)
+   }
    
    // function to sumbit form data to the API
    async function handleFormSubmit(values) { 
@@ -336,7 +357,21 @@ function AddProduct() {
                            </Box>
                         </Box>
 
-                        <Box display="flex" justifyContent="end" mt="20px">
+                        <div>
+                           <Button onClick={handleOpen}>Open modal</Button>
+                           <Modal
+                              open={open}
+                              onClose={handleClose}
+                              aria-labelledby="modal-modal-title"
+                              aria-describedby="modal-modal-description"
+                           >
+                           <Box sx={style}>
+                              <Loader />
+                           </Box>
+                           </Modal>
+                        </div>
+
+                        <Box display="flex" justifyContent="start" mt="20px">
                            <Button style ={{ margin : '10px'}} className="submitButton" type="submit" color="secondary" variant="contained" >
                               Add Product
                            </Button>
@@ -345,8 +380,6 @@ function AddProduct() {
                            { isLoading && <Loader /> }
                            <Box display="grid" mt="20px">{message}</Box>
                         </Box>
-
-
                      </Form>
                   )}
                </Formik>

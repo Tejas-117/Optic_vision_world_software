@@ -7,6 +7,13 @@ import { token } from "../../theme";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import formatDate from "../../utils/formatDate";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 const CustomerPost = () =>{
     const isNonMobile = useMediaQuery("(min-width:600px");
@@ -16,7 +23,7 @@ const CustomerPost = () =>{
     const { customerId } = useParams();
     const [customerInfo, setCustomerInfo] = useState({});
 
-
+    
     // fetch customer data using customerId
     async function fetchCustomer() {
       const res = await fetch(`/customers/${customerId}/history`);
@@ -27,6 +34,7 @@ const CustomerPost = () =>{
         setCustomerInfo(data.data);
       }
     }
+
 
     useEffect(() => {
       fetchCustomer();
@@ -41,15 +49,15 @@ const CustomerPost = () =>{
                       gap="30px"
                       my="30px"
                       // mt="30px"
-                      gridTemplateColumns="3fr 2fr"
-                      sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" }}}
+                      
+                      sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" , gridTemplateColumns: "2fr" }}}
                     >
                       
                         {/* Customer Details  */}
                         <Card
                           display="grid"
                           mb="30px"
-                          sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
+                          sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 2" },
                           backgroundColor: colors.primary[400], boxShadow: 3}}>
                             <CardContent>
                                 <Box display="flex" justifyContent="space-between" 
@@ -109,7 +117,7 @@ const CustomerPost = () =>{
 
                               {/* Reminders */}
 
-                          <Card
+                          {/* <Card
                               display="grid"
                               // gridTemplateRows="repeat(3,minmax(0,2fr))"
                               mb="30px"
@@ -183,7 +191,7 @@ const CustomerPost = () =>{
 
                                 </CardContent>
 
-                          </Card>
+                          </Card> */}
                     </Box>
 
                           <Box
@@ -192,7 +200,8 @@ const CustomerPost = () =>{
                             my="30px"
                             // mt="30px"
                             gridTemplateColumns="repeat(2,minmax(0,1fr))"
-                            sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" }}}>
+                            // gridTemplateColumns=" 1fr 1fr 1fr 1fr 1fr 1fr"
+                            sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3",}}}>
 
 
 
@@ -202,7 +211,8 @@ const CustomerPost = () =>{
                                     display="grid"
                                     gap="50px"
                                     gridtemplaterows="repeat(3,minmax(0,2fr))"
-                                    sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
+                                    
+                                    sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 2", gridTemplateColumns:"2fr" },
                                     backgroundColor: colors.primary[400], boxShadow: 3}}>
                                       <CardContent>
 
@@ -244,6 +254,7 @@ const CustomerPost = () =>{
                                                   </Box>
 
                                                 </Box>
+                                                <Divider sx ={{ my : 2 ,  borderBottomWidth: 3 }}/>
                                                 </Box>
 
                                                 <Box>
@@ -269,10 +280,11 @@ const CustomerPost = () =>{
                                                   </Box>
 
                                                 </Box>
+                                                <Divider sx ={{ my : 2 ,  borderBottomWidth: 3 }}/>
                                                 </Box>
 
                                                 </Box>
-
+                                                <Divider sx ={{ my : 2 ,  borderBottomWidth: 3 }}/>
                                                 {/* <Typography variant="h6" fontStyle="" fontWeight="bold" color={colors.blueAccent[500]} > Additional Information </Typography> */}
 
                                                 <Box display= "flex" justifyContent="space-between" sx={{ my : 5 }}>
@@ -308,32 +320,83 @@ const CustomerPost = () =>{
                                   display="grid"
                                   gap="50px"
                                   gridtemplaterows="repeat(3,minmax(0,2fr))"
-                                  sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 3" },
+                                  sx={{"& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                                   backgroundColor: colors.primary[400], boxShadow: 3}}
                                 >
                                   <CardContent>
                                     <Box display="flex"   justifyContent="space-between" 
-                                    sx= {{ mx : 3, my : 2, flexDirection : 'column'}}> 
+                                    sx= {{ mx : 1, my : 2, flexDirection : 'column'}}> 
                                     
                                       <Typography variant="h2" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold">Purchase history</Typography>
 
                                         <Box>  
                                           <Divider sx ={{ my : 2 ,  borderBottomWidth: 3 }}/>
 
-                                          <Box sx= {{ my : 3 }}>
-                                            <Typography variant="h7" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" > Made on: </Typography>
-                                            <Typography variant="h4" fontStyle="" fontWeight="bold" > 24 December, 2022 </Typography>                                             
-                                          </Box>
 
-                                          <div>
+                                          <Box>
                                             { !customerInfo.purchased_products && "NO PURCHASE HISTORY"}
 
-                                            {
-                                              customerInfo?.purchased_products?.map(product => (
-                                                <div key={product.order_item_id}>{JSON.stringify(product)}</div>
-                                              ))
-                                            }
-                                          </div>
+                                            
+                                                <Box>
+                                                    <Box sx= {{ my : 3 }}>
+                                                      <Typography variant="h7" color={colors.blueAccent[500]} fontStyle="" fontWeight="bold" > Made on: </Typography>
+                                                      <Typography variant="h4" fontStyle="" fontWeight="bold" > 22 December, 2022 </Typography>                                             
+                                                    </Box>
+
+                                                    <TableContainer component={Paper}>
+                                                      <Table aria-label="simple table"
+                                                      sx= {{ backgroundColor : colors.greenAccent[400]}}>
+                                                        <TableHead>
+                                                          <TableRow>
+                                                            <TableCell><b>Product ID</b></TableCell>
+                                                            <TableCell><b>Product Name</b></TableCell>
+                                                            <TableCell><b>Quantity</b></TableCell>
+                                                            <TableCell><b>Discount</b></TableCell>
+                                                            <TableCell><b>CGST</b></TableCell>
+                                                            <TableCell><b>SGST</b></TableCell>
+                                                            <TableCell><b>Price</b></TableCell>
+                                                          </TableRow>
+                                                        </TableHead>
+
+                                                        <TableBody>
+                                                          {
+                                                            customerInfo?.purchased_products?.map(product => (
+                                                            
+                                                            <TableRow key={product.order_item_id}
+                                                            sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor : colors.greenAccent[800]}}
+                                                            > 
+                                                                {/* <Box key={product.order_item_id}>{JSON.stringify(product)}</Box> */}
+                                                                <TableCell>{product.product_code}</TableCell>
+                                                                <TableCell>{product.product_name}</TableCell>
+                                                                <TableCell>{product.quantity}</TableCell>
+                                                                <TableCell>Rs.{product.discount}</TableCell>
+                                                                <TableCell>Rs.{product.cgst}</TableCell>
+                                                                <TableCell>Rs.{product.sgst}</TableCell>
+                                                                <TableCell>Rs.{product.sub_total}</TableCell>
+                                                            </TableRow>
+                                                                ))
+                                                          }                                                        
+                                                        </TableBody>
+
+                                                      </Table>
+                                                    </TableContainer>
+
+                                                    <Box display="flex" justifyContent="space-between" 
+                                                        sx= {{ my : 2 }}> 
+                                                        
+                                                        <Box>
+                                                            <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} >Grand Total: </Typography>
+                                                            <Typography variant="h3" fontWeight="bold" style={{ wordWrap: "break-word" }}>  Rs. 1000/-  </Typography>
+                                                        </Box>
+
+                                                    </Box>
+
+                                                </Box>
+                                              
+
+
+              
+                                          </Box>
 
                                           <Divider sx ={{ my : 2 ,  borderBottomWidth: 3 }}/>
                                         </Box>

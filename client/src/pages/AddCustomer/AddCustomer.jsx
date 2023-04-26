@@ -132,6 +132,7 @@ const Addcustomer = () => {
                 onChange={handleChange}
                 value={values.dob}
                 name="dob"
+                InputLabelProps={{ shrink: true }}
                 sx={{ gridColumn: "span 4" }}
               />
               
@@ -190,6 +191,7 @@ const Addcustomer = () => {
                 name="entry_date"
                 error={!!touched.name && !!errors.name}
                 helperText={touched.name && errors.name}
+                InputLabelProps={{ shrink: true }}
                 sx={{ gridColumn: "span 4" }}
               />
 

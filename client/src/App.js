@@ -122,7 +122,11 @@ function App() {
                   </RequireAuth>
                 } />
                 
-                <Route path ="/invoices" element={<Invoices />} />
+                <Route path ="/due-reminders" element={
+                  <RequireAuth>
+                    <Invoices />
+                  </RequireAuth>
+                } />
               </Routes>
             }
             </main>
