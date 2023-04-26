@@ -50,10 +50,10 @@ const Invoices = () => {
 
   async function fetchInvoiceBalances() {
     const res = await fetch('bills/balance');
-    const data = await res.json();
+    const { data } = await res.json();
 
     if(res.status === 200) {
-      setInvoice(data.bills);
+      setInvoice(data);
     }
   }
 

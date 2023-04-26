@@ -8,14 +8,14 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Link } from "react-router-dom";
 
 function Dashboard() {
+    const [invoiceBalance, setInvoiceBalances] = useState([]);
+    const [customers, setCustomers] = useState([]);
     const [products, setProducts] = useState([]);
-    const [invoices, setInvoices] = useState([]);
 
     const theme = useTheme();
     const colors = token(theme.palette.mode);
@@ -25,8 +25,7 @@ function Dashboard() {
             credentials: 'include'
         });
 
-        const data = await res.json();        
-        console.log(data);
+        const { data } = await res.json(); 
 
         if(res.status === 200) {
             setData(data);
@@ -34,9 +33,26 @@ function Dashboard() {
     }
 
     useEffect(() => {
-        fetchData('/products/', setProducts);            
-        fetchData('/bills/balance', setInvoices);
+        fetchData('/bills/balance', setInvoiceBalances);
+        fetchData('/customers', setCustomers);
+        fetchData('/products', setProducts);
     }, [])
+
+    function compareCustomers(customerA, customerB) {
+        if(parseInt(customerA.customer_id) < parseInt(customerB.customer_id)) {
+            return 1;
+        }
+
+        return -1;
+    }
+
+    function compareInvoices(invoiceA, invoiceB) {
+        if(parseInt(invoiceA.bill_id) < parseInt(invoiceB.bill_id)) {
+            return 1;
+        }
+
+        return -1;
+    }
 
     return (
         <Box 
@@ -70,8 +86,8 @@ function Dashboard() {
                 <Grid item xs={3}>
                     <Card>
                         <CardContent >
-                            <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} >Number of customers visited: </Typography>
-                            <Typography variant="h2" fontWeight="bold"> 13 </Typography>
+                            <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} >Number of customers: </Typography>
+                            <Typography variant="h2" fontWeight="bold"> { customers?.length } </Typography>
                         </CardContent>
                     </Card>
                 </Grid>
@@ -79,8 +95,10 @@ function Dashboard() {
                 <Grid item xs={3}>
                     <Card>
                         <CardContent >
-                            <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} > Number of bills made: </Typography>
-                            <Typography variant="h2" fontWeight="bold"> 07 </Typography>
+                            <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} > Number of products: </Typography>
+                            <Typography variant="h2" fontWeight="bold"> 
+                                { products?.length }
+                            </Typography>
                         </CardContent>
                     </Card>
                 </Grid>
@@ -89,7 +107,23 @@ function Dashboard() {
                     <Card>
                         <CardContent >
                             <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} > New customers added: </Typography>
-                            <Typography variant="h2" fontWeight="bold"> 03 </Typography>
+                            <Typography variant="h2" fontWeight="bold">
+                                { 
+                                    customers?.reduce((count, customer, idx, customers) => {
+                                        const customerJoinDate = new Date(customer.joined_on);
+                                        const currDate = new Date();
+                                        let addedToday = false;
+
+                                        if((currDate.getFullYear() === customerJoinDate.getFullYear())
+                                            && (currDate.getMonth() === customerJoinDate.getMonth()) 
+                                            && (currDate.getDate() - customerJoinDate.getDate() <= 1)) {
+                                            addedToday = true;
+                                        }
+
+                                        return (addedToday ? count + 1 : count)
+                                    }, 0)
+                                }
+                            </Typography>
                         </CardContent>
                     </Card>
                 </Grid>
@@ -113,20 +147,22 @@ function Dashboard() {
                                         </TableRow>
 
                                         <TableBody>
-
-                                            {/* TODO : Iterate the recently added 5 customer info here   */}
-
-                                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor : colors.blueAccent[800]}}>
-                                                <TableCell> 69 </TableCell>
-                                                <TableCell> Mr. Tejas C.S. </TableCell>    {/* Concatinate the designation and the Name */}                                             <TableCell> 6784047374 </TableCell>
-                                                <TableCell> Tejaschad@gmail.com </TableCell>
-                                                <TableCell> 01-04-2023 </TableCell>
-                                            </TableRow>
+                                            {
+                                                customers?.sort(compareCustomers).slice(0, 5).map((customer, idx) => {
+                                                    return ( 
+                                                        <TableRow key={customer.customer_id} sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor : colors.blueAccent[800]}}>
+                                                            <TableCell> { customer.customer_id } </TableCell>
+                                                            <TableCell> { (customer.designation ? customer.designation : "") + " " + customer.name } </TableCell>
+                                                            <TableCell> { customer.phone } </TableCell>
+                                                            <TableCell> { customer.email } </TableCell>
+                                                            <TableCell> { customer.joined_date }  </TableCell>
+                                                        </TableRow>
+                                                    )
+                                                })
+                                            }
                                         </TableBody>
-                                        
 
-                                    </Table>
-                                
+                                    </Table>                                
                                 </TableContainer>
 
                                 <Box 
@@ -164,17 +200,17 @@ function Dashboard() {
 
                                         <TableBody>
 
-                                            {/* TODO : Iterate the recently added 5 invoice balances here   */}
-
-                                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor : colors.redAccent[800]}}>
-                                                <TableCell> 69 </TableCell>
-                                                <TableCell> Mr. Tejas C.S. </TableCell>    {/* Concatinate the designation and the Name */}                                             <TableCell> 6784047374 </TableCell>
-                                                <TableCell> Tejaschad@gmail.com </TableCell>
-                                                <TableCell> Rs. 420 </TableCell>
-                                            </TableRow>
+                                            {
+                                                invoiceBalance?.sort(compareInvoices).slice(0, 5).map((invoice, idx) => (
+                                                    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor : colors.redAccent[800]}}>
+                                                        <TableCell> { invoice.bill_id } </TableCell>
+                                                        <TableCell> { (invoice.designation ? invoice.designation : "") + " " + invoice.name } </TableCell>    <TableCell> { invoice.phone } </TableCell>
+                                                        <TableCell> { invoice.email } </TableCell>
+                                                        <TableCell> Rs. { invoice.balance } </TableCell>
+                                                    </TableRow>
+                                                ))
+                                            }
                                         </TableBody>
-                                        
-
                                     </Table>
                                 
                                 </TableContainer>
@@ -198,9 +234,6 @@ function Dashboard() {
                         </CardContent>
                     </Card>
                 </Grid>
-
-
-
             </Grid>
         </Box>
     )

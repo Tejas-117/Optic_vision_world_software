@@ -77,7 +77,7 @@ const addBill = async (req, res, next) => {
    if(customer.email) {
       const mailOptions = {
          from: process.env.EMAIL_USER,
-         to: "tejasftw117@gmail.com",
+         to: customer.email,
          ...billSuccessfulMail(customer, bill)
       };
 
@@ -97,13 +97,6 @@ const addBill = async (req, res, next) => {
    });
 }
 
-// EDIT a bill
-const editBill = async (req, res, next) => {
-   const { billId } = req.params;
-
-   return res.status(200).json({ message: "Generated new bill" });
-}
-
 // GET unpaid bills
 const unpaidBills = async (req, res, next) => {   
    let bills = [];
@@ -116,11 +109,10 @@ const unpaidBills = async (req, res, next) => {
       return res.status(500).json({ message: "Internal server error" }) ;  
    }
 
-   return res.status(200).json({ bills });
+   return res.status(200).json({ data: bills });
 }
 
 module.exports = {
    addBill,
-   editBill,
    unpaidBills
 }
