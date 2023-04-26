@@ -143,7 +143,7 @@ function Bill(){
 
   return (
 <>
-    <main className=" p-5 xl:max-w-10xl xl:mx-auto rounded shadow">
+    <main className="xl:max-w-10xl xl:mx-auto rounded shadow">
       {showInvoice ?(
         <>
         <div id='printablediv'>
@@ -333,7 +333,7 @@ function Bill(){
           </CardContent>
         </Card>
 
-          <Box display="flex" justifyContent="start">
+          <Box display="flex" justifyContent="en">
             <Button 
               className="submitButton" 
               type="submit" 
