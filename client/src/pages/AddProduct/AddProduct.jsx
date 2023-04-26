@@ -33,7 +33,7 @@ function AddProduct() {
    const theme = useTheme();
    const colors = token(theme.palette.mode);
    const [isLoading, setIsLoading] = useState(true);
-   const [message, setMessage] = useState("GET A LIFE BRUH!!!");
+   const [message, setMessage] = useState("Adding Product to your Inventory...");
    const navigate = useNavigate();
    const [open, setOpen] = useState(false);
 
@@ -365,8 +365,15 @@ function AddProduct() {
                               aria-labelledby="modal-modal-title"
                               aria-describedby="modal-modal-description"
                            >
-                           <Box sx={style}>
+                           <Box  
+                           flexDirection="column"
+                           display="flex"
+                           alignItems="center"
+                           height="1"
+                           justifyContent="center"
+                           sx={{ backgroundColor : "none"}}>
                               <Loader />
+                              <Typography m={2} variant="h4" color={colors.grey[100]} fontStyle="" fontWeight="bold"> {message} </Typography>
                            </Box>
                            </Modal>
                         </div>
@@ -377,8 +384,7 @@ function AddProduct() {
                            </Button>
 
                            {/* TODO: Style it properly */}
-                           { isLoading && <Loader /> }
-                           <Box display="grid" mt="20px">{message}</Box>
+                           {/* { isLoading && <Loader prompt={message} /> } */}
                         </Box>
                      </Form>
                   )}

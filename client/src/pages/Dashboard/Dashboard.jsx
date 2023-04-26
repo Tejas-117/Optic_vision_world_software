@@ -88,7 +88,7 @@ function Dashboard() {
                 <Grid item xs={3}>
                     <Card>
                         <CardContent >
-                            <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} > Number of new customers added: </Typography>
+                            <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} > New customers added: </Typography>
                             <Typography variant="h2" fontWeight="bold"> 03 </Typography>
                         </CardContent>
                     </Card>
