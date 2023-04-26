@@ -133,15 +133,15 @@ function Dashboard() {
                                 display= "flex"
                                 justifyContent="end"
                                 >
-                                <Link to="/customers" 
-                                    style={{
-                                    color: 'inherit',
-                                    textDecoration: 'none',
-                                }}>
-                                    <Button sx={{ my : 0 }} color="secondary" variant="contained">
-                                        <b>Open Customer Index</b>
-                                    </Button>
-                                </Link>
+                                    <Link to="/customers" 
+                                        style={{
+                                        color: 'inherit',
+                                        textDecoration: 'none',
+                                    }}>
+                                        <Button sx={{ my : 0 }} color="secondary" variant="contained">
+                                            <b>Open Customer Index</b>
+                                        </Button>
+                                    </Link>
                                 </Box>                            
                         </CardContent>
                     </Card>
@@ -184,15 +184,15 @@ function Dashboard() {
                                 justifyContent="end"
                                 >
 
-                                <Link to="/due-reminders" 
-                                    style={{
-                                    color: 'inherit',
-                                    textDecoration: 'none',
-                                }}>
-                                    <Button sx={{ my : 0 }} color="secondary" variant="contained">
-                                        <b>Open Invoice Balances</b>
-                                    </Button>
-                                </Link>
+                                    <Link to="/due-reminders" 
+                                        style={{
+                                        color: 'inherit',
+                                        textDecoration: 'none',
+                                    }}>
+                                        <Button sx={{ my : 0 }} color="secondary" variant="contained">
+                                            <b>Open Invoice Balances</b>
+                                        </Button>
+                                    </Link>
 
                                 </Box>                             
                         </CardContent>

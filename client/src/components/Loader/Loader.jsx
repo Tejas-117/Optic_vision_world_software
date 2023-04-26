@@ -18,7 +18,7 @@ function Loader(props) {
         justifyContent="center"
         sx={{ backgroundColor : "none"}} 
       >
-        <div className='loader'></div>
+        <Box className='loader'></Box>
         <Typography m={2} variant="h4" color={colors.grey[100]} fontStyle="" fontWeight="bold"> {props.prompt} </Typography>
 
       </Box>

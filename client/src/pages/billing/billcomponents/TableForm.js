@@ -200,6 +200,7 @@ export default function TableForm({prescriptionCharge, productCode, setProductCo
       </form>
 
       {/* Table items */}
+
       <Card  
         sx= {{backgroundColor : colors.greenAccent[800], m : 3 , }}
         p="30px" >
@@ -231,15 +232,17 @@ export default function TableForm({prescriptionCharge, productCode, setProductCo
                   </Fragment>
                 </>
               ))}
-            </table>        
+            </table>      
+
+                  <Box display="flex" justifyContent="end" marginTop="50px">          
+                    <Typography variant="h2" fontStyle="" fontWeight="bold">
+                      Total: Rs {total} /-
+                    </Typography>
+                  </Box>   
           </CardContent>
       </Card>
 
-      <Box display="flex" justifyContent="end" margin="30px">          
-        <Typography variant="h1" fontStyle="" fontWeight="bold">
-          Total: Rs {total} /-
-        </Typography>
-      </Box>
+
     </>
   )
 }

@@ -5,11 +5,12 @@ import Some from "./billcomponents/Some"
 import Footer from "./billcomponents/Footer"
 import Header1 from "./billcomponents/Header1"
 import TableForm from "./billcomponents/TableForm"
-import { CardContent, TextField, Typography, useTheme } from "@mui/material";
+import { CardContent, FormControl, Grid, MenuItem, Select, TextField, Typography, useTheme } from "@mui/material";
 import { token } from "../../theme";
 import { Card, Box, Button } from "@mui/material";
 import Header from "../../components/Header";
 import CssBaseline from '@mui/material/CssBaseline';
+import InputLabel from '@mui/material/InputLabel';
 
 // TODO: Add another box in billing form to input payment details
 
@@ -268,17 +269,94 @@ function Bill(){
             </Box>
           </CardContent>
         </Card>
-   
+
+
+
         <article>
           <TableForm prescriptionCharge={prescriptionCharge} productCode={productCode} setProductCode={setProductCode}  productName = {productName} setProductName={setProductName} productPrice={productPrice} setProductPrice={setProductPrice} productCGST={productCGST} setProductCGST={setProductCGST} productSGST={productSGST} setProductSGST={setProductSGST} total={total} setTotal={setTotal} discount={discount} setDiscount={setDiscount} amount={amount} setamount={setamount}
           quantity = {quantity} setquantity={setquantity}
           setList={setList} list={list} /> 
         </article> 
 
+        <Card sx={{ backgroundColor: colors.primary[400], m: 3, }}
+          p="30px">
+          <CardContent>
+
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                  <Typography variant="h4" color={colors.greenAccent[400]} fontWeight="bolder" sx={{ my : 2 }}> Payment details </Typography>
+              </Grid>
+
+              <Grid item xs={4}>
+                <FormControl variant="filled" sx={{ minWidth: 1 }}>
+                  <InputLabel id ="demo-simple-select-filled-label">Payment Method</InputLabel>
+                    <Select 
+                    labelId="demo-simple-select-filled-label"
+                    id="demo-simple-select-filled"
+                    name="Payment Method"
+                    // value={}
+                    // onChange={}
+                    >
+                      <MenuItem value="UPI"> UPI </MenuItem>
+                      <MenuItem value="Cash" selected > Cash </MenuItem>
+                      <MenuItem value="Card"> Card </MenuItem>
+                    </Select>
+
+                </FormControl> 
+              </Grid>
+
+              <Grid item xs={4}>
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="number"
+                  label="Amount Paid"
+                  // value={}
+                  // id=""
+                />
+              </Grid>
+
+              <Grid item xs={4}>
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="number"
+                  label="Balance Amount"
+                  // value={}
+                  // id=""
+                />
+              </Grid>
+              
+            </Grid>
+
+
+          </CardContent>
+        </Card>
+
           <Box display="flex" justifyContent="start">
-            <Button className="submitButton" type="submit" onClick={(e) => addBill(e)} color="secondary" variant="contained">
+            <Button 
+              className="submitButton" 
+              type="submit" 
+              onClick={(e) => addBill(e)} 
+              color="secondary" 
+              variant="contained"
+              style={{ margin : "0px 20px"}}
+            >
               Print Bill
             </Button>
+
+            <Button 
+              className="submitButton" 
+              type="submit" 
+              // onClick=
+              color="secondary" 
+              variant="contained"
+              style={{ margin : "0px 20px"}}
+            >
+              Save as draft
+            </Button>
+
+
 
             {message}
           </Box>
