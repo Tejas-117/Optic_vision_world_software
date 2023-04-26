@@ -33,7 +33,7 @@ function AddProduct() {
    const theme = useTheme();
    const colors = token(theme.palette.mode);
    const [isLoading, setIsLoading] = useState(true);
-   const [message, setMessage] = useState("Adding Product to your Inventory...");
+   const [message, setMessage] = useState("");
    const navigate = useNavigate();
    const [open, setOpen] = useState(false);
 
@@ -59,7 +59,8 @@ function AddProduct() {
    
    // function to sumbit form data to the API
    async function handleFormSubmit(values) { 
-      setIsLoading(true);
+      setMessage("Adding Product to your Inventory...");
+      setOpen(true);
       
       const res = await fetch(`/products/add`, {
          method: 'POST',
@@ -72,15 +73,16 @@ function AddProduct() {
       
       const data = await res.json();
       setMessage(data.message);
-
+      
       // if the product was successfully added, redirect the user
       if(res.status === 200) {
-         setTimeout(() => navigate("/products"), 2500);
+         setTimeout(() => {
+            setOpen(false);
+            navigate("/products")
+         }, 2500);
       }
-
-      setIsLoading(false);
    }
-   
+
    // all fields: product_code, name, category(id), brand, color, size, model_number, quantity, purchase_price, selling_price, cgst, sgst, net_price
    // required fields: product_code, name, purchase_price, selling_price, cgst, sgst, net_price
 
@@ -358,23 +360,23 @@ function AddProduct() {
                         </Box>
 
                         <div>
-                           <Button onClick={handleOpen}>Open modal</Button>
                            <Modal
                               open={open}
                               onClose={handleClose}
                               aria-labelledby="modal-modal-title"
                               aria-describedby="modal-modal-description"
                            >
-                           <Box  
-                           flexDirection="column"
-                           display="flex"
-                           alignItems="center"
-                           height="1"
-                           justifyContent="center"
-                           sx={{ backgroundColor : "none"}}>
-                              <Loader />
-                              <Typography m={2} variant="h4" color={colors.grey[100]} fontStyle="" fontWeight="bold"> {message} </Typography>
-                           </Box>
+                              <Box  
+                                 flexDirection="column"
+                                 display="flex"
+                                 alignItems="center"
+                                 height="1"
+                                 justifyContent="center"
+                                 sx={{ backgroundColor : "none"}}
+                              >
+                                 <Loader />
+                                 <Typography m={2} variant="h4" color={colors.grey[100]} fontStyle="" fontWeight="bold"> {message} </Typography>
+                              </Box>
                            </Modal>
                         </div>
 
@@ -382,9 +384,6 @@ function AddProduct() {
                            <Button style ={{ margin : '10px'}} className="submitButton" type="submit" color="secondary" variant="contained" >
                               Add Product
                            </Button>
-
-                           {/* TODO: Style it properly */}
-                           {/* { isLoading && <Loader prompt={message} /> } */}
                         </Box>
                      </Form>
                   )}
