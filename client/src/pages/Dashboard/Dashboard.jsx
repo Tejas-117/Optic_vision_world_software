@@ -94,7 +94,7 @@ function Dashboard() {
                     </Card>
                 </Grid> */}
 
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                     <Card sx = {{backgroundColor : colors.primary[400], boxShadow: 3}}>
                         <CardContent >
                             <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} >Number of customers: </Typography>
@@ -103,7 +103,7 @@ function Dashboard() {
                     </Card>
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                     <Card sx = {{backgroundColor : colors.primary[400], boxShadow: 3}}>
                         <CardContent >
                             <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} > Number of products: </Typography>
@@ -114,7 +114,7 @@ function Dashboard() {
                     </Card>
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                     <Card sx = {{backgroundColor : colors.primary[400], boxShadow: 3}}>
                         <CardContent >
                             <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} > New customers added: </Typography>
@@ -160,7 +160,7 @@ function Dashboard() {
                                         <TableBody>
                                             {
                                                 customers?.sort(compareCustomers).slice(0, 5).map((customer, idx) => {
-                                                    return ( 
+                                                    return (
                                                         <TableRow key={customer.customer_id} sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor : colors.blueAccent[800]}}>
                                                             <TableCell> { customer.customer_id } </TableCell>
                                                             <TableCell> { (customer.designation ? customer.designation : "") + " " + customer.name } </TableCell>
