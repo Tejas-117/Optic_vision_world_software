@@ -85,7 +85,7 @@ const addBill = async (req, res, next) => {
          const messageInfo = await transporter.sendMail(mailOptions);         
       } 
       catch (error) {
-         message += err.message;
+         message += error.message;
       }
    }
 

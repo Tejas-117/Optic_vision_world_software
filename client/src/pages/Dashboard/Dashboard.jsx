@@ -53,6 +53,17 @@ function Dashboard() {
 
         return -1;
     }
+    // const currentTime = new Date();
+    // let hours = currentTime.getHours();
+    // let minutes = currentTime.getMinutes();
+    // let ampm = hours >= 12 ? 'PM' : 'AM';
+
+    // hours = hours % 12;
+    // hours = hours ? hours : 12;
+    // minutes = minutes < 10 ? '0' + minutes : minutes;
+
+    // const formattedTime = hours + ':' + minutes + ' ' + ampm;
+
 
     return (
         <Box 
@@ -74,14 +85,14 @@ function Dashboard() {
              */}
 
             <Grid container spacing={3}>
-                <Grid item xs={3}>
+                {/* <Grid item xs={3}>
                     <Card>
                         <CardContent >
                             <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} >Login time: </Typography>
-                            <Typography variant="h2" fontWeight="bold"> 12:56 AM </Typography>
+                            <Typography variant="h2" fontWeight="bold"> {formattedTime} </Typography>
                         </CardContent>
                     </Card>
-                </Grid>
+                </Grid> */}
 
                 <Grid item xs={3}>
                     <Card>

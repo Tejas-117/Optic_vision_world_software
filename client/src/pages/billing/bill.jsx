@@ -11,6 +11,7 @@ import { Card, Box, Button } from "@mui/material";
 import Header from "../../components/Header";
 import CssBaseline from '@mui/material/CssBaseline';
 import InputLabel from '@mui/material/InputLabel';
+import OpenModal from "../../components/Dialog"
 
 // TODO: Add another box in billing form to input payment details
 
@@ -38,6 +39,8 @@ function Bill(){
   const [amount,setamount]=useState("");
   const [list,setList]=useState([])
   const [width] = useState(641);
+  const [open, setOpen] = useState(false);
+
   const componentRef = useRef();
   const theme = useTheme();
   const colors = token(theme.palette.mode);
@@ -124,8 +127,10 @@ function Bill(){
       postData.net_price += parseInt(order_item.sub_total);
       postData.amount_paid = postData.net_price;
     })
+    console.log(prescription);
+    const url = prescription !== undefined && prescription !== null  ? `/bills/add?customer_id=${customerId}&prescription_id=${prescription.prescription_id}`:`/bills/add?customer_id=${customerId}`;
 
-    const res = await fetch(`/bills/add?customer_id=${customerId}&prescription_id=${prescription.prescription_id}`, {
+    const res = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -139,7 +144,11 @@ function Bill(){
     if(res.status === 200) {
       setMessage("Successfully generated bill!!")
     }
+    setOpen(true);
+    console.log(open);
+    
   }
+  const handleClose = () => setOpen(false);
 
   return (
 <>
@@ -344,6 +353,7 @@ function Bill(){
             >
               Print Bill
             </Button>
+            <OpenModal title="Bill Generated Successfully" content = {`Created bill for the customer ${name}`} open={open} handleClose={handleClose} />
 
             <Button 
               className="submitButton" 
