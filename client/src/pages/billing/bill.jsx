@@ -5,13 +5,14 @@ import Some from "./billcomponents/Some"
 import Footer from "./billcomponents/Footer"
 import Header1 from "./billcomponents/Header1"
 import TableForm from "./billcomponents/TableForm"
-import { CardContent, FormControl, Grid, MenuItem, Select, TextField, Typography, useTheme } from "@mui/material";
+import { CardContent, FormControl, Grid, MenuItem, Modal, Select, TextField, Typography, useTheme } from "@mui/material";
 import { token } from "../../theme";
 import { Card, Box, Button } from "@mui/material";
 import Header from "../../components/Header";
 import CssBaseline from '@mui/material/CssBaseline';
 import InputLabel from '@mui/material/InputLabel';
 import OpenModal from "../../components/Dialog"
+import Loader from "../../components/Loader/Loader"
 
 // TODO: Add another box in billing form to input payment details
 
@@ -49,6 +50,7 @@ function Bill(){
   const [prescriptionCharge, setPrescriptionCharge] = useState(0);
 
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     console.log(invoicedate);
@@ -103,6 +105,9 @@ function Bill(){
 
   // function to add bill
   const addBill = async (e) => {
+    setIsLoading(true)
+    setOpen(true)
+    setMessage("Generting bill....")
     e.preventDefault();
     // setShowInvoice(true);
 
@@ -140,14 +145,20 @@ function Bill(){
     })
 
     const data = await res.json();
+    setIsLoading(false)
 
     if(res.status === 200) {
-      setMessage("Successfully generated bill!!")
+      setMessage("Successfully generated bill!!") 
     }
-    setOpen(true);
+
+    setTimeout(() => {
+      setOpen(false);
+        
+    }, 3000)
     console.log(open);
     
   }
+
   const handleClose = () => setOpen(false);
 
   return (
@@ -353,9 +364,9 @@ function Bill(){
             >
               Print Bill
             </Button>
-            <OpenModal title="Bill Generated Successfully" content = {`Created bill for the customer ${name}`} open={open} handleClose={handleClose} />
+            {/* <OpenModal title="Bill Generated Successfully" content = {`Created bill for the customer ${name}`} open={open} handleClose={handleClose} /> */}
 
-            <Button 
+            {/* <Button 
               className="submitButton" 
               type="submit" 
               // onClick=
@@ -364,11 +375,31 @@ function Bill(){
               style={{ margin : "0px 20px"}}
             >
               Save as draft
-            </Button>
+            </Button> */}
 
 
+            <div>
+                           <Modal
+                              open={open}
+                              onClose={handleClose}
+                              aria-labelledby="modal-modal-title"
+                              aria-describedby="modal-modal-description"
+                           >
+                              <Box  
+                                 flexDirection="column"
+                                 display="flex"
+                                 alignItems="center"
+                                 height="1"
+                                 justifyContent="center"
+                                 sx={{ backgroundColor : "none"}}
+                              >
+                                 { isLoading && <Loader /> }
+                                 <Typography m={2} variant="h4" color={colors.grey[100]} fontStyle="" fontWeight="bold"> {message} </Typography>
+                              </Box>
+                           </Modal>
+                        </div>
 
-            {message}
+            {/* {message} */}
           </Box>
           </Box>
         </>

@@ -81,9 +81,9 @@ const PrescriptionForm = () =>{
         setOpen(false)          
 
         // TODO: redirect to billing
-        // if(res.status === 200) {
-        //   navigate(`/billing?customer_id=${customer.customer_id}`);
-        // }
+        if(res.status === 200) {
+          navigate(`/billing`);
+        }
       }, 2000);
     };
 
