@@ -1,4 +1,4 @@
-import {Box, Button , Typography, useTheme } from "@mui/material";
+import {Box, Button , Modal, Typography, useTheme } from "@mui/material";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField';
@@ -9,6 +9,7 @@ import { token } from "../../theme";
 import "./style.css";
 import { useState } from "react";
 import Loader from "../../components/Loader/Loader";
+import { useNavigate } from "react-router-dom";
 
 //SPH - Decimal - -25 to 25(0.25)
 //CYL - Decimal - -6 to 6(0.25)
@@ -31,6 +32,8 @@ const PrescriptionForm = () =>{
     const [customerMessage, setCustomerMessage] = useState("");
     const [message, setMessage] = useState("");
     const [isLoading, setIsLoading] = useState("");
+    const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
 
     // get customer info
     async function getCustomerInfo() {
@@ -58,6 +61,7 @@ const PrescriptionForm = () =>{
     async function handleFormSubmit (values) {
       setIsLoading(true);
       setMessage("");
+      setOpen(true);
       
       const res = await fetch(`/prescriptions/${customer.customer_id}/add`, {
         method: "POST",
@@ -69,14 +73,18 @@ const PrescriptionForm = () =>{
       })
       
       const data = await res.json();
-      console.log(data);
       
       setMessage(data.message)
       setIsLoading(false);
 
-      if(res.status === 200) {
-        // redirect user to billing page...
-      }
+      setTimeout(() => {
+        setOpen(false)          
+
+        // TODO: redirect to billing
+        // if(res.status === 200) {
+        //   navigate(`/billing?customer_id=${customer.customer_id}`);
+        // }
+      }, 2000);
     };
 
     return (
@@ -336,14 +344,31 @@ const PrescriptionForm = () =>{
                         </CardContent>                  
                       </Card> 
                       
+                      <div>
+                           <Modal
+                              open={open}
+                              onClose={() => setOpen(false)}
+                              aria-labelledby="modal-modal-title"
+                              aria-describedby="modal-modal-description"
+                           >
+                              <Box  
+                                 flexDirection="column"
+                                 display="flex"
+                                 alignItems="center"
+                                 height="1"
+                                 justifyContent="center"
+                                 sx={{ backgroundColor : "none"}}
+                              >
+                                 { isLoading && <Loader /> }
+                                 <Typography m={2} variant="h4" color={colors.grey[100]} fontStyle="" fontWeight="bold"> {message} </Typography>
+                              </Box>
+                           </Modal>
+                        </div>
+
                       <Box display="flex" justifyContent="end" mt="30px">
                         <Button className="submitButton" style={{ margin : '0px', marginBottom : '40px' }} type="submit" color="secondary" variant="contained">
                           Add Prescription
                         </Button>
-
-                        {/* TODO: Style it properly */}
-                        { isLoading && <Loader /> }
-                        <Box display="grid" mt="20px">{message}</Box>
                       </Box>
                     </form>)}
             </Formik>

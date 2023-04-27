@@ -95,7 +95,7 @@ function Dashboard() {
                 </Grid> */}
 
                 <Grid item xs={3}>
-                    <Card>
+                    <Card sx = {{backgroundColor : colors.primary[400], boxShadow: 3}}>
                         <CardContent >
                             <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} >Number of customers: </Typography>
                             <Typography variant="h2" fontWeight="bold"> { customers?.length } </Typography>
@@ -104,7 +104,7 @@ function Dashboard() {
                 </Grid>
 
                 <Grid item xs={3}>
-                    <Card>
+                    <Card sx = {{backgroundColor : colors.primary[400], boxShadow: 3}}>
                         <CardContent >
                             <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} > Number of products: </Typography>
                             <Typography variant="h2" fontWeight="bold"> 
@@ -115,7 +115,7 @@ function Dashboard() {
                 </Grid>
 
                 <Grid item xs={3}>
-                    <Card>
+                    <Card sx = {{backgroundColor : colors.primary[400], boxShadow: 3}}>
                         <CardContent >
                             <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} > New customers added: </Typography>
                             <Typography variant="h2" fontWeight="bold">
@@ -143,7 +143,7 @@ function Dashboard() {
 
             <Grid container spacing={3}>
                 <Grid item xs={6}>
-                    <Card>
+                    <Card sx = {{backgroundColor : colors.primary[400], boxShadow: 3}}>
                         <CardContent >
                             <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} > Recently addded Customers </Typography>
                                 <TableContainer component={Paper} sx={{ my: 3 }}> 
@@ -195,7 +195,7 @@ function Dashboard() {
                 </Grid>
 
                 <Grid item xs={6}>
-                    <Card>
+                    <Card sx = {{backgroundColor : colors.primary[400], boxShadow: 3}}>
                         <CardContent >
                             <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} >Recently added invoice balances </Typography>
                             <TableContainer component={Paper} sx={{ my: 3 }}> 

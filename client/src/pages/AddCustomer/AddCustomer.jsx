@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react';
-import { Box, Button, Card, TextField, useTheme } from "@mui/material";
+import { useState } from 'react';
+import { Box, Button, Card, Modal, TextField, Typography, useTheme } from "@mui/material";
 import CardContent from '@mui/material/CardContent';
 import {Formik, Form } from "formik";
 import * as yup from "yup";
@@ -14,6 +14,7 @@ import { token } from "../../theme";
 import Loader from '../../components/Loader/Loader';
 
 const Addcustomer = () => {
+  const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -21,6 +22,8 @@ const Addcustomer = () => {
 
   // Submit the form data to API
   async function handleFormSubmit(values) {
+    setMessage("Adding Customer...");
+    setOpen(true);
     setIsLoading(true);
 
     const res = await fetch(`/customers/add`, {
@@ -32,18 +35,19 @@ const Addcustomer = () => {
       body: JSON.stringify(values),
     })
 
-    const data = await res.json();
-    console.log(data);
-    
-    setIsLoading(false);
+    const data = await res.json();    
     setMessage(data.message);
+    setIsLoading(false);
+    
+    setTimeout(() => {
+      setOpen(false);  
 
-    if(res.status === 200) {
-      setTimeout(() => {
-        navigate("/customers");        
-      }, 2500);
-    }
+      if(res.status === 200) {
+        navigate("/customers");      
+      }
+    }, 2500);
   };
+
   const theme = useTheme();
   const colors = token(theme.palette.mode);
 
@@ -211,14 +215,32 @@ const Addcustomer = () => {
 
             </Box>
 
+            <div>
+              <Modal
+                open={open}
+                onClose={() => setOpen(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box  
+                    flexDirection="column"
+                    display="flex"
+                    alignItems="center"
+                    height="1"
+                    justifyContent="center"
+                    sx={{ backgroundColor : "none"}}
+                >   
+                    { isLoading && <Loader /> }
+                    <Typography m={2} variant="h4" color={colors.grey[100]} fontStyle="" fontWeight="bold"> {message} </Typography>
+                </Box>
+              </Modal>
+          </div>
+
+
             <Box display="flex" justifyContent="end" mt="40px">
               <Button style={{ margin : ' 0px 10px' }} className="submitButton" type="submit" color="secondary" variant="contained" >
                 Create new Customer
               </Button>
-
-                {/* TODO: Style it properly */}
-                { isLoading && <Loader /> }
-                <Box display="grid" mt="20px">{message}</Box>
             </Box>
 
           </Form>
@@ -250,7 +272,7 @@ const initialValues = {
     email: "",
     phone: "",
     address: "",
-    dob:"",
+    dob: undefined,
     entry_date: "",
     reference_id: ""
 };

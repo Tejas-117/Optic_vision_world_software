@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS product_category (
 
 CREATE TABLE IF NOT EXISTS product (
    product_id BIGSERIAL PRIMARY KEY,
-   product_code VARCHAR(30) NOT NULL,
+   product_code VARCHAR(30) NOT NULL UNIQUE,
    
    name VARCHAR(30) NOT NULL,
    category INT REFERENCES product_category (category_id) ON DELETE SET NULL,

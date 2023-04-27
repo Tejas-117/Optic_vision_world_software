@@ -62,6 +62,11 @@ const addProduct = async (req, res, next) => {
 
    try {
       // TODO: avoid adding product with duplciate product_code
+      const { rows } = await db.query(`SELECT * FROM product WHERE product_code = $1`, [data.product_code]);
+
+      if(rows.length) {
+         return res.status(400).json({ message: "Product already exists" });
+      }
 
       await db.query(`
          INSERT INTO product 
