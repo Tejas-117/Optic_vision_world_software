@@ -74,14 +74,14 @@ function Dashboard() {
              */}
 
             <Grid container spacing={3}>
-                <Grid item xs={3}>
+                {/* <Grid item xs={3}>
                     <Card>
                         <CardContent >
                             <Typography variant="h5" fontWeight="bold" color={colors.blueAccent[500]} sx={{ my : 1 }} >Login time: </Typography>
                             <Typography variant="h2" fontWeight="bold"> 12:56 AM </Typography>
                         </CardContent>
                     </Card>
-                </Grid>
+                </Grid> */}
 
                 <Grid item xs={3}>
                     <Card>

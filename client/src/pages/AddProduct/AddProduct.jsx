@@ -32,26 +32,11 @@ function AddProduct() {
    };
    const theme = useTheme();
    const colors = token(theme.palette.mode);
-   const [isLoading, setIsLoading] = useState(true);
    const [message, setMessage] = useState("");
    const navigate = useNavigate();
    const [open, setOpen] = useState(false);
+   const [isLoading, setIsLoading] = useState(false);
 
-   const style = {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: 400,
-      bgcolor: 'background.paper',
-      border: '2px solid #000',
-      boxShadow: 24,
-      p: 4,
-   };
-
-   function handleOpen() {
-      setOpen(true)
-   }
 
    function handleClose() {
       setOpen(false)
@@ -61,6 +46,7 @@ function AddProduct() {
    async function handleFormSubmit(values) { 
       setMessage("Adding Product to your Inventory...");
       setOpen(true);
+      setIsLoading(true);
       
       const res = await fetch(`/products/add`, {
          method: 'POST',
@@ -73,14 +59,15 @@ function AddProduct() {
       
       const data = await res.json();
       setMessage(data.message);
+      setIsLoading(false);      
       
-      // if the product was successfully added, redirect the user
-      if(res.status === 200) {
-         setTimeout(() => {
-            setOpen(false);
-            navigate("/products")
-         }, 2500);
-      }
+      setTimeout(() => {
+         setOpen(false);
+
+         if(res.status === 200) {
+            navigate("/products");
+         }
+      }, 2500);
    }
 
    // all fields: product_code, name, category(id), brand, color, size, model_number, quantity, purchase_price, selling_price, cgst, sgst, net_price
@@ -141,8 +128,6 @@ function AddProduct() {
                                  onChange={handleChange}
                                  value={values.product_code}
                                  name="product_code"
-                                 // error={!!touched.name && !!errors.name}
-                                 // helperText={touched.name && errors.name}
                                  sx={{ gridColumn: "span 1" }}
                               />
 
@@ -191,8 +176,6 @@ function AddProduct() {
                                  onChange={handleChange}
                                  value={values.model_number.toString()}
                                  name="model_number"
-                                 // error={!!touched.name && !!errors.name}
-                                 // helperText={touched.name && errors.name}
                                  sx={{ gridColumn: "span 1" }}
                               />
                               
@@ -205,8 +188,6 @@ function AddProduct() {
                                  onChange={handleChange}
                                  value={values.brand}
                                  name="brand"
-                                 // error={!!touched.email && !!errors.email}
-                                 // helperText={touched.email && errors.email}
                                  sx={{ gridColumn: "span 1" }}
                               />
                            </Box>
@@ -232,8 +213,6 @@ function AddProduct() {
                                  onChange={handleChange}
                                  value={values.color}
                                  name="color"
-                                 // error={!!touched.phone && !!errors.phone}
-                                 // helperText={touched.phone && errors.phone} 
                                  sx={{ gridColumn: "span 1" }}
                               />
 
@@ -246,8 +225,6 @@ function AddProduct() {
                                  onChange={handleChange}
                                  value={values.size.toString()}
                                  name="size"
-                                 // error={!!touched.address && !!errors.address}
-                                 // helperText={touched.address && errors.address}
                                  sx={{ gridColumn: "span 1" }}
                               />
 
@@ -260,8 +237,6 @@ function AddProduct() {
                                  onChange={handleChange}
                                  value={values.quantity.toString()}
                                  name="quantity"
-                                 // error={!!touched.phone && !!errors.phone}
-                                 // helperText={touched.phone && errors.phone} 
                                  sx={{ gridColumn: "span 1" }}
                               /> 
                            </Box>
@@ -286,8 +261,6 @@ function AddProduct() {
                                  onChange={handleChange}
                                  value={values.cgst.toString()}
                                  name="cgst"
-                                 // error={!!touched.phone && !!errors.phone}
-                                 // helperText={touched.phone && errors.phone} 
                                  sx={{ gridColumn: "span 1" }}
                               />  
 
@@ -300,8 +273,6 @@ function AddProduct() {
                                  onChange={handleChange}
                                  value={values.sgst.toString()}
                                  name="sgst"
-                                 // error={!!touched.phone && !!errors.phone}
-                                 // helperText={touched.phone && errors.phone} 
                                  sx={{ gridColumn: "span 1" }}
                               />  
                            </Box>
@@ -323,8 +294,6 @@ function AddProduct() {
                                  onChange={handleChange}
                                  value={values.purchase_price.toString()}
                                  name="purchase_price"
-                                 // error={!!touched.phone && !!errors.phone}
-                                 // helperText={touched.phone && errors.phone} 
                                  sx={{ gridColumn: "span 1" }}
                               /> 
 
@@ -337,8 +306,6 @@ function AddProduct() {
                                  onChange={handleChange}
                                  value={values.selling_price.toString()}
                                  name="selling_price"
-                                 // error={!!touched.phone && !!errors.phone}
-                                 // helperText={touched.phone && errors.phone} 
                                  sx={{ gridColumn: "span 1" }}
                               />  
 
@@ -352,8 +319,6 @@ function AddProduct() {
                                  onChange={handleChange}
                                  value={values.net_price}
                                  name="net_price"
-                                 // error={!!touched.phone && !!errors.phone}
-                                 // helperText={touched.phone && errors.phone} 
                                  sx={{ gridColumn: "span 1" }}
                               />  
                            </Box>
@@ -374,7 +339,7 @@ function AddProduct() {
                                  justifyContent="center"
                                  sx={{ backgroundColor : "none"}}
                               >
-                                 <Loader />
+                                 { isLoading && <Loader /> }
                                  <Typography m={2} variant="h4" color={colors.grey[100]} fontStyle="" fontWeight="bold"> {message} </Typography>
                               </Box>
                            </Modal>
